@@ -39,8 +39,7 @@ Use the play button in Eclipse to run this project.
         ├── utilities
         └── views
 
-##Potential Bugs:
-* Not known
+##[Potential Bugs](https://github.com/A92hm/halloween-tower-defense/issues)
 
 ##To do
 * Make jar file
