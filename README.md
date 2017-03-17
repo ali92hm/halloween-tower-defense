@@ -1,25 +1,26 @@
-#Halloween Tower Defense Game
+# Halloween Tower Defense Game
 
 This game is a Tower Defense game with Halloween theme that was developed for Human Computer Interaction Class. 
 
-##Usage
+## Usage
 You need Eclipse IDE in order to compile and run this project. (see dependencies)
 
-###Compilation/Install
+### Compilation/Install
+
 Cloning the project:
 ```bash
 git clone https://github.com/A92hm/halloween-tower-defense.git
 ```
 Use the following instructions to import this project to Eclipse. [Instructions](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.user%2Ftasks%2Ftasks-importproject.htm)
 
-###Execution
+### Execution
 Use the play button in Eclipse to run this project.
 
-##Dependencies
+## Dependencies
 * [JDK7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 * [Eclipse IDE](https://eclipse.org/downloads/)
 
-##Structure
+## Structure
     halloween-tower-defense
     ├── LICENSE
     ├── README.md
@@ -39,9 +40,9 @@ Use the play button in Eclipse to run this project.
         ├── utilities
         └── views
 
-##[Potential Bugs](https://github.com/A92hm/halloween-tower-defense/issues)
+## [Potential Bugs](https://github.com/A92hm/halloween-tower-defense/issues)
 
-##To do
+## To do
 * Make jar file
 * Java applet
 
@@ -54,5 +55,5 @@ We did not have time during the semester to make our own custom artwork. Here ar
 * [Game Icons](http://www.sc2mapster.com/media/images/48/16/WoW_Icons.jpg)
 
 
-##License
+## License
 [MIT license](http://opensource.org/licenses/MIT)
