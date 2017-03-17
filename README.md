@@ -40,9 +40,9 @@ Use the play button in Eclipse to run this project.
         ├── utilities
         └── views
 
-## [Potential Bugs](https://github.com/A92hm/halloween-tower-defense/issues)
+## [Potential Bugs](https://github.com/Ali92hm/halloween-tower-defense/issues)
 
-## To do
+## [To do](https://github.com/Ali92hm/halloween-tower-defense/milestones)
 * Make jar file
 * Java applet
 
