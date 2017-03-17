@@ -43,8 +43,6 @@ Use the play button in Eclipse to run this project.
 ## [Potential Bugs](https://github.com/Ali92hm/halloween-tower-defense/issues)
 
 ## [To do](https://github.com/Ali92hm/halloween-tower-defense/milestones)
-* Make jar file
-* Java applet
 
 # Image References
 We did not have time during the semester to make our own custom artwork. Here are the links to the images that we used for this project:
