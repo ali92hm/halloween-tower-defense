@@ -9,7 +9,7 @@ You need Eclipse IDE in order to compile and run this project. (see dependencies
 
 Cloning the project:
 ```bash
-git clone https://github.com/A92hm/halloween-tower-defense.git
+git clone https://github.com/Ali92hm/halloween-tower-defense.git
 ```
 Use the following instructions to import this project to Eclipse. [Instructions](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.user%2Ftasks%2Ftasks-importproject.htm)
 
