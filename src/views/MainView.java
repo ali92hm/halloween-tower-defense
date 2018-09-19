@@ -124,7 +124,7 @@ public class MainView extends ImagePanel {
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridx = 1;
-		c.gridy = 0;
+		c.gridy = 1;
 		this.add(mapLabel, c);
 		
 		
