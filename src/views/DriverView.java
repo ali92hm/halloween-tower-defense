@@ -144,7 +144,7 @@ public class DriverView extends JFrame implements ActionListener {
 
 		//Help
 		this.helpMenu = new JMenu("Help");
-		this.jmiTutorial = new JMenuItem("Show Tuturial");
+		this.jmiTutorial = new JMenuItem("Show Tutorial");
 		this.jmiInfo = new JMenuItem("Info");
 
 		this.helpMenu.add(this.jmiTutorial);

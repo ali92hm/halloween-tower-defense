@@ -227,7 +227,7 @@ public class MainView extends ImagePanel {
 	 * @return Border
 	 */
 	
-	public Border getDeelectionBorder() {
+	public Border getDeSelectionBorder() {
 		return this.deselectionBorder;
 	}
 	
