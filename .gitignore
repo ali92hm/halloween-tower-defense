@@ -22,4 +22,5 @@ hs_err_pid*
 .Trashes
 ehthumbs.db
 Thumbs.db
-*.orig
+.idea/
+*.iml
