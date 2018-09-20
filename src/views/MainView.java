@@ -77,35 +77,11 @@ public class MainView extends ImagePanel {
 	 */
 
 	public void layoutView() {
-
-		this.setLayout(new GridBagLayout());
-		this.setOpaque(true);
-
+        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		JLabel mapLabel = new JLabel("Select A Map");
 		mapLabel.setFont(new Font("Serif", Font.BOLD, 48));
 		mapLabel.setForeground(Color.yellow);
-
-		JPanel filler1 = new JPanel();
-		JPanel filler2 = new JPanel();
-
-		filler1.setPreferredSize(new Dimension(0, 30));
-		filler2.setPreferredSize(new Dimension(0, 30));
-		easy.setPreferredSize(new Dimension(50, 30));
-		medium.setPreferredSize(new Dimension(60, 30));
-		hard.setPreferredSize(new Dimension(50, 30));
-
-		buttonPanel.add(easy);
-		buttonPanel.add(filler1);
-		buttonPanel.add(medium);
-		buttonPanel.add(filler2);
-		buttonPanel.add(hard);
-		buttonPanel.setOpaque(false);
-
-		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.add(mapLabel);
-
-
-        this.add(map1);
 
         JPanel maps = new JPanel();
         maps.setLayout(new BoxLayout(maps,BoxLayout.X_AXIS));
@@ -113,29 +89,25 @@ public class MainView extends ImagePanel {
         maps.add(map2);
         maps.add(map3);
         this.add(maps);
+
+
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(easy);
+        buttonPanel.add(medium);
+        buttonPanel.add(hard);
+        buttonPanel.setOpaque(false);
         this.add(buttonPanel);
-        this.setOpaque(false);
 
 		map2.setEnabled(false);
 		map3.setEnabled(false);
 
 		map1.setIcon(new ImageIcon("images/map1thumbnail.png"));
-
 		map2.setIcon(new ImageIcon("images/map2thumbnail.png"));
-
 		map3.setIcon(new ImageIcon("images/map3thumbnail.png"));
-		//this.add(map3, c);
 
-
-		JPanel startPanel = new JPanel(new GridBagLayout());
-		startPanel.setOpaque(false);
 		this.add(start);
-
 		this.add(exit);
-
 		this.add(info);
-
-		//this.add(startPanel, c);
 
 		disableDifficulty();
 	}
