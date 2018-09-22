@@ -11,7 +11,7 @@ import views.DriverView;
  */
 public class Driver {
 	
-	public static  String OS_NAME;
+	public static String OS_NAME;
 	private DriverModel model;
 	private DriverView view;
 	private DriverController controller= new DriverController();
