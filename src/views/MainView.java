@@ -45,7 +45,7 @@ public class MainView extends ImagePanel {
 	private SelectButtonGroup difficultyGroup = new SelectButtonGroup();	
 	private JPanel buttonPanel = new JPanel();
 	private GridBagConstraints c = new GridBagConstraints();
-	
+
 	/**
 	 * Constructor for the main view. Takes an image to set as the background.
 	 * @param image
@@ -54,7 +54,6 @@ public class MainView extends ImagePanel {
 	public MainView(BufferedImage image) {
 		
     	super(image, null, null);
-    	
     	map1.setBorder(deselectionBorder);
     	map2.setBorder(deselectionBorder);
     	map3.setBorder(deselectionBorder);
@@ -179,15 +178,23 @@ public class MainView extends ImagePanel {
 	
 	/**
 	 * Disables all of the selections the user has made on the main view.
+	 * Selects Map1 and Easy Difficulty by default
 	 */
 	
 	public void resetMainView() {
-		map1.setBorder(deselectionBorder);
+		map1.setSelected(true);
+		map1.setBorder(selectionBorder);
     	map2.setBorder(deselectionBorder);
     	map3.setBorder(deselectionBorder);
-    	this.disableDifficulty();
+    	this.enableDifficulty();
+    	this.getMediumButton().setBorder(this.getDeSelectionBorder());
+    	this.getHardButton().setBorder(this.getDeSelectionBorder());
     	this.start.setEnabled(false);
-    	
+    	this.enableStartButton();
+    	this.getEasyButton().setBorder(this.getSelectionBorder());
+		this.getEasyButton().setSelected(true);
+		this.getMediumButton().setSelected(false);
+		this.getHardButton().setSelected(false);
 	}
 	
 	/**

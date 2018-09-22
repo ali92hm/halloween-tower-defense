@@ -31,6 +31,7 @@ import models.DriverModel;
  * @author Reggie
  *
  */
+
 public class DriverView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -79,7 +80,6 @@ public class DriverView extends JFrame implements ActionListener {
 	private final JMenuItem jmiTalentTree;
 	private final JMenuItem jmiTutorial;
 	private final JMenuItem jmiInfo;
-
 
 	/*
 	 ***************
@@ -608,4 +608,5 @@ public class DriverView extends JFrame implements ActionListener {
 			this.mapView.repaint();
 		}
 	}
+
 }

@@ -135,15 +135,6 @@ public class DriverController {
 	private class ButtonUpdateListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 	
-			if (view.getMainView().getMap1().isSelected()) {
-				view.getMainView().getMap1().setBorder(view.getMainView().getSelectionBorder());
-				view.getMainView().enableDifficulty();
-	
-			} else {
-				view.getMainView().getMap1().setBorder(view.getMainView().getDeSelectionBorder());
-				view.getMainView().disableDifficulty();
-			}
-	
 			if (view.getMainView().getMap2().isSelected()) {
 				view.getMainView().getMap2().setBorder(view.getMainView().getSelectionBorder());
 	
@@ -175,12 +166,7 @@ public class DriverController {
 			} else {
 				view.getMainView().getHardButton().setBorder(view.getMainView().getDeSelectionBorder());
 			}
-	
-			if ((view.getMainView().getMap1().isSelected() || view.getMainView().getMap2().isSelected() || 
-					view.getMainView().getMap3().isSelected()) && (view.getMainView().getEasyButton().isSelected() || 
-							view.getMainView().getMediumButton().isSelected() || view.getMainView().getHardButton().isSelected())) {
-				view.getMainView().enableStartButton();
-			}
+
 		}
 	}
 
@@ -227,7 +213,7 @@ public class DriverController {
 	 * button has been selected and then
 	 * moves the user from the main view to 
 	 * the map view. Adds necessary listeners
-	 * durning the construction of the map view
+	 * during the construction of the map view
 	 * 
 	 * @author Scorpion
 	 *
