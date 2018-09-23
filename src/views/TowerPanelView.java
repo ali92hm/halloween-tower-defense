@@ -49,7 +49,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
     public static final int TOWER_ICON_HEIGHT = 40;
     private DriverModel model;
     private JToggleButton jtbBuildDamageTower;
-    private JToggleButton jtbBuildAOETower;
+    private JToggleButton jtbBuildFireTower;
     private JToggleButton jtbBuildIceTower;
     private JToggleButton jtbBuildDenseLightningTower;
     private JToggleButton jtbBuildPatchOfFireTower;
@@ -120,7 +120,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
         c.ipady = 15;
         c.gridx = 1;
         c.gridy = 0;
-        this.add(layoutTowerPanel(jtbBuildAOETower, "Fire Burst", "Cost: " + FireTower.TOWER_COST), c);
+        this.add(layoutTowerPanel(jtbBuildFireTower, "Fire Burst", "Cost: " + FireTower.TOWER_COST), c);
 
         c.ipadx = 15;
         c.ipady = 15;
@@ -177,9 +177,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
         buildGroup.add(jtbBuildDamageTower);
 
         BufferedImage AOEButtonImage = DriverView.getImage("FireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildAOETower = new JToggleButton(new ImageIcon(AOEButtonImage, "FireTower.png"));
-        jtbBuildAOETower.setName("FireTower");
-        buildGroup.add(jtbBuildAOETower);
+        jtbBuildFireTower = new JToggleButton(new ImageIcon(AOEButtonImage, "FireTower.png"));
+        jtbBuildFireTower.setName("FireTower");
+        buildGroup.add(jtbBuildFireTower);
 
         BufferedImage slowButtonImage = DriverView.getImage("IceTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
         jtbBuildIceTower = new JToggleButton(new ImageIcon(slowButtonImage, "IceTower.png"));
@@ -304,9 +304,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
         }
 
         if (model.getMoney() < FireTower.TOWER_COST || !this.towerPanelEnabled) {
-            this.jtbBuildAOETower.setEnabled(false);
+            this.jtbBuildFireTower.setEnabled(false);
         } else {
-            this.jtbBuildAOETower.setEnabled(true);
+            this.jtbBuildFireTower.setEnabled(true);
         }
 
         if (model.getMoney() < IceTower.TOWER_COST || !this.towerPanelEnabled) {
@@ -389,7 +389,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + "Shoots a single shot of lightning at an enemy." + "</html>");
 
-        jtbBuildAOETower.setToolTipText("<html>" + "Fire Tower"
+        jtbBuildFireTower.setToolTipText("<html>" + "Fire Tower"
                 + "<br>"
                 + FireTower.TOWER_COST + "g"
                 + "<br>"
@@ -425,19 +425,19 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
         jtbBuildTeslaTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
-                + LightningTower.TOWER_COST + "g"
+                + TeslaTower.TOWER_COST + "g"
                 + "<br>"
                 + "Shoots an electric charge at an enemy." + "</html>");
 
         jtbBuildFireBombTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
-                + LightningTower.TOWER_COST + "g"
+                + FireBombTower.TOWER_COST + "g"
                 + "<br>"
                 + "Shoots flaming bomb at an enemy." + "</html>");
 
         jtbBuildIcicleTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
-                + LightningTower.TOWER_COST + "g"
+                + IcicleTower.TOWER_COST + "g"
                 + "<br>"
                 + "Shoots a jagged icicle at an enemy." + "</html>");
 
