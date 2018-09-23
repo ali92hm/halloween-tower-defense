@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -60,6 +61,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
 	private JToggleButton test8;
 	private JToggleButton test9;
 	private TDButtonGroup  buildGroup = new TDButtonGroup();
+	private ArrayList<JToggleButton> onScreenTowerButtons = new ArrayList<JToggleButton>();
 	private boolean towerPanelEnabled = false;
 
 	/**
@@ -260,7 +262,10 @@ public class TowerPanelView extends JPanel implements ActionListener {
 	 */
 	
 	public JPanel layoutTowerPanel(JToggleButton tower, String name, String cost) {
-		
+
+		// Keep list of current tower buttons
+		this.onScreenTowerButtons.add(tower);
+
 		JPanel panel = new JPanel(new BorderLayout());
 		JPanel labelPanel = new JPanel(new GridLayout(2, 1));
 		JLabel towerName = new JLabel(name);
@@ -488,5 +493,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
 				+ "<br>" 
 				+ "Shoots a single shot of lightning at an enemy." + "<html>");
 		
+	}
+
+	public ArrayList<JToggleButton> getCurrentTowerButtons() {
+		return this.onScreenTowerButtons;
 	}
 }
