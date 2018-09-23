@@ -57,9 +57,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
     private JToggleButton jtbBuildTeslaTower;
     private JToggleButton jtbBuildFireBombTower;
     private JToggleButton jtbBuildIcicleTower;
-    private JToggleButton test7;
-    private JToggleButton test8;
-    private JToggleButton test9;
     private TDButtonGroup buildGroup = new TDButtonGroup();
     private ArrayList<JToggleButton> onScreenTowerButtons = new ArrayList<JToggleButton>();
     private boolean towerPanelEnabled = false;
@@ -227,27 +224,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
         jtbBuildIcicleTower.setName("IcicleTower");
         jtbBuildIcicleTower.setEnabled(false);
         buildGroup.add(jtbBuildIcicleTower);
-
-        BufferedImage underConstructionButtonImage = DriverView.getImage("ComingSoon.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        BufferedImage underConstructionButtonImageDisable = DriverView.getImage("ComingSoon.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        test7 = new JToggleButton(new ImageIcon(underConstructionButtonImage, "UnderConstruction.png"));
-        test7.setDisabledIcon(new ImageIcon(underConstructionButtonImageDisable));
-        test7.setName("UnderConstruction");
-        test7.setEnabled(false);
-        buildGroup.add(test7);
-
-        test8 = new JToggleButton(new ImageIcon(underConstructionButtonImage, "UnderConstruction.png"));
-        test8.setDisabledIcon(new ImageIcon(underConstructionButtonImageDisable));
-        test8.setName("UnderConstruction");
-        test8.setEnabled(false);
-        buildGroup.add(test8);
-
-        test9 = new JToggleButton(new ImageIcon(underConstructionButtonImage, "UnderConstruction.png"));
-        test9.setDisabledIcon(new ImageIcon(underConstructionButtonImageDisable));
-        test9.setName("UnderConstruction");
-        test9.setEnabled(false);
-        buildGroup.add(test9);
-
     }
 
     /**
@@ -321,10 +297,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
      */
 
     private void disableTowersButtons() {
-        test7.setEnabled(false);
-        test8.setEnabled(false);
-        test9.setEnabled(false);
-
         if (model.getMoney() < LightningTower.TOWER_COST || !this.towerPanelEnabled) {
             this.jtbBuildDamageTower.setEnabled(false);
         } else {
@@ -468,24 +440,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
                 + "Shoots a jagged icicle at an enemy." + "<html>");
-
-        test7.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + LightningTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
-
-        test8.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + LightningTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
-
-        test9.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + LightningTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
 
     }
 
