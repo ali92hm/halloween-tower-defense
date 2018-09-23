@@ -1,22 +1,21 @@
 package tests;
 
 import models.DriverModel;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import views.DriverView;
 import java.awt.event.ActionListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DriverModel_Test extends DriverView implements ActionListener {
+public class DriverModelTest extends DriverView implements ActionListener {
 
     private static DriverModel model = new DriverModel();
-    public DriverModel_Test() {
+    public DriverModelTest() {
         super(model);
     }
 
-    private DriverModel_Test setup() {
-        DriverModel_Test sut = new DriverModel_Test();
+    private DriverModelTest setup() {
+        DriverModelTest sut = new DriverModelTest();
         sut.switchToMainScreen();
         return sut;
     }
@@ -38,14 +37,14 @@ public class DriverModel_Test extends DriverView implements ActionListener {
 
     @Test
     public void givenMainView_WhenMediumSelected_ThenMediumSelected() {
-        DriverModel_Test sut = setup();
+        DriverModelTest sut = setup();
         sut.getMainView().getMediumButton().setSelected(true);
         assertTrue(sut.getMainView().getMediumButton().isSelected());
     }
 
     @Test
     public void givenMainView_WhenMediumSelected_ThenEasyNotSelected() {
-        DriverModel_Test sut = setup();
+        DriverModelTest sut = setup();
         sut.getMainView().getMediumButton().setSelected(true);
         assertFalse(sut.getMainView().getEasyButton().isSelected());
     }
