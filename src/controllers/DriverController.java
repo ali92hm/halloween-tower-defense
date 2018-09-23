@@ -16,9 +16,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import projectiles.Projectile;
 
@@ -135,52 +133,38 @@ public class DriverController {
 	private class ButtonUpdateListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 	
-			if (view.getMainView().getMap1().isSelected()) {
-				view.getMainView().getMap1().setBorder(view.getMainView().getSelectionBorder());
-				view.getMainView().enableDifficulty();
-	
-			} else {
-				view.getMainView().getMap1().setBorder(view.getMainView().getDeelectionBorder());
-				view.getMainView().disableDifficulty();
-			}
-	
 			if (view.getMainView().getMap2().isSelected()) {
 				view.getMainView().getMap2().setBorder(view.getMainView().getSelectionBorder());
 	
 			} else {
-				view.getMainView().getMap2().setBorder(view.getMainView().getDeelectionBorder());
+				view.getMainView().getMap2().setBorder(view.getMainView().getDeSelectionBorder());
 			}
 	
 			if (view.getMainView().getMap3().isSelected()) {
 				view.getMainView().getMap3().setBorder(view.getMainView().getSelectionBorder());
 	
 			} else {
-				view.getMainView().getMap3().setBorder(view.getMainView().getDeelectionBorder());
+				view.getMainView().getMap3().setBorder(view.getMainView().getDeSelectionBorder());
 			}
 	
 			if (view.getMainView().getEasyButton().isSelected()) {
 				view.getMainView().getEasyButton().setBorder(view.getMainView().getSelectionBorder());
 			} else {
-				view.getMainView().getEasyButton().setBorder(view.getMainView().getDeelectionBorder());
+				view.getMainView().getEasyButton().setBorder(view.getMainView().getDeSelectionBorder());
 			}
 	
 			if (view.getMainView().getMediumButton().isSelected()) {
 				view.getMainView().getMediumButton().setBorder(view.getMainView().getSelectionBorder());
 			} else {
-				view.getMainView().getMediumButton().setBorder(view.getMainView().getDeelectionBorder());
+				view.getMainView().getMediumButton().setBorder(view.getMainView().getDeSelectionBorder());
 			}
 	
 			if (view.getMainView().getHardButton().isSelected()) {
 				view.getMainView().getHardButton().setBorder(view.getMainView().getSelectionBorder());
 			} else {
-				view.getMainView().getHardButton().setBorder(view.getMainView().getDeelectionBorder());
+				view.getMainView().getHardButton().setBorder(view.getMainView().getDeSelectionBorder());
 			}
-	
-			if ((view.getMainView().getMap1().isSelected() || view.getMainView().getMap2().isSelected() || 
-					view.getMainView().getMap3().isSelected()) && (view.getMainView().getEasyButton().isSelected() || 
-							view.getMainView().getMediumButton().isSelected() || view.getMainView().getHardButton().isSelected())) {
-				view.getMainView().enableStartButton();
-			}
+
 		}
 	}
 
@@ -227,7 +211,7 @@ public class DriverController {
 	 * button has been selected and then
 	 * moves the user from the main view to 
 	 * the map view. Adds necessary listeners
-	 * durning the construction of the map view
+	 * during the construction of the map view
 	 * 
 	 * @author Scorpion
 	 *
@@ -276,20 +260,6 @@ public class DriverController {
 			if (confirmed == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
-		}
-	}
-
-	/**
-	 * future listener for the user
-	 * to gain info on the mobs and towers
-	 * 
-	 * @author Scorpion
-	 *
-	 */
-	
-	private class InfoListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			//TODO: add info panel with information
 		}
 	}
 
@@ -474,7 +444,7 @@ public class DriverController {
 			if (view.getTalentTreeView().getPiercingShotTower().isSelected()) {
 				view.getSidePanelView().switchToTalentPanel();
 				view.getSidePanelView().getTalentView().setTalentInfo(DriverView.getImage("DenseLightningTower.png", 50, 50), 
-						"Dense Lightning Tower", "Lightning tower thats shoots", "lightning bolts through enemies.");
+						"Dense Lightning Tower", "Lightning tower that shoots", "lightning bolts through enemies.");
 			}
 
 			if (view.getTalentTreeView().getPatchOfFireTower().isSelected()) {
@@ -512,7 +482,7 @@ public class DriverController {
 	/**
 	 * listens to see if we have talent
 	 * points and which talents have already 
-	 * been aquired to see which talents 
+	 * been acquired to see which talents
 	 * should be active
 	 * 
 	 * @author Scorpion
