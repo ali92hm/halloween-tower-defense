@@ -387,19 +387,19 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
+                + "Shoots a single shot of lightning at an enemy." + "</html>");
 
         jtbBuildAOETower.setToolTipText("<html>" + "Fire Tower"
                 + "<br>"
                 + FireTower.TOWER_COST + "g"
                 + "<br>"
-                + "Emits a fiery explosion around the tower itself." + "<html>");
+                + "Emits a fiery explosion around the tower itself." + "</html>");
 
         jtbBuildSlowTower.setToolTipText("<html>" + "Ice Tower"
                 + "<br>"
                 + IceTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots a single enemy and slows their movement down." + "<html>");
+                + "Shoots a single enemy and slows their movement down." + "</html>");
 
         jtbBuildDenseLightningTower.setToolTipText("<html>" + "Dense Lightning Tower"
                 + "<br>"
@@ -407,7 +407,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + "Shoots a single shot of lightning at an enemy that pierces"
                 + "<br>"
-                + " through and can hit multiple targets." + "<html>");
+                + " through and can hit multiple targets." + "</html>");
 
         jtbBuildPatchOfFireTower.setToolTipText("<html>" + "Patch Of Fire Tower"
                 + "<br>"
@@ -415,31 +415,31 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + "Shoots a fireball at the target and leaves a patch of fire "
                 + "<br>"
-                + "on the ground that damages enemies that walk over it." + "<html>");
+                + "on the ground that damages enemies that walk over it." + "</html>");
 
         jtbBuildFreezeTower.setToolTipText("<html>" + "Freeze Tower"
                 + "<br>"
                 + FreezeTower.TOWER_COST + "g"
                 + "<br>"
-                + "Freezes all enemies around the tower in place for a short duration." + "<html>");
+                + "Freezes all enemies around the tower in place for a short duration." + "</html>");
 
         jtbBuildTeslaTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots an electric charge at an enemy." + "<html>");
+                + "Shoots an electric charge at an enemy." + "</html>");
 
         jtbBuildFireBombTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots flaming bomb at an enemy." + "<html>");
+                + "Shoots flaming bomb at an enemy." + "</html>");
 
         jtbBuildIcicleTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots a jagged icicle at an enemy." + "<html>");
+                + "Shoots a jagged icicle at an enemy." + "</html>");
 
     }
 
