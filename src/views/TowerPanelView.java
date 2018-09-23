@@ -421,7 +421,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + FireTower.TOWER_COST + "g"
                 + "<br>"
-                + "Emits a firey explosion around the tower itself." + "<html>");
+                + "Emits a fiery explosion around the tower itself." + "<html>");
 
         jtbBuildSlowTower.setToolTipText("<html>" + "Ice Tower"
                 + "<br>"
@@ -455,19 +455,19 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
+                + "Shoots an electric charge at an enemy." + "<html>");
 
         jtbBuildFireBombTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
+                + "Shoots flaming bomb at an enemy." + "<html>");
 
         jtbBuildIcicleTower.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
                 + LightningTower.TOWER_COST + "g"
                 + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "<html>");
+                + "Shoots a jagged icicle at an enemy." + "<html>");
 
         test7.setToolTipText("<html>" + "Lightning Tower"
                 + "<br>"
