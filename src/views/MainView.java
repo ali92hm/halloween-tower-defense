@@ -17,7 +17,6 @@ import utilities.SelectButtonGroup;
  */
 
 public class MainView extends ImagePanel {
-
     private static final long serialVersionUID = 1L;
     private Border selectionBorder = new LineBorder(Color.YELLOW, 5);
     private Border deselectionBorder = new LineBorder(Color.WHITE, 5);
@@ -33,6 +32,7 @@ public class MainView extends ImagePanel {
     private SelectButtonGroup mapGroup = new SelectButtonGroup();
     private SelectButtonGroup difficultyGroup = new SelectButtonGroup();
     private JPanel buttonPanel = new JPanel();
+    private GridBagConstraints c = new GridBagConstraints();
 
     /**
      * Constructor for the main view. Takes an image to set as the background.
@@ -43,7 +43,6 @@ public class MainView extends ImagePanel {
     public MainView(BufferedImage image) {
 
         super(image, null, null);
-
         map1.setBorder(deselectionBorder);
         map2.setBorder(deselectionBorder);
         map3.setBorder(deselectionBorder);
@@ -77,52 +76,114 @@ public class MainView extends ImagePanel {
      */
 
     public void layoutView() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.setLayout(new GridBagLayout());
+        this.setOpaque(true);
+
         JLabel mapLabel = new JLabel("Select A Map");
         mapLabel.setFont(new Font("Serif", Font.BOLD, 48));
         mapLabel.setForeground(Color.yellow);
-        this.add(mapLabel);
 
-        JPanel maps = new JPanel();
-        maps.setLayout(new BoxLayout(maps, BoxLayout.X_AXIS));
-        maps.add(map1);
-        maps.add(map2);
-        maps.add(map3);
-        this.add(maps);
+        JPanel filler1 = new JPanel();
+        JPanel filler2 = new JPanel();
 
+        filler1.setPreferredSize(new Dimension(0, 30));
+        filler2.setPreferredSize(new Dimension(0, 30));
+        easy.setPreferredSize(new Dimension(50, 30));
+        medium.setPreferredSize(new Dimension(60, 30));
+        hard.setPreferredSize(new Dimension(50, 30));
 
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.add(easy);
+        buttonPanel.add(filler1);
         buttonPanel.add(medium);
+        buttonPanel.add(filler2);
         buttonPanel.add(hard);
         buttonPanel.setOpaque(false);
-        this.add(buttonPanel);
+
+        JPanel map1Panel = new JPanel(new BorderLayout());
+        map1Panel.add(map1, BorderLayout.CENTER);
+        map1Panel.add(buttonPanel, BorderLayout.SOUTH);
+        map1Panel.setOpaque(false);
 
         map2.setEnabled(false);
         map3.setEnabled(false);
 
-        map1.setIcon(new ImageIcon("images/map1thumbnail.png"));
-        map2.setIcon(new ImageIcon("images/map2thumbnail.png"));
-        map3.setIcon(new ImageIcon("images/map3thumbnail.png"));
+        c.anchor = GridBagConstraints.NORTH;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        c.gridx = 1;
+        c.gridy = 0;
+        this.add(mapLabel, c);
 
-        this.add(start);
-        this.add(exit);
-        this.add(info);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        c.ipadx = -32;
+        c.ipady = -11;
+        map1.setIcon(new ImageIcon("images/map1thumbnail.png"));
+        this.add(map1Panel, c);
+
+        c.gridx = 1;
+        c.gridy = 1;
+        c.ipadx = -32;
+        c.ipady = -11;
+        map2.setIcon(new ImageIcon("images/map2thumbnail.png"));
+        this.add(map2, c);
+
+        c.gridx = 2;
+        c.gridy = 1;
+        map3.setIcon(new ImageIcon("images/map3thumbnail.png"));
+        this.add(map3, c);
+
+
+        JPanel startPanel = new JPanel(new GridBagLayout());
+        startPanel.setOpaque(false);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.ipadx = 165;
+        c.ipady = 50;
+        c.gridwidth = 2;
+        startPanel.add(start, c);
+
+        c.gridwidth = 1;
+        c.ipadx = 60;
+        c.gridx = 0;
+        c.gridy = 1;
+        startPanel.add(exit, c);
+
+        c.gridx = 1;
+        c.gridy = 1;
+        startPanel.add(info, c);
+
+        c.ipadx = 200;
+        c.ipady = 90;
+        c.gridx = 1;
+        c.gridy = 4;
+        this.add(startPanel, c);
 
         disableDifficulty();
     }
 
     /**
      * Disables all of the selections the user has made on the main view.
+     * Selects Map1 and Easy Difficulty by default
      */
 
     public void resetMainView() {
-        map1.setBorder(deselectionBorder);
+        map1.setSelected(true);
+        map1.setBorder(selectionBorder);
         map2.setBorder(deselectionBorder);
         map3.setBorder(deselectionBorder);
-        this.disableDifficulty();
+        this.enableDifficulty();
+        this.getMediumButton().setBorder(this.getDeSelectionBorder());
+        this.getHardButton().setBorder(this.getDeSelectionBorder());
         this.start.setEnabled(false);
-
+        this.enableStartButton();
+        this.getEasyButton().setBorder(this.getSelectionBorder());
+        this.getEasyButton().setSelected(true);
+        this.getMediumButton().setSelected(false);
+        this.getHardButton().setSelected(false);
     }
 
     /**
@@ -162,7 +223,7 @@ public class MainView extends ImagePanel {
      * @return Border
      */
 
-    public Border getDeelectionBorder() {
+    public Border getDeSelectionBorder() {
         return this.deselectionBorder;
     }
 
