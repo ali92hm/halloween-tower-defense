@@ -50,7 +50,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
     private DriverModel model;
     private JToggleButton jtbBuildDamageTower;
     private JToggleButton jtbBuildAOETower;
-    private JToggleButton jtbBuildSlowTower;
+    private JToggleButton jtbBuildIceTower;
     private JToggleButton jtbBuildDenseLightningTower;
     private JToggleButton jtbBuildPatchOfFireTower;
     private JToggleButton jtbBuildFreezeTower;
@@ -126,7 +126,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
         c.ipady = 15;
         c.gridx = 2;
         c.gridy = 0;
-        this.add(layoutTowerPanel(jtbBuildSlowTower, "Thick Ice", "Cost: " + IceTower.TOWER_COST), c);
+        this.add(layoutTowerPanel(jtbBuildIceTower, "Thick Ice", "Cost: " + IceTower.TOWER_COST), c);
 
         c.ipadx = 15;
         c.ipady = 15;
@@ -182,9 +182,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
         buildGroup.add(jtbBuildAOETower);
 
         BufferedImage slowButtonImage = DriverView.getImage("IceTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildSlowTower = new JToggleButton(new ImageIcon(slowButtonImage, "IceTower.png"));
-        jtbBuildSlowTower.setName("IceTower");
-        buildGroup.add(jtbBuildSlowTower);
+        jtbBuildIceTower = new JToggleButton(new ImageIcon(slowButtonImage, "IceTower.png"));
+        jtbBuildIceTower.setName("IceTower");
+        buildGroup.add(jtbBuildIceTower);
 
         BufferedImage straightShotButtonImage = DriverView.getImage("DenseLightningTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
         jtbBuildDenseLightningTower = new JToggleButton(new ImageIcon(straightShotButtonImage, "DenseLightningTower.png"));
@@ -310,9 +310,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
         }
 
         if (model.getMoney() < IceTower.TOWER_COST || !this.towerPanelEnabled) {
-            this.jtbBuildSlowTower.setEnabled(false);
+            this.jtbBuildIceTower.setEnabled(false);
         } else {
-            this.jtbBuildSlowTower.setEnabled(true);
+            this.jtbBuildIceTower.setEnabled(true);
         }
 
         if (!DenseLightningTower.isTowerUnlocked() || !this.towerPanelEnabled) {
@@ -395,7 +395,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
                 + "<br>"
                 + "Emits a fiery explosion around the tower itself." + "</html>");
 
-        jtbBuildSlowTower.setToolTipText("<html>" + "Ice Tower"
+        jtbBuildIceTower.setToolTipText("<html>" + "Ice Tower"
                 + "<br>"
                 + IceTower.TOWER_COST + "g"
                 + "<br>"
