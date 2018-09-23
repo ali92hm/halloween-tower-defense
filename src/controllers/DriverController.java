@@ -16,9 +16,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import projectiles.Projectile;
 
@@ -262,20 +260,6 @@ public class DriverController {
 			if (confirmed == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
-		}
-	}
-
-	/**
-	 * future listener for the user
-	 * to gain info on the mobs and towers
-	 * 
-	 * @author Scorpion
-	 *
-	 */
-	
-	private class InfoListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			//TODO: add info panel with information
 		}
 	}
 
