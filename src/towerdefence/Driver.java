@@ -20,8 +20,7 @@ public class Driver {
 	/**
 	 * Constructor 
 	 */
-	public Driver()
-	{
+	public Driver() {
 		this.model = new DriverModel();
 		this.view = new DriverView(model);
 		this.controller.setModel(model);
