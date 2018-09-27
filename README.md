@@ -29,16 +29,16 @@ Use the play button in Eclipse to run this project.
     ├── .settings                   - Eclipse setting for the project
     ├── images
     └── src                         - Source files
-        ├── controllers
-        ├── mapdata
-        ├── mobs
-        ├── models
-        ├── projectiles
-        ├── towerdefence
+        ├── main.controllers
+        ├── main.controllers.mapdata
+        ├── main.controllers.mobs
+        ├── main.controllers.models
+        ├── main.controllers.projectiles
+        ├── main.controllers.towerdefence
         │   └── Driver.java         - Contains main method
-        ├── towers
-        ├── utilities
-        └── views
+        ├── main.towers
+        ├── main.utilities
+        └── main.views
 
 ## [Potential Bugs](https://github.com/Ali92hm/halloween-tower-defense/issues)
 
