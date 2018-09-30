@@ -20,7 +20,7 @@ import main.views.DriverView;
 
 public class LightningTower extends Tower {
 
-	private static final String TOWER_BASE_IMAGE = "DamageTower.png";
+	private static final String TOWER_BASE_IMAGE = "LightningTower.png";
 	public static final String TOWER_TURRET_IMAGE = null;
 	public static final int TOWER_RANGE = 80;
 	public static final int TOWER_FIRE_RATE = 700;

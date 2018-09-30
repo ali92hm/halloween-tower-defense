@@ -284,7 +284,7 @@ public class MapView extends JPanel {
 
 			int range = 0;
 			switch (this.view.getSidePanelView().getTowerView().getBuildButtonGroup().getSelectedButton().getName()) {
-			case "DamageTower":
+			case "LightningTower":
 				range = LightningTower.TOWER_RANGE;
 				break;
 			case "FireTower":

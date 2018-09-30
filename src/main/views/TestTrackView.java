@@ -48,8 +48,8 @@ public class TestTrackView extends ImagePanel {
 		this.add(startButton);
 		
 		// TODO Fixing the position
-		BufferedImage damageButtonImage = DriverView.getImage("DamageTower.png", 50, 50);
-		jtbBuildDamageTower = new JToggleButton(new ImageIcon(damageButtonImage,"DamageTower.png"));
+		BufferedImage damageButtonImage = DriverView.getImage("LightningTower.png", 50, 50);
+		jtbBuildDamageTower = new JToggleButton(new ImageIcon(damageButtonImage,"LightningTower.png"));
 		jtbBuildDamageTower.setBounds(700, 150, 50, 50);
 		buildGroup.add(jtbBuildDamageTower);
 		this.add(jtbBuildDamageTower);
