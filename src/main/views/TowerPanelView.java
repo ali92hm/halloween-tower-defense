@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,15 +25,8 @@ import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
 
 import main.models.DriverModel;
-import main.towers.DenseLightningTower;
-import main.towers.FireBombTower;
-import main.towers.FireTower;
-import main.towers.FreezeTower;
-import main.towers.IceTower;
-import main.towers.IcicleTower;
-import main.towers.LightningTower;
-import main.towers.PatchOfFireTower;
-import main.towers.TeslaTower;
+import main.projectiles.DenseLightning;
+import main.towers.*;
 import main.utilities.TDButtonGroup;
 
 /**
@@ -48,18 +42,29 @@ public class TowerPanelView extends JPanel implements ActionListener {
     public static final int TOWER_ICON_WIDTH = 40;
     public static final int TOWER_ICON_HEIGHT = 40;
     private DriverModel model;
-    private JToggleButton jtbBuildDamageTower;
-    private JToggleButton jtbBuildFireTower;
-    private JToggleButton jtbBuildIceTower;
-    private JToggleButton jtbBuildDenseLightningTower;
-    private JToggleButton jtbBuildPatchOfFireTower;
-    private JToggleButton jtbBuildFreezeTower;
-    private JToggleButton jtbBuildTeslaTower;
-    private JToggleButton jtbBuildFireBombTower;
-    private JToggleButton jtbBuildIcicleTower;
+    private TowerBuyButton jtbBuildDamageTower;
+    private TowerBuyButton jtbBuildFireTower;
+    private TowerBuyButton jtbBuildIceTower;
+    private TowerBuyButton jtbBuildDenseLightningTower;
+    private TowerBuyButton jtbBuildPatchOfFireTower;
+    private TowerBuyButton jtbBuildFreezeTower;
+    private TowerBuyButton jtbBuildTeslaTower;
+    private TowerBuyButton jtbBuildFireBombTower;
+    private TowerBuyButton jtbBuildIcicleTower;
     private TDButtonGroup buildGroup = new TDButtonGroup();
-    private ArrayList<JToggleButton> onScreenTowerButtons = new ArrayList<JToggleButton>();
+    private ArrayList<TowerBuyButton> onScreenTowerButtons = new ArrayList<>();
     private boolean towerPanelEnabled = false;
+    private static ArrayList<Class<? extends Tower>> towerTypes = new ArrayList<Class<? extends Tower>>(Arrays.asList(
+            LightningTower.class,
+            FireTower.class,
+            IceTower.class,
+            DenseLightningTower.class,
+            PatchOfFireTower.class,
+            FreezeTower.class,
+            TeslaTower.class,
+            FireBombTower.class,
+            IcicleTower.class
+    ));
 
     /**
      * constructs the tower panel
@@ -67,7 +72,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
     public TowerPanelView() {
         this.setupFrame();
-        this.setToolTips();
+        //this.setToolTips();
     }
 
     /**
@@ -103,66 +108,18 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-
-        createTowers();
-
-
         c.anchor = GridBagConstraints.NORTHWEST;
         c.weightx = 1;
         c.weighty = 1;
         c.ipadx = 15;
         c.ipady = 15;
-        c.gridx = 0;
-        c.gridy = 0;
-        this.add(layoutTowerPanel(jtbBuildDamageTower, "Lightning", "Cost: " + LightningTower.TOWER_COST), c);
 
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 1;
-        c.gridy = 0;
-        this.add(layoutTowerPanel(jtbBuildFireTower, "Fire Burst", "Cost: " + FireTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 2;
-        c.gridy = 0;
-        this.add(layoutTowerPanel(jtbBuildIceTower, "Thick Ice", "Cost: " + IceTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 0;
-        c.gridy = 1;
-        this.add(layoutTowerPanel(jtbBuildDenseLightningTower, "Dense L.", "Cost: " + DenseLightningTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 1;
-        c.gridy = 1;
-        this.add(layoutTowerPanel(jtbBuildPatchOfFireTower, "Patch of Fire", "Cost: " + PatchOfFireTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 2;
-        c.gridy = 1;
-        this.add(layoutTowerPanel(jtbBuildFreezeTower, "Freeze", "Cost: " + FreezeTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 0;
-        c.gridy = 2;
-        this.add(layoutTowerPanel(jtbBuildTeslaTower, "Tesla", "Cost: " + TeslaTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 1;
-        c.gridy = 2;
-        this.add(layoutTowerPanel(jtbBuildFireBombTower, "Fire Bomb", "Cost: " + FireBombTower.TOWER_COST), c);
-
-        c.ipadx = 15;
-        c.ipady = 15;
-        c.gridx = 2;
-        c.gridy = 2;
-        this.add(layoutTowerPanel(jtbBuildIcicleTower, "Icicle", "Cost: " + IcicleTower.TOWER_COST), c);
+        createTowers();
+        for (int i = 0; i < onScreenTowerButtons.size(); i++){
+            c.gridy = i % 3;
+            c.gridx = i / 3;
+            this.add(layoutTowerPanel(onScreenTowerButtons.get(i),  onScreenTowerButtons.get(i).getTowerClass().getSimpleName().substring(0, 8), "Cost: Lucas"), c);
+        }
     }
 
     /**
@@ -170,60 +127,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
      */
 
     public void createTowers() {
-
-        BufferedImage damageButtonImage = DriverView.getImage("DamageTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildDamageTower = new JToggleButton(new ImageIcon(damageButtonImage, "DamageTower.png"));
-        jtbBuildDamageTower.setName("DamageTower");
-        buildGroup.add(jtbBuildDamageTower);
-
-        BufferedImage AOEButtonImage = DriverView.getImage("FireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildFireTower = new JToggleButton(new ImageIcon(AOEButtonImage, "FireTower.png"));
-        jtbBuildFireTower.setName("FireTower");
-        buildGroup.add(jtbBuildFireTower);
-
-        BufferedImage slowButtonImage = DriverView.getImage("IceTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildIceTower = new JToggleButton(new ImageIcon(slowButtonImage, "IceTower.png"));
-        jtbBuildIceTower.setName("IceTower");
-        buildGroup.add(jtbBuildIceTower);
-
-        BufferedImage straightShotButtonImage = DriverView.getImage("DenseLightningTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildDenseLightningTower = new JToggleButton(new ImageIcon(straightShotButtonImage, "DenseLightningTower.png"));
-        jtbBuildDenseLightningTower.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", 40, 40)));
-        jtbBuildDenseLightningTower.setName("DenseLightningTower");
-        buildGroup.add(jtbBuildDenseLightningTower);
-
-        BufferedImage patchOfFireButtonImage = DriverView.getImage("PatchOfFireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildPatchOfFireTower = new JToggleButton(new ImageIcon(patchOfFireButtonImage, "PatchOfFireTower.png"));
-        jtbBuildPatchOfFireTower.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", 40, 40)));
-        jtbBuildPatchOfFireTower.setName("PatchOfFireTower");
-        buildGroup.add(jtbBuildPatchOfFireTower);
-
-        BufferedImage freezeButtonImage = DriverView.getImage("FreezeTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildFreezeTower = new JToggleButton(new ImageIcon(freezeButtonImage, "FreezeTower.png"));
-        jtbBuildFreezeTower.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", 40, 40)));
-        jtbBuildFreezeTower.setName("FreezeTower");
-        buildGroup.add(jtbBuildFreezeTower);
-
-        BufferedImage teslaButtonImage = DriverView.getImage("TeslaTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildTeslaTower = new JToggleButton(new ImageIcon(teslaButtonImage, "TeslaTower.png"));
-        jtbBuildTeslaTower.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", 40, 40)));
-        jtbBuildTeslaTower.setName("TeslaTower");
-        jtbBuildTeslaTower.setEnabled(false);
-        buildGroup.add(jtbBuildTeslaTower);
-
-        BufferedImage fireBombButtonImage = DriverView.getImage("FireBombTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildFireBombTower = new JToggleButton(new ImageIcon(fireBombButtonImage, "FireBombTower.png"));
-        jtbBuildFireBombTower.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", 40, 40)));
-        jtbBuildFireBombTower.setName("FireBombTower");
-        jtbBuildFireBombTower.setEnabled(false);
-        buildGroup.add(jtbBuildFireBombTower);
-
-        BufferedImage icicleButtonImage = DriverView.getImage("IcicleTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
-        jtbBuildIcicleTower = new JToggleButton(new ImageIcon(icicleButtonImage, "IcicleTower.png"));
-        jtbBuildIcicleTower.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", 40, 40)));
-        jtbBuildIcicleTower.setName("IcicleTower");
-        jtbBuildIcicleTower.setEnabled(false);
-        buildGroup.add(jtbBuildIcicleTower);
+        for(Class towerClass: towerTypes){
+            onScreenTowerButtons.add(new TowerBuyButton(towerClass, "", towerClass.getSimpleName() + ".png"));
+        }
     }
 
     /**
@@ -236,10 +142,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
      * @return JPanel
      */
 
-    public JPanel layoutTowerPanel(JToggleButton tower, String name, String cost) {
-
-        // Keep list of current tower buttons
-        this.onScreenTowerButtons.add(tower);
+    public JPanel layoutTowerPanel(TowerBuyButton tower, String name, String cost) {
 
         JPanel panel = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
@@ -297,77 +200,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
      */
 
     private void disableTowersButtons() {
-        if (model.getMoney() < LightningTower.TOWER_COST || !this.towerPanelEnabled) {
-            this.jtbBuildDamageTower.setEnabled(false);
-        } else {
-            this.jtbBuildDamageTower.setEnabled(true);
-        }
-
-        if (model.getMoney() < FireTower.TOWER_COST || !this.towerPanelEnabled) {
-            this.jtbBuildFireTower.setEnabled(false);
-        } else {
-            this.jtbBuildFireTower.setEnabled(true);
-        }
-
-        if (model.getMoney() < IceTower.TOWER_COST || !this.towerPanelEnabled) {
-            this.jtbBuildIceTower.setEnabled(false);
-        } else {
-            this.jtbBuildIceTower.setEnabled(true);
-        }
-
-        if (!DenseLightningTower.isTowerUnlocked() || !this.towerPanelEnabled) {
-            this.jtbBuildDenseLightningTower.setEnabled(false);
-        } else if (model.getMoney() < DenseLightningTower.TOWER_COST) {
-            this.jtbBuildDenseLightningTower.setDisabledIcon(null);
-            this.jtbBuildDenseLightningTower.setEnabled(false);
-        } else {
-            this.jtbBuildDenseLightningTower.setEnabled(true);
-        }
-
-        if (!PatchOfFireTower.isTowerUnlocked() || !this.towerPanelEnabled) {
-            this.jtbBuildPatchOfFireTower.setEnabled(false);
-        } else if (model.getMoney() < PatchOfFireTower.TOWER_COST) {
-            this.jtbBuildPatchOfFireTower.setDisabledIcon(null);
-            this.jtbBuildPatchOfFireTower.setEnabled(false);
-        } else {
-            this.jtbBuildPatchOfFireTower.setEnabled(true);
-        }
-
-        if (!FreezeTower.isTowerUnlocked() || !this.towerPanelEnabled) {
-            this.jtbBuildFreezeTower.setEnabled(false);
-        } else if (model.getMoney() < FreezeTower.TOWER_COST) {
-            this.jtbBuildFreezeTower.setDisabledIcon(null);
-            this.jtbBuildFreezeTower.setEnabled(false);
-        } else {
-            this.jtbBuildFreezeTower.setEnabled(true);
-        }
-
-        if (!TeslaTower.isTowerUnlocked() || !this.towerPanelEnabled) {
-            this.jtbBuildTeslaTower.setEnabled(false);
-        } else if (model.getMoney() < TeslaTower.TOWER_COST) {
-            this.jtbBuildTeslaTower.setDisabledIcon(null);
-            this.jtbBuildTeslaTower.setEnabled(false);
-        } else {
-            this.jtbBuildTeslaTower.setEnabled(true);
-        }
-
-        if (!FireBombTower.isTowerUnlocked() || !this.towerPanelEnabled) {
-            this.jtbBuildFireBombTower.setEnabled(false);
-        } else if (model.getMoney() < FireBombTower.TOWER_COST) {
-            this.jtbBuildFireBombTower.setDisabledIcon(null);
-            this.jtbBuildFireBombTower.setEnabled(false);
-        } else {
-            this.jtbBuildFireBombTower.setEnabled(true);
-        }
-
-        if (!IcicleTower.isTowerUnlocked() || !this.towerPanelEnabled) {
-            this.jtbBuildIcicleTower.setEnabled(false);
-        } else if (model.getMoney() < IcicleTower.TOWER_COST) {
-            this.jtbBuildIcicleTower.setDisabledIcon(null);
-            this.jtbBuildIcicleTower.setEnabled(false);
-        } else {
-            this.jtbBuildIcicleTower.setEnabled(true);
-        }
 
     }
 
@@ -443,7 +275,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
     }
 
-    public ArrayList<JToggleButton> getCurrentTowerButtons() {
+    public ArrayList<TowerBuyButton> getCurrentTowerButtons() {
         return this.onScreenTowerButtons;
     }
 }
