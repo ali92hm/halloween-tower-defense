@@ -16,6 +16,12 @@ public class MobTest {
     private Mob sut_LaughingPumpkinMob = new LaughingPumpkinMob(1, 1, new Position(0, 0));
     private Mob sut_LightningGolemMob = new LightningGolemMob(1, 1, new Position(0, 0));
     private Mob sut_LightningImmuneMob = new LightningImmuneMob(1, 1, new Position(0, 0));
+    private Mob sut_PumpkinMob = new PumpkinMob(1, 1, new Position(0, 0));
+    private Mob sut_SpeedyMob = new SpeedyMob(1, 1, new Position(0, 0));
+    private Mob sut_SpiderMob = new SpiderMob(1, 1, new Position(0, 0));
+    private Mob sut_TankMob = new TankMob(1, 1, new Position(0, 0));
+    private Mob sut_WitchMob = new WitchMob(1, 1, new Position(0, 0));
+    private Mob sut_ZombieMob = new ZombieMob(1, 1, new Position(0, 0));
 
     @Test
     public void givenBasicMob_WhenLevel1EasyDifficulty_ThenHealthBoost45() {
@@ -101,6 +107,51 @@ public class MobTest {
     public void givenMob_WhenVanished_ThenNotVisible() {
         sut_LightningImmuneMob.vanishMob();
         assertFalse(sut_LightningImmuneMob.isVisible());
+    }
+
+    @Test
+    public void givenMob_WhenActivated_ThenIsActive() {
+        sut_PumpkinMob.activate();
+        assertTrue(sut_PumpkinMob.isActive());
+    }
+
+    @Test
+    public void givenMob_WhenNotActivated_ThenNotActive() {
+        assertFalse(sut_LightningImmuneMob.isActive());
+    }
+
+    @Test
+    public void givenMob_WhenNotHitByIceBeam_ThenFalse() {
+        assertFalse(sut_SpeedyMob.isHitByIceBeam());
+    }
+
+    @Test
+    public void givenMob_WhenGetHashCode_ThenIDHashPlus31() {
+        assertEquals(sut_SpiderMob.hashCode(), sut_SpiderMob.getID().hashCode() + 31);
+    }
+
+    @Test
+    public void givenTankMob_WhenWitchMob_ThenNotEquals() {
+        assertFalse(sut_TankMob.equals(sut_WitchMob));
+    }
+
+    @Test
+    public void givenZombieMob_WhenBasicMobTraveledLess_ThenNegative1() {
+        sut_ZombieMob.traveledDistance();
+        assertEquals(sut_ZombieMob.compareTo(sut_BasicMob), -1);
+    }
+
+    @Test
+    public void givenZombieMob_WhenBasicMobTraveledSame_Then0() {
+        sut_ZombieMob.traveledDistance();
+        sut_BasicMob.traveledDistance();
+        assertEquals(sut_ZombieMob.compareTo(sut_BasicMob), 0);
+    }
+
+    @Test
+    public void givenZombieMob_WhenBasicMobTraveledMore_ThenPositive1() {
+        sut_BasicMob.traveledDistance();
+        assertEquals(sut_ZombieMob.compareTo(sut_BasicMob), 1);
     }
 
     /* How to test BufferedImage? */
