@@ -141,7 +141,8 @@ public abstract class Mob implements Comparable<Mob> {
 	 */
 	
 	public void setDirection(final char currentDirection) {
-		this.currentDirection = currentDirection;
+		if (currentDirection == 'u'  || currentDirection == 'd' || currentDirection == 'r' || currentDirection == 'l')
+			this.currentDirection = currentDirection;
 	}
 
 	public int getHealthBoost(final int level, final int levelHealthBoost, final int difficulty) {
