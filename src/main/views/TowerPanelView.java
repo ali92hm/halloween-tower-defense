@@ -1,33 +1,17 @@
 package main.views;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
-
 import main.models.DriverModel;
-import main.projectiles.DenseLightning;
 import main.towers.*;
 import main.utilities.TDButtonGroup;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ColorUIResource;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * the side panel view that contains
@@ -118,7 +102,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
         for (int i = 0; i < onScreenTowerButtons.size(); i++){
             c.gridy = i % 3;
             c.gridx = i / 3;
-            this.add(layoutTowerPanel(onScreenTowerButtons.get(i),  onScreenTowerButtons.get(i).getTowerClass().getSimpleName().substring(0, 8), "Cost: Lucas"), c);
+            this.add(layoutTowerPanel(onScreenTowerButtons.get(i),  onScreenTowerButtons.get(i).getTowerClass().getSimpleName(), "Cost: Lucas"), c);
         }
     }
 
@@ -128,7 +112,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
     public void createTowers() {
         for(Class towerClass: towerTypes){
-            onScreenTowerButtons.add(new TowerBuyButton(towerClass, "", towerClass.getSimpleName() + ".png"));
+            TowerBuyButton buttonToAdd = new TowerBuyButton(towerClass, "", towerClass.getSimpleName() + ".png");
+            onScreenTowerButtons.add(buttonToAdd);
+            buildGroup.add(buttonToAdd);
         }
     }
 
@@ -200,7 +186,8 @@ public class TowerPanelView extends JPanel implements ActionListener {
      */
 
     private void disableTowersButtons() {
-
+        for(TowerBuyButton b: onScreenTowerButtons)
+            b.setEnabled(true);
     }
 
     /**

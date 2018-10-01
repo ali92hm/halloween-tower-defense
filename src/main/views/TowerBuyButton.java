@@ -24,6 +24,7 @@ public class TowerBuyButton extends JToggleButton {
         this.description = description;
         this.iconPath = iconPath;
 
+        this.setName(towerType.getSimpleName());
         this.setIcon(new ImageIcon(DriverView.getImage(iconPath, ICON_SIZE, ICON_SIZE)));
     }
 
