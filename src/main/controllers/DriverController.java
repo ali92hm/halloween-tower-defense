@@ -284,7 +284,7 @@ public class DriverController {
 	
 			// Switch the tower
 			switch (view.getSidePanelView().getTowerView().getBuildButtonGroup().getSelectedButton().getName()) {
-			case "DamageTower":
+			case "LightningTower":
 				tower = new LightningTower(towerPosition, model);
 				break;
 			case "FireTower":
