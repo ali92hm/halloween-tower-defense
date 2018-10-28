@@ -24,3 +24,9 @@ ehthumbs.db
 Thumbs.db
 .idea/
 *.iml
+
+# Gradle things
+.gradle/
+gradle/
+gradlew
+gradlew.bat
