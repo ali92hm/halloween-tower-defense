@@ -1,44 +1,20 @@
 package controllers;
 
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
-
-import javax.swing.*;
-
-import projectiles.Projectile;
-
 import mapdata.Map1Data;
 import mobs.Mob;
 import models.DriverModel;
-import towers.DenseLightningTower;
-import towers.FireBombTower;
-import towers.FireTower;
-import towers.FreezeTower;
-import towers.IceTower;
-import towers.IcicleTower;
-import towers.LightningTower;
-import towers.PatchOfFireTower;
-import towers.TeslaTower;
-import towers.Tower;
+import projectiles.Projectile;
+import towers.*;
 import utilities.Position;
-
 import views.DriverView;
 import views.MapView;
 import views.TalentPointAlert;
 import views.TowerPanelView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Stores all the listeners for the driver view
