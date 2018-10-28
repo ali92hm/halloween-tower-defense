@@ -281,39 +281,13 @@ public class DriverController {
 			Position towerPosition = new Position(
 					view.getMapView().getMousePosition().getX() - (TowerPanelView.TOWER_ICON_WIDTH) / 2,
 					view.getMapView().getMousePosition().getY() - (TowerPanelView.TOWER_ICON_HEIGHT) / 2);
-	
-			// Switch the tower
-			switch (view.getSidePanelView().getTowerView().getBuildButtonGroup().getSelectedButton().getName()) {
-			case "LightningTower":
-				tower = new LightningTower(towerPosition, model);
-				break;
-			case "FireTower":
-				tower = new FireTower(towerPosition, model);
-				break;
-			case "IceTower":
-				tower = new IceTower(towerPosition, model);
-				break;
-			case "DenseLightningTower":
-				tower = new DenseLightningTower(towerPosition, model);
-				break;
-			case "PatchOfFireTower":
-				tower = new PatchOfFireTower(towerPosition, model);
-				break;
-			case "FreezeTower":
-				tower = new FreezeTower(towerPosition, model);
-				break;
-			case "TeslaTower":
-				tower = new TeslaTower(towerPosition, model);
-				break;
-			case "FireBombTower":
-				tower = new FireBombTower(towerPosition, model);
-				break;
-			case "IcicleTower":
-				tower = new IcicleTower(towerPosition, model);
-				break;
-			default:
-				return;
-			}
+
+            try {
+                tower = view.getSidePanelView().getTowerView().getBuildButtonGroup().getSelectedButton().getTowerClass().getConstructor(Position.class, DriverModel.class).newInstance(towerPosition, model);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
 	
 			tower.addActionListener(towerListener);
 			view.getMapView().addTower(tower);
