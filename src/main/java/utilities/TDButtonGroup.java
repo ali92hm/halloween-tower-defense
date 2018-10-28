@@ -1,5 +1,7 @@
 package utilities;
 
+import views.TowerBuyButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
@@ -30,11 +32,11 @@ public class TDButtonGroup extends ButtonGroup {
 	 * @return AbstractButton
 	 */
 	
-	public AbstractButton getSelectedButton() {
+	public TowerBuyButton getSelectedButton() {
 		Enumeration<AbstractButton> en = this.getElements();
 		while (en.hasMoreElements()) 
 		{
-			AbstractButton b = en.nextElement();
+			TowerBuyButton b = (TowerBuyButton) en.nextElement();
 			if(b.isSelected()){
 				return b;
 			}
