@@ -1,6 +1,8 @@
-package main.views;
+package views;
 
-import main.towers.Tower;
+
+
+import towers.Tower;
 
 import javax.swing.*;
 

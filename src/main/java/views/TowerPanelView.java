@@ -1,8 +1,8 @@
 package views;
 
-import main.models.DriverModel;
-import main.towers.*;
-import main.utilities.TDButtonGroup;
+import models.DriverModel;
+import towers.*;
+import utilities.TDButtonGroup;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,17 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import models.DriverModel;
-import towers.DenseLightningTower;
-import towers.FireBombTower;
-import towers.FireTower;
-import towers.FreezeTower;
-import towers.IceTower;
-import towers.IcicleTower;
-import towers.LightningTower;
-import towers.PatchOfFireTower;
-import towers.TeslaTower;
-import utilities.TDButtonGroup;
+
 
 /**
  * the side panel view that contains
