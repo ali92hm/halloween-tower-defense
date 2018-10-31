@@ -11,7 +11,6 @@ import mobs.LightningImmuneMob;
 import mobs.Mob;
 import mobs.SpeedyMob;
 import mobs.TankMob;
-import mobs.WitchMob;
 import models.DriverModel;
 
 
@@ -58,64 +57,48 @@ public class Map1Data extends MapData {
 	
 	public ArrayList<Mob> getMobs(final int level) {
 		Random random = new Random();
-		final ArrayList<Mob> mobs = new ArrayList<Mob>();
-		int mobCount = 0;
-		int mobLevel;
-		
-		if (level < 5) {
-			mobLevel = 10;
-		} else if (level < 10) {
-			mobLevel = 12;
-		} else if (level < 15) {
-			mobLevel = 16;
-		} else {
-			mobLevel = 17;
+		final ArrayList<Mob> mobs = new ArrayList<>();
+
+		int mobLevel = getMobLevel(level);
+		int mobCount = 6 + (level / 2);
+
+		while (mobs.size() < mobCount) {
+			int randomMobLevel = random.nextInt(mobLevel);
+			Mob mob;
+			Position startPos = new Position(X_START, Y_START);
+
+			if (randomMobLevel < 4)
+				mob = new BasicMob(level, difficulty, startPos);
+			else if (randomMobLevel < 7)
+				mob = new TankMob(level, difficulty, startPos);
+			else if (randomMobLevel < 10)
+				mob = new SpeedyMob(level, difficulty, startPos);
+			else if (randomMobLevel < 12)
+				mob = new FireImmuneMob(level, difficulty, startPos);
+			else if (randomMobLevel < 14)
+				mob = new LightningImmuneMob(level, difficulty, startPos);
+			else if (randomMobLevel < 16)
+				mob = new FrostImmuneMob(level, difficulty, startPos);
+			else
+				mob = new GiantPumpkinMob(level, difficulty, startPos);
+
+			mobs.add(mob);
 		}
-		
-		while (mobCount < (6 + (level / 2))) {
-			switch (random.nextInt(mobLevel)) {
-			case 0: mobs.add(new BasicMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 1: mobs.add(new BasicMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 2: mobs.add(new BasicMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 3: mobs.add(new BasicMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 4: mobs.add(new TankMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 5: mobs.add(new TankMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 6: mobs.add(new TankMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 7: mobs.add(new SpeedyMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 8: mobs.add(new SpeedyMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 9: mobs.add(new SpeedyMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 10: mobs.add(new FireImmuneMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 11: mobs.add(new FireImmuneMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 12: mobs.add(new LightningImmuneMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 13: mobs.add(new LightningImmuneMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 14: mobs.add(new FrostImmuneMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 15: mobs.add(new FrostImmuneMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 16: mobs.add(new GiantPumpkinMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			case 17: mobs.add(new WitchMob(level, difficulty, new Position(X_START, Y_START)));
-				break;
-			}
-			
-			mobCount++;
-		}
-		
 		return mobs;
+	}
+
+	public int getMobLevel(final int level) {
+	    int mobLevel = 0;
+
+		if (level < 5)
+			mobLevel = 10;
+		else if (level < 10)
+			mobLevel = 12;
+		else if (level < 15)
+			mobLevel = 16;
+		else
+			mobLevel = 17;
+		return mobLevel;
 	}
 
 	/**
@@ -124,7 +107,7 @@ public class Map1Data extends MapData {
 	 * 
 	 * @return position
 	 */
-	
+
 	public Position travelDistance(final Mob mob) {
 		double xCord = mob.getPosition().getXCord();
 		double yCord = mob.getPosition().getYCord();
