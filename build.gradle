@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'findbugs'
+    id 'pmd'
 }
 
 group 'edu.csc439.scrumgang'
