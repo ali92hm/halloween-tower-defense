@@ -39,7 +39,7 @@ public abstract class Mob implements Comparable<Mob> {
 	protected int maxHealth;
 	protected int health;
 	protected int mobDeathGold;
-	protected ArrayList<DamageTracker> damageTracker = new ArrayList<DamageTracker>();
+	protected ArrayList<DamageTracker> damageTracker = new ArrayList<>();
 	protected double speed;
 	protected double slowPotency;
 	protected double slowDuration;
