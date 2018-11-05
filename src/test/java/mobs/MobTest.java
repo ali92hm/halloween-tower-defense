@@ -1,13 +1,17 @@
 package mobs;
 
-import models.DriverModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import projectiles.ChainingDenseLightning;
+import projectiles.ChainLightning;
+import projectiles.FireBlast;
+import projectiles.IceBeam;
 import projectiles.Projectile;
 import utilities.Position;
 import org.junit.jupiter.api.Test;
+import views.DriverView;
+
+import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -29,13 +33,22 @@ public class MobTest {
     private Mob sut_ZombieMob;
 
     @Mock
-    private Projectile chainDenseLightning;
+    private Projectile projectile;
+
+    @Mock
+    private IceBeam iceMock;
+
+    @Mock
+    private FireBlast fireMock;
+
+    @Mock
+    private ChainLightning chainMock;
 
     @BeforeEach
     public void init() {
         sut_BasicMob = new BasicMob(1, 1, new Position(0, 0));
         sut_EvilPumpkinMob = new EvilPumpkinMob(3, 3, new Position(0, 0));
-        sut_FireImmuneMob = new FireImmuneMob(1, 3, new Position(0, 0));
+        sut_FireImmuneMob = new FireImmuneMob(1, 1, new Position(0, 0));
         sut_FrostImmuneMob = new FrostImmuneMob(1, 1, new Position(0, 0));
         sut_GiantPumpkinMob = new GiantPumpkinMob(1, 1, new Position(0, 0));
         sut_LaughingPumpkinMob = new LaughingPumpkinMob(1, 1, new Position(0, 0));
@@ -184,13 +197,164 @@ public class MobTest {
     }
 
     @Test
-    public void givenBasicMob_WhenHitByChainingDenseLightningAndIsLevel1AndDifficulty1_ThenHealth45() {
-        when(chainDenseLightning.getDamage()).thenReturn(200.0);
-        when(chainDenseLightning.getDamageDuration()).thenReturn(1.0);
+    public void givenBasicMob_WhenHitBy200DamageAndIsLevel1AndDifficulty1_ThenHealth45() {
+        when(projectile.getDamage()).thenReturn(200.0);
+        when(projectile.getDamageDuration()).thenReturn(1.0);
         sut_BasicMob.activate();
-        sut_BasicMob.mobHitBy(chainDenseLightning);
+        sut_BasicMob.mobHitBy(projectile);
         sut_BasicMob.mobDamageTick();
         assertEquals(45, sut_BasicMob.getHealth());
+    }
+
+    @Test
+    public void givenBasicMob_WhenHitByIceBeam_ThenIsHitByIceBeam() {
+        sut_BasicMob.activate();
+        sut_BasicMob.mobHitBy(iceMock);
+        assertTrue(sut_BasicMob.isHitByIceBeam());
+    }
+
+    @Test
+    public void givenFrostImmuneMob_WhenHitByIceBeam_ThenNotHitByIceBeam() {
+        when(iceMock.isIce()).thenReturn(true);
+        sut_FrostImmuneMob.activate();
+        sut_FrostImmuneMob.mobHitBy(iceMock);
+        assertFalse(sut_FrostImmuneMob.isHitByIceBeam());
+    }
+
+    @Test
+    public void givenFireImmuneMob_WhenHitByFireBlastAndLevel1Difficulty1_ThenHealth245() {
+        when(fireMock.isFire()).thenReturn(true);
+        sut_FireImmuneMob.activate();
+        sut_FireImmuneMob.mobHitBy(fireMock);
+        sut_FireImmuneMob.mobDamageTick();
+        assertEquals(245, sut_FireImmuneMob.getHealth());
+    }
+
+    @Test
+    public void givenLightningImmuneMob_WhenHitByLightningAndLevel1Difficulty1_ThenHealth115() {
+        when(chainMock.isLightning()).thenReturn(true);
+        sut_LightningImmuneMob.activate();
+        sut_LightningImmuneMob.mobHitBy(chainMock);
+        sut_LightningImmuneMob.mobDamageTick();
+        assertEquals(115, sut_LightningImmuneMob.getHealth());
+    }
+
+    @Test
+    public void givenFrostImmuneMobJustCreated_WhenGetImage_ThenMatches() {
+        BufferedImage img1 = DriverView.getImage("GhostMobR.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_FrostImmuneMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenFrostImmuneMobMovingLeft_WhenGetImage_ThenMatches() {
+        sut_FrostImmuneMob.movingLeft();
+        BufferedImage img1 = DriverView.getImage("GhostMob.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_FrostImmuneMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenFrostImmuneMobMovingRight_WhenGetImage_ThenMatches() {
+        sut_FrostImmuneMob.movingLeft();
+        sut_FrostImmuneMob.movingRight();
+        BufferedImage img1 = DriverView.getImage("GhostMobR.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_FrostImmuneMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenLightningGolemMobMovingLeft_WhenGetImage_ThenMatches() {
+        sut_LightningGolemMob.movingLeft();
+        BufferedImage img1 = DriverView.getImage("LightningGolemMob.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_LightningGolemMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenLightningGolemMobMovingRight_WhenGetImage_ThenMatches() {
+        sut_LightningGolemMob.movingLeft();
+        sut_LightningGolemMob.movingRight();
+        BufferedImage img1 = DriverView.getImage("LightningGolemMobR.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_LightningGolemMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenLightningImmuneMobMovingLeft_WhenGetImage_ThenMatches() {
+        sut_LightningImmuneMob.movingLeft();
+        BufferedImage img1 = DriverView.getImage("LightningGolemMob.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_LightningImmuneMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenLightningImmuneMobMovingRight_WhenGetImage_ThenMatches() {
+        sut_LightningImmuneMob.movingLeft();
+        sut_LightningImmuneMob.movingRight();
+        BufferedImage img1 = DriverView.getImage("LightningGolemMobR.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_LightningImmuneMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenSpeedyMobMovingLeft_WhenGetImage_ThenMatches() {
+        sut_SpeedyMob.movingLeft();
+        BufferedImage img1 = DriverView.getImage("Bat.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_SpeedyMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenSpeedyMobMovingRight_WhenGetImage_ThenMatches() {
+        sut_SpeedyMob.movingLeft();
+        sut_SpeedyMob.movingRight();
+        BufferedImage img1 = DriverView.getImage("BatR.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_SpeedyMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenTankMobMovingLeft_WhenGetImage_ThenMatches() {
+        sut_TankMob.movingLeft();
+        BufferedImage img1 = DriverView.getImage("ZombieMob.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_TankMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenTankMobMovingRight_WhenGetImage_ThenMatches() {
+        sut_TankMob.movingLeft();
+        sut_TankMob.movingRight();
+        BufferedImage img1 = DriverView.getImage("ZombieMobR.png", 50, 50);
+        for (int x = 0; x < img1.getWidth(); x++)
+            for (int y = 0; y < img1.getHeight(); y++)
+                assertEquals(img1.getRGB(x, y), sut_TankMob.getImage().getRGB(x, y));
+    }
+
+    @Test
+    public void givenWitchMob_WhenImmuneToLightning_ThenTrue() {
+        assertTrue(sut_WitchMob.immuneToLightning());
+    }
+
+    @Test
+    public void givenWitchMob_WhenImmuneToFire_ThenTrue() {
+        assertTrue(sut_WitchMob.immuneToFire());
+    }
+
+    @Test
+    public void givenWitchMob_WhenImmuneToIce_ThenTrue() {
+        assertTrue(sut_WitchMob.immuneToIce());
     }
 
 }
