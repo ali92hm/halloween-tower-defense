@@ -13,8 +13,8 @@ import utilities.Position;
  */
 
 public class TankMob extends Mob {
-	public static final String MOB_IMAGE_RIGHT = "ZombieMob.png";
-	public static final String MOB_IMAGE_LEFT = "ZombieMobR.png";
+	public static final String MOB_IMAGE_RIGHT = "ZombieMobR.png";
+	public static final String MOB_IMAGE_LEFT = "ZombieMob.png";
 	public static final int MOB_WIDTH = 50;
 	public static final int MOB_HEIGHT = 50;
 	public static final int HEALTH = 400;
