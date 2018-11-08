@@ -25,3 +25,7 @@ tasks.withType(FindBugs) {
         html.enabled = true
     }
 }
+
+test {
+    useJUnitPlatform()
+}
