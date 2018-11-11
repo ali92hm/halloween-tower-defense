@@ -6,6 +6,8 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public class DenseLightningTowerFactory implements TowerFactory<DenseLightningTower> {
+    private TowerBuyButton buyButton = new TowerBuyButton("Bolt Tower", "", "DenseLightningTower.png");
+
     @Override
     public DenseLightningTower create(Position pos, DriverModel driver) {
         return new DenseLightningTower(pos, driver);
@@ -13,7 +15,7 @@ public class DenseLightningTowerFactory implements TowerFactory<DenseLightningTo
 
     @Override
     public TowerBuyButton getBuyButton() {
-        return new TowerBuyButton("Bolt Tower", "", "DenseLightningTower.png");
+        return buyButton;
     }
 
     @Override

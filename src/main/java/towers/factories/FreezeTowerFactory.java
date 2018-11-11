@@ -6,6 +6,8 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public class FreezeTowerFactory implements TowerFactory<FreezeTower> {
+    private TowerBuyButton buyButton = new TowerBuyButton("Freeze Tower", "", "FreezeTower.png");
+
     @Override
     public FreezeTower create(Position pos, DriverModel driver) {
         return new FreezeTower(pos, driver);
@@ -13,7 +15,7 @@ public class FreezeTowerFactory implements TowerFactory<FreezeTower> {
 
     @Override
     public TowerBuyButton getBuyButton() {
-        return new TowerBuyButton("Freeze Tower", "", "FreezeTower.png");
+        return this.buyButton;
     }
 
     @Override

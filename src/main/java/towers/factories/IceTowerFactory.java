@@ -7,6 +7,8 @@ import views.TowerBuyButton;
 
 public class IceTowerFactory implements TowerFactory<IceTower> {
 
+    private TowerBuyButton buyButton = new TowerBuyButton("Ice Tower", "", "IceTower.png");
+
     @Override
     public IceTower create(Position pos, DriverModel driver) {
         return new IceTower(pos, driver);
@@ -14,7 +16,7 @@ public class IceTowerFactory implements TowerFactory<IceTower> {
 
     @Override
     public TowerBuyButton getBuyButton() {
-        return new TowerBuyButton("Ice Tower", "", "IceTower.png");
+        return this.buyButton;
     }
 
     @Override

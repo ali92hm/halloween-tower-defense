@@ -6,6 +6,8 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public class TeslaTowerFactory implements TowerFactory<TeslaTower> {
+    private TowerBuyButton buyButton = new TowerBuyButton("Tesla Tower", "", "TeslaTower.png");;
+
     @Override
     public TeslaTower create(Position pos, DriverModel driver) {
         return new TeslaTower(pos, driver);
@@ -13,7 +15,7 @@ public class TeslaTowerFactory implements TowerFactory<TeslaTower> {
 
     @Override
     public TowerBuyButton getBuyButton() {
-        return new TowerBuyButton("Tesla Tower", "", "TeslaTower.png");
+        return this.buyButton;
     }
 
     @Override

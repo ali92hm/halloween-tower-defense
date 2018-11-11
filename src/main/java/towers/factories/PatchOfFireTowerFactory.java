@@ -6,6 +6,8 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public class PatchOfFireTowerFactory implements TowerFactory<PatchOfFireTower> {
+    private TowerBuyButton buyButton = new TowerBuyButton("Fire Patch Tower", "", "PatchOfFireTower.png");;
+
     @Override
     public PatchOfFireTower create(Position pos, DriverModel driver) {
         return new PatchOfFireTower(pos, driver);
@@ -13,7 +15,7 @@ public class PatchOfFireTowerFactory implements TowerFactory<PatchOfFireTower> {
 
     @Override
     public TowerBuyButton getBuyButton() {
-        return new TowerBuyButton("Fire Patch Tower", "", "PatchOfFireTower.png");
+        return this.buyButton;
     }
 
     @Override
