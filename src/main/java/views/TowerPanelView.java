@@ -1,7 +1,10 @@
 package views;
 
 import models.DriverModel;
-import towers.*;
+import towers.Tower;
+import towers.factories.*;
+import towers.implementations.*;
+import utilities.Position;
 import utilities.TDButtonGroup;
 
 import javax.swing.*;
@@ -37,18 +40,17 @@ public class TowerPanelView extends JPanel implements ActionListener {
     private TowerBuyButton jtbBuildFireBombTower;
     private TowerBuyButton jtbBuildIcicleTower;
     private TDButtonGroup buildGroup = new TDButtonGroup();
-    private ArrayList<TowerBuyButton> onScreenTowerButtons = new ArrayList<>();
     private boolean towerPanelEnabled = false;
-    private static ArrayList<Class<? extends Tower>> towerTypes = new ArrayList<Class<? extends Tower>>(Arrays.asList(
-            LightningTower.class,
-            FireTower.class,
-            IceTower.class,
-            DenseLightningTower.class,
-            PatchOfFireTower.class,
-            FreezeTower.class,
-            TeslaTower.class,
-            FireBombTower.class,
-            IcicleTower.class
+    private static ArrayList<TowerFactory> towerFactories = new ArrayList<>(Arrays.asList(
+            new DenseLightningTowerFactory(),
+            new FireBombTowerFactory(),
+            new FireTowerFactory(),
+            new FreezeTowerFactory(),
+            new IceTowerFactory(),
+            new IcicleTowerFactory(),
+            new LightningTowerFactory(),
+            new PatchOfFireTowerFactory(),
+            new TeslaTowerFactory()
     ));
 
     /**
@@ -99,41 +101,25 @@ public class TowerPanelView extends JPanel implements ActionListener {
         c.ipadx = 15;
         c.ipady = 15;
 
-        createTowers();
-        for (int i = 0; i < onScreenTowerButtons.size(); i++){
+        for (int i = 0; i < towerFactories.size(); i++) {
             c.gridy = i % 3;
             c.gridx = i / 3;
-            this.add(layoutTowerPanel(onScreenTowerButtons.get(i),  onScreenTowerButtons.get(i).getTowerClass().getSimpleName(), "Cost: Lucas"), c);
-        }
-    }
-
-    /**
-     * sets up each tower button
-     */
-
-    public void createTowers() {
-        for(Class towerClass: towerTypes){
-            TowerBuyButton buttonToAdd = new TowerBuyButton(towerClass, "", towerClass.getSimpleName() + ".png");
-            onScreenTowerButtons.add(buttonToAdd);
-            buildGroup.add(buttonToAdd);
+            this.add(layoutTowerPanel(towerFactories.get(i)), c);
         }
     }
 
     /**
      * sets up each tower with its labels
      * for the name and cost
-     *
-     * @param tower
-     * @param name
-     * @param cost
-     * @return JPanel
      */
 
-    public JPanel layoutTowerPanel(TowerBuyButton tower, String name, String cost) {
+    public JPanel layoutTowerPanel(TowerFactory factory) {
+
+        TowerBuyButton buyButton = factory.getBuyButton();
 
         JPanel panel = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
-        JLabel towerName = new JLabel(name);
+        JLabel towerName = new JLabel(buyButton.getName());
         JLabel towerLabel = new JLabel("Tower");
         towerName.setFont(new Font("Serif", Font.BOLD, 10));
         towerLabel.setFont(new Font("Serif", Font.BOLD, 10));
@@ -141,13 +127,14 @@ public class TowerPanelView extends JPanel implements ActionListener {
         towerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         labelPanel.add(towerName);
         labelPanel.add(towerLabel);
-        JLabel towerCost = new JLabel(cost);
+        JLabel towerCost = new JLabel(factory.getPrice() + "g");
         towerCost.setFont(new Font("Serif", Font.BOLD, 10));
 
         panel.add(labelPanel, BorderLayout.NORTH);
-        panel.add(tower, BorderLayout.CENTER);
+        panel.add(buyButton, BorderLayout.CENTER);
         panel.add(towerCost, BorderLayout.SOUTH);
 
+        buildGroup.add(buyButton);
         return panel;
     }
 
@@ -187,8 +174,8 @@ public class TowerPanelView extends JPanel implements ActionListener {
      */
 
     private void disableTowersButtons() {
-        for(TowerBuyButton b: onScreenTowerButtons)
-            b.setEnabled(true);
+        for (TowerFactory factory : towerFactories)
+            factory.getBuyButton().setEnabled(true);
     }
 
     /**
@@ -263,7 +250,19 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
     }
 
-    public ArrayList<TowerBuyButton> getCurrentTowerButtons() {
-        return this.onScreenTowerButtons;
+    public Tower createSelectedTower(Position position, DriverModel driver) {
+        TowerBuyButton buyButton = buildGroup.getSelectedButton();
+        TowerFactory towerFactory = null;
+        int i = 0;
+        while(towerFactory == null &&  i < towerFactories.size()){
+            TowerFactory current = towerFactories.get(i);
+
+            if (current.getBuyButton() == buyButton)
+                towerFactory = current;
+
+            i++;
+        }
+
+        return towerFactory.create(position, driver);
     }
 }
