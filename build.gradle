@@ -11,9 +11,24 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+
 }
 
 dependencies {
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.1'
-    testCompile "org.mockito:mockito-core:2.+"
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.3.1")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.1")
+    testCompile 'org.mockito:mockito-core:2.+'
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+test {
+    useJUnitPlatform()
+    type: test-results-store
+    path: /tmp/test-results
 }
