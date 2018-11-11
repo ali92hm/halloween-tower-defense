@@ -15,15 +15,15 @@ import javax.swing.JPanel;
 
 import projectiles.Projectile;
 
-import towers.DenseLightningTower;
-import towers.FireBombTower;
-import towers.FireTower;
-import towers.FreezeTower;
-import towers.IceTower;
-import towers.IcicleTower;
-import towers.LightningTower;
-import towers.PatchOfFireTower;
-import towers.TeslaTower;
+import towers.implementations.DenseLightningTower;
+import towers.implementations.FireBombTower;
+import towers.implementations.FireTower;
+import towers.implementations.FreezeTower;
+import towers.implementations.IceTower;
+import towers.implementations.IcicleTower;
+import towers.implementations.LightningTower;
+import towers.implementations.PatchOfFireTower;
+import towers.implementations.TeslaTower;
 import towers.Tower;
 import utilities.Position;
 import utilities.TDButton;

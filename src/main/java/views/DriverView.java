@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import models.DriverModel;
+import towers.Tower;
 
 /**
  * Driver for all of the view. The driver view itself extends JFrame and is the main panel for our game.
@@ -608,5 +609,4 @@ public class DriverView extends JFrame implements ActionListener {
 			this.mapView.repaint();
 		}
 	}
-
 }

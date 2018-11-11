@@ -6,6 +6,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 import models.DriverModel;
+import towers.Tower;
 
 /**
  * Contains all the components 
