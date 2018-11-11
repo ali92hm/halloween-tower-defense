@@ -29,4 +29,6 @@ tasks.withType(FindBugs) {
 
 test {
     useJUnitPlatform()
+    type: test-results-store
+    path: /tmp/test-results
 }
