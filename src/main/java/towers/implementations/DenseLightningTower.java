@@ -1,10 +1,11 @@
-package towers;
+package towers.implementations;
 
 import mobs.Mob;
 import models.DriverModel;
-import projectiles.IceBeam;
+import projectiles.ChainingDenseLightning;
+import projectiles.DenseLightning;
 import projectiles.Projectile;
-import projectiles.ThunderBolt;
+import towers.Tower;
 import utilities.Position;
 import utilities.Vector;
 import views.Alert;
@@ -12,59 +13,77 @@ import views.DriverView;
 
 /**
  * Creates a tower that shoots a projectile
- * that slows a mob down
+ * that goes through multiple targets
  *
  * @author Scorpion
  */
 
-public class IceTower extends Tower {
-    public static final String TOWER_BASE_IMAGE = "IceTower.png";
+public class DenseLightningTower extends Tower {
+    public static final String TOWER_BASE_IMAGE = "DenseLightningTower.png";
     public static final String TOWER_TURRET_IMAGE = null;
-    public static final int TOWER_RANGE = 180;
-    public static final int TOWER_FIRE_RATE = 1;
-    public static final int TOWER_COST = 350;
-    public static final int NUMBER_MOBS_CAN_ATTACK = 2;
+    public static final int TOWER_RANGE = 130;
+    public static final int TOWER_FIRE_RATE = 1000;
+    public static final int TOWER_COST = 600;
     private static final long serialVersionUID = 1L;
-    private static boolean clickedTowerBefore = true;
+    private static boolean towerUnlocked = false;
+    private static boolean clickedTowerBefore = false;
 
     /**
-     * Constructor for the IceTower
+     * Constructor for the DenseLightningTower
      *
      * @param location
      * @param model
      */
 
-    public IceTower(final Position location, final DriverModel model) {
+    public DenseLightningTower(final Position location, final DriverModel model) {
         super(location, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
-        this.range = (int) (TOWER_RANGE);
-        this.fireRate = (int) (TOWER_FIRE_RATE);
+        this.range = TOWER_RANGE;
+        this.fireRate = TOWER_FIRE_RATE;
         this.cost = TOWER_COST;
 
-        this.path1UpgradeName = "Slow Mob";
+        this.path1UpgradeName = "Damage";
         this.path1UpgradeIcon = "Damage Icon.png";
         this.path1UpgradeLevel = 0;
         this.path1UpgradeCosts = new int[3];
-        this.path1UpgradeCosts[0] = 200;
-        this.path1UpgradeCosts[1] = 800;
-        this.path1UpgradeCosts[2] = 1600;
+        this.path1UpgradeCosts[0] = 700;
+        this.path1UpgradeCosts[1] = 2100;
+        this.path1UpgradeCosts[2] = 4650;
 
         this.path2UpgradeName = "Targets";
         this.path2UpgradeIcon = "Count Icon.jpeg";
         this.path2UpgradeLevel = 0;
         this.path2UpgradeCosts = new int[3];
-        this.path2UpgradeCosts[0] = 500;
+        this.path2UpgradeCosts[0] = 550;
         this.path2UpgradeCosts[1] = 1150;
-        this.path2UpgradeCosts[2] = 2400;
+        this.path2UpgradeCosts[2] = 3100;
 
         this.path3UpgradeName = "Range";
         this.path3UpgradeIcon = "Range Icon.png";
         this.path3UpgradeLevel = 0;
         this.path3UpgradeCosts = new int[3];
-        this.path3UpgradeCosts[0] = 400;
-        this.path3UpgradeCosts[1] = 800;
-        this.path3UpgradeCosts[2] = 1600;
+        this.path3UpgradeCosts[0] = 700;
+        this.path3UpgradeCosts[1] = 1150;
+        this.path3UpgradeCosts[2] = 1900;
 
         model.towerBuyUpgradeMoney(this.cost);
+    }
+
+    /**
+     * unlocks the tower
+     */
+
+    public static void unlockTower() {
+        towerUnlocked = true;
+    }
+
+    /**
+     * returns whether the tower is unlocked
+     *
+     * @return boolean
+     */
+
+    public static boolean isTowerUnlocked() {
+        return towerUnlocked;
     }
 
     /**
@@ -79,10 +98,11 @@ public class IceTower extends Tower {
             return true;
         }
         new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
-                "Thick Ice Tower",
-                "This tower shoots several",
-                "beams of ice slowing all",
-                "affected main.controllers.mobs.");
+                "Dense Lightning Tower",
+                "This tower shoots a single",
+                "bolt of lightning which goes",
+                "through multiple targets damaging",
+                "each target it hits.");
         clickedTowerBefore = true;
         return false;
     }
@@ -96,49 +116,27 @@ public class IceTower extends Tower {
      */
 
     public Projectile[] attackMob(final DriverModel model) {
-        Projectile[] projectiles = new Projectile[5];
-        this.attackingMob = new Mob[5];
+        Projectile[] projectiles = new Projectile[1];
+        this.attackingMob = new Mob[1];
+        this.chainingMobs = new Mob[1];
         if (this.reloadProgress > 30) {
             this.reloadProgress -= 30;
             return projectiles;
         }
 
-        this.attackingMob[0] = null;
-        this.attackingMob[1] = null;
-        this.attackingMob[2] = null;
-        this.attackingMob[3] = null;
-        this.attackingMob[4] = null;
+        this.mobTravelDistance = 0;
         for (Mob mob : model.allMobs()) {
-            if (this.position.getDistance(mob.getPosition()) < (this.range + (45 *
-                    this.path3UpgradeLevel) * rangeBoost) + mob.getRadius() && !mob.isHitByIceBeam()) {
-                if (this.attackingMob[0] == null) {
-                    this.attackingMob[0] = mob;
-                } else if (this.attackingMob[1] == null) {
-                    this.attackingMob[1] = mob;
-                } else if (this.attackingMob[2] == null) {
-                    this.attackingMob[2] = mob;
-                } else if (this.attackingMob[3] == null) {
-                    this.attackingMob[3] = mob;
-                } else if (this.attackingMob[4] == null) {
-                    this.attackingMob[4] = mob;
-                }
+            if (this.position.getDistance(mob.getPosition()) < ((this.range + (40 *
+                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius()) {
+                this.attackingMob[0] = mob;
+                break;
             }
         }
-        if (this.attackingMob[0] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 0) {
-            projectiles[0] = this.shootMob(this.attackingMob[0], model);
+
+        if (this.attackingMob[0] != null) {
+            projectiles[0] = this.shootMob(model);
         }
-        if (this.attackingMob[1] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 1) {
-            projectiles[1] = this.shootMob(this.attackingMob[1], model);
-        }
-        if (this.attackingMob[2] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 2) {
-            projectiles[2] = this.shootMob(this.attackingMob[2], model);
-        }
-        if (this.attackingMob[3] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 3) {
-            projectiles[3] = this.shootMob(this.attackingMob[3], model);
-        }
-        if (this.attackingMob[4] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 4) {
-            projectiles[4] = this.shootMob(this.attackingMob[4], model);
-        }
+
         return projectiles;
     }
 
@@ -150,30 +148,39 @@ public class IceTower extends Tower {
      * @return
      */
 
-    public Projectile shootMob(final Mob currentAttackingMob, final DriverModel model) {
-        Vector vector = new Vector(this.position, currentAttackingMob.getPosition(), ThunderBolt.PROJECTILE_SPEED);
+    public Projectile shootMob(final DriverModel model) {
+        Vector vector = new Vector(this.position, this.attackingMob[0].getPosition(), DenseLightning.PROJECTILE_SPEED);
 
         double xComp = 0;
         double yComp = 0;
 
-        switch (currentAttackingMob.getDirection()) {
+        switch (this.attackingMob[0].getDirection()) {
             case 'u':
-                yComp = (-1) * currentAttackingMob.getSpeed();
+                yComp = (-1) * this.attackingMob[0].getSpeed();
                 break;
             case 'r':
-                xComp = currentAttackingMob.getSpeed();
+                xComp = this.attackingMob[0].getSpeed();
                 break;
             case 'd':
-                yComp = currentAttackingMob.getSpeed();
+                yComp = this.attackingMob[0].getSpeed();
                 break;
             case 'l':
-                xComp = (-1) * currentAttackingMob.getSpeed();
+                xComp = (-1) * this.attackingMob[0].getSpeed();
                 break;
         }
 
         Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
         this.reloadProgress = (int) (this.fireRate * fireRateBoost);
-        return new IceBeam(model, this.position, currentAttackingMob, trajectory, this.path1UpgradeLevel, this.path3UpgradeLevel);
+        if (this.towerTurretImage != null) {
+            this.towerTurretImage = DriverView.rotateImage(towerTurretImage, trajectory.getAngle());
+        }
+
+        if (chainLightning) {
+            return new ChainingDenseLightning(model, this.position, trajectory, this.attackingMob[0],
+                    this.path3UpgradeLevel, this.path2UpgradeLevel);
+        }
+        return new DenseLightning(model, this.position, trajectory, this.path3UpgradeLevel,
+                this.path2UpgradeLevel, this.path1UpgradeLevel);
     }
 
     /**
@@ -194,7 +201,8 @@ public class IceTower extends Tower {
      */
 
     public int path1CurrentValue() {
-        return (int) IceBeam.getSlowPotencyLevelBoost(this.path1UpgradeLevel);
+        return (Tower.getChainLightningUpgrade() ? ChainingDenseLightning.getDamageLevelBoost(this.path1UpgradeLevel) :
+                DenseLightning.getDamageLevelBoost(this.path1UpgradeLevel));
     }
 
     /**
@@ -205,7 +213,7 @@ public class IceTower extends Tower {
      */
 
     public int path2CurrentValue() {
-        return NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel;
+        return DenseLightning.getTargetCountLevelBoost(this.path2UpgradeLevel);
     }
 
     /**
@@ -216,7 +224,7 @@ public class IceTower extends Tower {
      */
 
     public int path3CurrentValue() {
-        return (int) (this.range + (45 * this.path3UpgradeLevel) * rangeBoost);
+        return (int) ((this.range + (40 * this.path3UpgradeLevel)) * rangeBoost);
     }
 
     /**
@@ -229,7 +237,8 @@ public class IceTower extends Tower {
 
     public int path1UpgradeValue() {
         return this.path1UpgradeLevel == 3 ? -1 :
-                (int) IceBeam.getSlowPotencyLevelBoost(this.path1UpgradeLevel + 1);
+                (Tower.getChainLightningUpgrade() ? ChainingDenseLightning.getDamageLevelBoost(this.path1UpgradeLevel + 1) :
+                        DenseLightning.getDamageLevelBoost(this.path1UpgradeLevel + 1));
     }
 
     /**
@@ -242,7 +251,7 @@ public class IceTower extends Tower {
 
     public int path2UpgradeValue() {
         return this.path2UpgradeLevel == 3 ? -1 :
-                (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel + 1);
+                DenseLightning.getTargetCountLevelBoost(this.path2UpgradeLevel + 1);
     }
 
     /**
@@ -255,7 +264,7 @@ public class IceTower extends Tower {
 
     public int path3UpgradeValue() {
         return this.path3UpgradeLevel == 3 ? -1 :
-                (int) (this.range + (45 * (this.path3UpgradeLevel + 1)) * rangeBoost);
+                (int) ((this.range + (40 * (this.path3UpgradeLevel + 1))) * rangeBoost);
     }
 
     /**
@@ -305,5 +314,4 @@ public class IceTower extends Tower {
             this.path3UpgradeLevel++;
         }
     }
-
 }

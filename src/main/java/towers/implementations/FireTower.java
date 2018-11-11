@@ -1,86 +1,70 @@
-package towers;
+package towers.implementations;
 
 import mobs.Mob;
 import models.DriverModel;
-import projectiles.PatchOfFire;
 import projectiles.Projectile;
+import projectiles.RingOfFire;
+import towers.Tower;
 import utilities.Position;
-import utilities.Vector;
 import views.Alert;
 import views.DriverView;
 
 /**
  * Creates a tower that shoots a projectile
- * that hits a target leaving a pit of fire
+ * that blasts the area with fire effecting
+ * all main.controllers.mobs around it
  *
  * @author Scorpion
  */
 
-public class PatchOfFireTower extends Tower {
-    public static final String TOWER_BASE_IMAGE = "PatchOfFireTower.png";
+public class FireTower extends Tower {
+
     public static final String TOWER_TURRET_IMAGE = null;
-    public static final int TOWER_RANGE = 100;
-    public static final int TOWER_FIRE_RATE = 2500;
-    public static final int TOWER_COST = 750;
+    public static final int TOWER_RANGE = 75;
+    public static final int TOWER_FIRE_RATE = 800;
+    public static final int TOWER_COST = 300;
+    private static final String TOWER_BASE_IMAGE = "FireTower.png";
     private static final long serialVersionUID = 1L;
-    private static boolean towerUnlocked = false;
-    private static boolean clickedTowerBefore = false;
+    private static boolean clickedTowerBefore = true;
 
     /**
-     * Constructor for the PatchOfFireTower
+     * Constructor for the FireTower
      *
      * @param location
      * @param model
      */
 
-    public PatchOfFireTower(final Position location, final DriverModel model) {
-        super(location, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
-        this.range = TOWER_RANGE;
-        this.fireRate = TOWER_FIRE_RATE;
+    public FireTower(final Position position, final DriverModel model) {
+        super(position, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
+        this.range = (int) (TOWER_RANGE);
+        this.fireRate = (int) (TOWER_FIRE_RATE);
         this.cost = TOWER_COST;
+
         this.path1UpgradeName = "Damage";
         this.path1UpgradeIcon = "Damage Icon.png";
         this.path1UpgradeLevel = 0;
         this.path1UpgradeCosts = new int[3];
-        this.path1UpgradeCosts[0] = 850;
-        this.path1UpgradeCosts[1] = 1750;
-        this.path1UpgradeCosts[2] = 4800;
+        this.path1UpgradeCosts[0] = 350;
+        this.path1UpgradeCosts[1] = 850;
+        this.path1UpgradeCosts[2] = 1750;
 
-        this.path2UpgradeName = "Range";
-        this.path2UpgradeIcon = "Range Icon.png";
+        this.path2UpgradeName = "Fire Rate";
+        this.path2UpgradeIcon = "Fire Rate Icon.jpg";
         this.path2UpgradeLevel = 0;
         this.path2UpgradeCosts = new int[3];
-        this.path2UpgradeCosts[0] = 500;
-        this.path2UpgradeCosts[1] = 850;
-        this.path2UpgradeCosts[2] = 1500;
+        this.path2UpgradeCosts[0] = 350;
+        this.path2UpgradeCosts[1] = 750;
+        this.path2UpgradeCosts[2] = 1800;
 
-        this.path3UpgradeName = "Duration";
-        this.path3UpgradeIcon = "Duration Icon.png";
+        this.path3UpgradeName = "Range";
+        this.path3UpgradeIcon = "Range Icon.png";
         this.path3UpgradeLevel = 0;
         this.path3UpgradeCosts = new int[3];
-        this.path3UpgradeCosts[0] = 750;
-        this.path3UpgradeCosts[1] = 1500;
-        this.path3UpgradeCosts[2] = 3700;
+        this.path3UpgradeCosts[0] = 400;
+        this.path3UpgradeCosts[1] = 950;
+        this.path3UpgradeCosts[2] = 2200;
 
         model.towerBuyUpgradeMoney(this.cost);
-    }
-
-    /**
-     * unlocks the tower
-     */
-
-    public static void unlockTower() {
-        towerUnlocked = true;
-    }
-
-    /**
-     * returns whether the tower is unlocked
-     *
-     * @return boolean
-     */
-
-    public static boolean isTowerUnlocked() {
-        return towerUnlocked;
     }
 
     /**
@@ -95,11 +79,10 @@ public class PatchOfFireTower extends Tower {
             return true;
         }
         new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
-                "Patch of Fire Tower",
-                "This tower shoots a single",
-                "round that sets a fire on the",
-                "track damaging any mob that",
-                "crosses it.");
+                "Fire Burst Tower",
+                "This tower blasts the area",
+                "with fire burning all main.controllers.mobs",
+                "around it.");
         clickedTowerBefore = true;
         return false;
     }
@@ -112,67 +95,26 @@ public class PatchOfFireTower extends Tower {
      * @return Projectile[]
      */
 
-    public Projectile[] attackMob(final DriverModel model) {
+    public Projectile[] attackMob(DriverModel model) {
         Projectile[] projectiles = new Projectile[1];
-        this.attackingMob = new Mob[1];
-        this.chainingMobs = new Mob[1];
         if (this.reloadProgress > 30) {
             this.reloadProgress -= 30;
             return projectiles;
         }
 
         this.mobTravelDistance = 0;
+
+        this.reloadProgress = (int) (((this.fireRate) - (200 * this.path2UpgradeLevel)) * fireRateBoost);
+
         for (Mob mob : model.allMobs()) {
-            if (this.position.getDistance(mob.getPosition()) < ((this.range + (10 *
-                    this.path2UpgradeLevel)) * rangeBoost) + mob.getRadius()) {
-                this.attackingMob[0] = mob;
-                break;
+            if (this.position.getDistance(mob.getPosition()) < (((this.range + (25 *
+                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius())) {
+                if (mob.getDistanceTraveled() > this.mobTravelDistance) {
+                    projectiles[0] = new RingOfFire(model, this.position, null, this.path3UpgradeLevel, this.path1UpgradeLevel);
+                }
             }
         }
-
-        if (this.attackingMob[0] != null) {
-            projectiles[0] = this.shootMob(model);
-        }
-
         return projectiles;
-    }
-
-    /**
-     * has the tower actually create and release
-     * a projectile
-     *
-     * @param model
-     * @return
-     */
-
-    public Projectile shootMob(final DriverModel model) {
-        Vector vector = new Vector(this.position, this.attackingMob[0].getPosition(), PatchOfFire.PROJECTILE_SPEED);
-
-        double xComp = 0;
-        double yComp = 0;
-
-        switch (this.attackingMob[0].getDirection()) {
-            case 'u':
-                yComp = (-1) * this.attackingMob[0].getSpeed();
-                break;
-            case 'r':
-                xComp = this.attackingMob[0].getSpeed();
-                break;
-            case 'd':
-                yComp = this.attackingMob[0].getSpeed();
-                break;
-            case 'l':
-                xComp = (-1) * this.attackingMob[0].getSpeed();
-                break;
-        }
-
-        Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
-        this.reloadProgress = (int) (this.fireRate * fireRateBoost);
-        if (this.towerTurretImage != null) {
-            this.towerTurretImage = DriverView.rotateImage(towerTurretImage, trajectory.getAngle());
-        }
-
-        return new PatchOfFire(model, this.position, trajectory, this.path3UpgradeLevel, this.path1UpgradeLevel);
     }
 
     /**
@@ -182,7 +124,7 @@ public class PatchOfFireTower extends Tower {
      */
 
     public int getRange() {
-        return path2CurrentValue();
+        return path3CurrentValue();
     }
 
     /**
@@ -193,7 +135,7 @@ public class PatchOfFireTower extends Tower {
      */
 
     public int path1CurrentValue() {
-        return PatchOfFire.getDamageLevelBoost(this.path1UpgradeLevel);
+        return RingOfFire.getDamageLevelBoost(this.path1UpgradeLevel);
     }
 
     /**
@@ -204,7 +146,7 @@ public class PatchOfFireTower extends Tower {
      */
 
     public int path2CurrentValue() {
-        return (int) ((this.range + (10 * this.path2UpgradeLevel)) * rangeBoost);
+        return (int) (60000 / ((this.fireRate) - (200 * this.path2UpgradeLevel)) * fireRateBoost);
     }
 
     /**
@@ -215,7 +157,7 @@ public class PatchOfFireTower extends Tower {
      */
 
     public int path3CurrentValue() {
-        return (int) ((PatchOfFire.getDurationLevelBoost(this.path3UpgradeLevel)) * rangeBoost);
+        return (int) ((this.range + (25 * this.path3UpgradeLevel)) * rangeBoost);
     }
 
     /**
@@ -228,7 +170,7 @@ public class PatchOfFireTower extends Tower {
 
     public int path1UpgradeValue() {
         return this.path1UpgradeLevel == 3 ? -1 :
-                PatchOfFire.getDamageLevelBoost(this.path1UpgradeLevel + 1);
+                RingOfFire.getDamageLevelBoost(this.path1UpgradeLevel + 1);
     }
 
     /**
@@ -241,7 +183,7 @@ public class PatchOfFireTower extends Tower {
 
     public int path2UpgradeValue() {
         return this.path2UpgradeLevel == 3 ? -1 :
-                (int) ((this.range + (10 * (this.path2UpgradeLevel + 1))) * rangeBoost);
+                (int) (60000 / ((this.fireRate) - (200 * (this.path2UpgradeLevel + 1))) * fireRateBoost);
     }
 
     /**
@@ -254,7 +196,7 @@ public class PatchOfFireTower extends Tower {
 
     public int path3UpgradeValue() {
         return this.path3UpgradeLevel == 3 ? -1 :
-                (int) ((PatchOfFire.getDurationLevelBoost(this.path3UpgradeLevel + 1)) * rangeBoost);
+                (int) ((this.range + (25 * (this.path3UpgradeLevel + 1))) * rangeBoost);
     }
 
     /**

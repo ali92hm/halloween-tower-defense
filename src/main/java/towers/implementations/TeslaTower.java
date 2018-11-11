@@ -1,67 +1,72 @@
-package towers;
+package towers.implementations;
 
 import mobs.Mob;
 import models.DriverModel;
-import projectiles.Icicle;
+import projectiles.ChainingShock;
 import projectiles.Projectile;
+import projectiles.Shock;
+import projectiles.ThunderBolt;
+import towers.Tower;
 import utilities.Position;
 import utilities.Vector;
 import views.Alert;
 import views.DriverView;
 
 /**
- * Creates a tower that shoots a projectile
- * that stops a mob for an extended period of time
+ * Creates a tower that shoots multiple main.controllers.projectiles
+ * that hit several targets
  *
  * @author Scorpion
  */
 
-public class IcicleTower extends Tower {
-    public static final String TOWER_BASE_IMAGE = "IcicleTower.png";
+public class TeslaTower extends Tower {
     public static final String TOWER_TURRET_IMAGE = null;
-    public static final int TOWER_RANGE = 120;
-    public static final int TOWER_FIRE_RATE = 2500;
-    public static final int TOWER_COST = 1150;
+    public static final int TOWER_RANGE = 80;
+    public static final int TOWER_FIRE_RATE = 50;
+    public static final int TOWER_COST = 1000;
+    public static final int CHAINING_DISTANCE = 100;
+    public static final int NUMBER_MOBS_CAN_ATTACK = 2;
+    private static final String TOWER_BASE_IMAGE = "TeslaTower.png";
     private static final long serialVersionUID = 1L;
     private static boolean towerUnlocked = false;
     private static boolean clickedTowerBefore = false;
 
     /**
-     * Constructor for the IcicleTower
+     * Constructor for the TeslaTower
      *
      * @param location
      * @param model
      */
 
-    public IcicleTower(final Position location, final DriverModel model) {
+    public TeslaTower(final Position location, final DriverModel model) {
         super(location, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
-        this.range = TOWER_RANGE;
-        this.fireRate = TOWER_FIRE_RATE;
+        this.range = (int) (TOWER_RANGE);
+        this.fireRate = (int) (TOWER_FIRE_RATE);
         this.cost = TOWER_COST;
 
-        this.path1UpgradeName = "Duration";
-        this.path1UpgradeIcon = "Duration Icon.png";
+        this.path1UpgradeName = "Damage";
+        this.path1UpgradeIcon = "Damage Icon.png";
         this.path1UpgradeLevel = 0;
         this.path1UpgradeCosts = new int[3];
-        this.path1UpgradeCosts[0] = 1200;
-        this.path1UpgradeCosts[1] = 4300;
-        this.path1UpgradeCosts[2] = 8400;
+        this.path1UpgradeCosts[0] = 1100;
+        this.path1UpgradeCosts[1] = 3200;
+        this.path1UpgradeCosts[2] = 7200;
 
-        this.path2UpgradeName = "Fire Rate";
-        this.path2UpgradeIcon = "Fire Rate Icon.jpg";
+        this.path2UpgradeName = "Targets";
+        this.path2UpgradeIcon = "Count Icon.jpeg";
         this.path2UpgradeLevel = 0;
         this.path2UpgradeCosts = new int[3];
-        this.path2UpgradeCosts[0] = 1350;
-        this.path2UpgradeCosts[1] = 3150;
-        this.path2UpgradeCosts[2] = 6500;
+        this.path2UpgradeCosts[0] = 1500;
+        this.path2UpgradeCosts[1] = 4100;
+        this.path2UpgradeCosts[2] = 8100;
 
         this.path3UpgradeName = "Range";
         this.path3UpgradeIcon = "Range Icon.png";
         this.path3UpgradeLevel = 0;
         this.path3UpgradeCosts = new int[3];
-        this.path3UpgradeCosts[0] = 900;
-        this.path3UpgradeCosts[1] = 1850;
-        this.path3UpgradeCosts[2] = 3100;
+        this.path3UpgradeCosts[0] = 1400;
+        this.path3UpgradeCosts[1] = 2800;
+        this.path3UpgradeCosts[2] = 3600;
 
         model.towerBuyUpgradeMoney(this.cost);
     }
@@ -96,10 +101,10 @@ public class IcicleTower extends Tower {
             return true;
         }
         new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
-                "Icicle Tower",
-                "This tower shoots a single",
-                "shard of ice instantly freezing",
-                "the mob for a long period of time.");
+                "Tesla Tower",
+                "This tower shoots multiple",
+                "bolt of lightning at a multiple",
+                "targets very rapidly.");
         clickedTowerBefore = true;
         return false;
     }
@@ -113,27 +118,49 @@ public class IcicleTower extends Tower {
      */
 
     public Projectile[] attackMob(final DriverModel model) {
-        Projectile[] projectiles = new Projectile[1];
-        this.attackingMob = new Mob[1];
-        this.chainingMobs = new Mob[1];
+        Projectile[] projectiles = new Projectile[5];
+        this.attackingMob = new Mob[5];
         if (this.reloadProgress > 30) {
             this.reloadProgress -= 30;
             return projectiles;
         }
 
-        this.mobTravelDistance = 0;
+        this.attackingMob[0] = null;
+        this.attackingMob[1] = null;
+        this.attackingMob[2] = null;
+        this.attackingMob[3] = null;
+        this.attackingMob[4] = null;
         for (Mob mob : model.allMobs()) {
-            if (this.position.getDistance(mob.getPosition()) < ((this.range + (40 *
-                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius()) {
-                this.attackingMob[0] = mob;
-                break;
+            if (this.position.getDistance(mob.getPosition()) < (this.range + (20 *
+                    this.path3UpgradeLevel) * rangeBoost) + mob.getRadius() && !mob.isHitByIceBeam()) {
+                if (this.attackingMob[0] == null) {
+                    this.attackingMob[0] = mob;
+                } else if (this.attackingMob[1] == null) {
+                    this.attackingMob[1] = mob;
+                } else if (this.attackingMob[2] == null) {
+                    this.attackingMob[2] = mob;
+                } else if (this.attackingMob[3] == null) {
+                    this.attackingMob[3] = mob;
+                } else if (this.attackingMob[4] == null) {
+                    this.attackingMob[4] = mob;
+                }
             }
         }
-
-        if (this.attackingMob[0] != null) {
-            projectiles[0] = this.shootMob(model);
+        if (this.attackingMob[0] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 0) {
+            projectiles[0] = this.shootMob(this.attackingMob[0], model);
         }
-
+        if (this.attackingMob[1] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 1) {
+            projectiles[1] = this.shootMob(this.attackingMob[1], model);
+        }
+        if (this.attackingMob[2] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 2) {
+            projectiles[2] = this.shootMob(this.attackingMob[2], model);
+        }
+        if (this.attackingMob[3] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 3) {
+            projectiles[3] = this.shootMob(this.attackingMob[3], model);
+        }
+        if (this.attackingMob[4] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 4) {
+            projectiles[4] = this.shootMob(this.attackingMob[4], model);
+        }
         return projectiles;
     }
 
@@ -145,34 +172,35 @@ public class IcicleTower extends Tower {
      * @return
      */
 
-    public Projectile shootMob(final DriverModel model) {
-        Vector vector = new Vector(this.position, this.attackingMob[0].getPosition(), Icicle.PROJECTILE_SPEED);
+    public Projectile shootMob(final Mob currentAttackingMob, final DriverModel model) {
+        Vector vector = new Vector(this.position, currentAttackingMob.getPosition(), ThunderBolt.PROJECTILE_SPEED);
 
         double xComp = 0;
         double yComp = 0;
 
-        switch (this.attackingMob[0].getDirection()) {
+        switch (currentAttackingMob.getDirection()) {
             case 'u':
-                yComp = (-1) * this.attackingMob[0].getSpeed();
+                yComp = (-1) * currentAttackingMob.getSpeed();
                 break;
             case 'r':
-                xComp = this.attackingMob[0].getSpeed();
+                xComp = currentAttackingMob.getSpeed();
                 break;
             case 'd':
-                yComp = this.attackingMob[0].getSpeed();
+                yComp = currentAttackingMob.getSpeed();
                 break;
             case 'l':
-                xComp = (-1) * this.attackingMob[0].getSpeed();
+                xComp = (-1) * currentAttackingMob.getSpeed();
                 break;
         }
 
         Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
-        this.reloadProgress = (int) ((this.fireRate - (500 * this.path2UpgradeLevel)) * fireRateBoost);
-        if (this.towerTurretImage != null) {
-            this.towerTurretImage = DriverView.rotateImage(towerTurretImage, trajectory.getAngle());
-        }
+        this.reloadProgress = (int) (this.fireRate * fireRateBoost);
 
-        return new Icicle(model, this.position, trajectory, this.path3UpgradeLevel, this.path1UpgradeLevel);
+        if (chainLightning) {
+            return new ChainingShock(model, this.position, trajectory, this.attackingMob[0],
+                    this.path3UpgradeLevel, this.path2UpgradeLevel);
+        }
+        return new Shock(model, this.position, trajectory, this.path3UpgradeLevel, this.path1UpgradeLevel);
     }
 
     /**
@@ -193,7 +221,7 @@ public class IcicleTower extends Tower {
      */
 
     public int path1CurrentValue() {
-        return Icicle.getDurationLevelBoost(this.path1UpgradeLevel);
+        return (int) Shock.getDamageLevelBoost(this.path1UpgradeLevel);
     }
 
     /**
@@ -204,7 +232,7 @@ public class IcicleTower extends Tower {
      */
 
     public int path2CurrentValue() {
-        return (int) (60000 / ((this.fireRate - (500 * this.path2UpgradeLevel)) * fireRateBoost));
+        return NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel;
     }
 
     /**
@@ -215,7 +243,7 @@ public class IcicleTower extends Tower {
      */
 
     public int path3CurrentValue() {
-        return (int) ((this.range + (40 * this.path3UpgradeLevel)) * rangeBoost);
+        return (int) (this.range + (20 * this.path3UpgradeLevel) * rangeBoost);
     }
 
     /**
@@ -227,7 +255,8 @@ public class IcicleTower extends Tower {
      */
 
     public int path1UpgradeValue() {
-        return Icicle.getDurationLevelBoost(this.path1UpgradeLevel + 1);
+        return this.path1UpgradeLevel == 3 ? -1 :
+                (int) Shock.getDamageLevelBoost(this.path1UpgradeLevel + 1);
     }
 
     /**
@@ -239,7 +268,8 @@ public class IcicleTower extends Tower {
      */
 
     public int path2UpgradeValue() {
-        return (int) (60000 / ((this.fireRate - (500 * (this.path2UpgradeLevel + 1))) * fireRateBoost));
+        return this.path2UpgradeLevel == 3 ? -1 :
+                (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel + 1);
     }
 
     /**
@@ -252,7 +282,7 @@ public class IcicleTower extends Tower {
 
     public int path3UpgradeValue() {
         return this.path3UpgradeLevel == 3 ? -1 :
-                (int) ((this.range + (40 * (this.path3UpgradeLevel + 1))) * rangeBoost);
+                (int) (this.range + (20 * (this.path3UpgradeLevel + 1)) * rangeBoost);
     }
 
     /**

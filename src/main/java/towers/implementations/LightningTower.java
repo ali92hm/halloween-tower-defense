@@ -1,10 +1,11 @@
-package towers;
+package towers.implementations;
 
 import mobs.Mob;
 import models.DriverModel;
 import projectiles.ChainLightning;
 import projectiles.Projectile;
 import projectiles.ThunderBolt;
+import towers.Tower;
 import utilities.Position;
 import utilities.Vector;
 import views.Alert;
