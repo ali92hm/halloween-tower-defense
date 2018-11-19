@@ -153,14 +153,11 @@ public class ChainLightning extends Projectile {
 			if (!this.chain1.stillAlive && !this.chain2.stillAlive) {
 				this.stillAlive = false;
 			}
-		} else if (this.chain1 != null) {
-			if (!this.chain1.stillAlive) {
-				this.stillAlive = false;
-			}
-		} else if (this.chain2 != null) {
-			if (!this.chain2.stillAlive) {
-				this.stillAlive = false;
-			}
+		} else if (this.chain1 != null && !this.chain1.stillAlive) {
+			this.stillAlive = false;
+
+		} else if (this.chain2 != null && !this.chain2.stillAlive) {
+			this.stillAlive = false;
 		}
 	}
 	

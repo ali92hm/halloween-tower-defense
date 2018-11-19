@@ -116,13 +116,11 @@ public class ChainingDenseLightning extends Projectile {
 		}
 		
 		for (Projectile projectile : this.chainLightning) {
-			if (projectile != null) {
-				if (projectile.stillAlive || !projectile.isSeen()) {
-					for (Position position : this.chain1DrawRounds) {
-						projectile.seen();
-						imageGraphics.drawImage(projectile.getProjectileImage(), (int) position.getXCord(), 
-								(int) position.getYCord(), null);
-					}
+			if (projectile != null && (projectile.stillAlive || !projectile.isSeen())) {
+				for (Position position : this.chain1DrawRounds) {
+					projectile.seen();
+					imageGraphics.drawImage(projectile.getProjectileImage(), (int) position.getXCord(),
+							(int) position.getYCord(), null);
 				}
 			}
 		}
@@ -141,10 +139,8 @@ public class ChainingDenseLightning extends Projectile {
 		} 
 		
 		for (Projectile projectile : this.chainLightning) {
-			if (projectile != null) {
-				if (projectile.stillAlive) {
-					this.stillAlive = true;
-				}
+			if (projectile != null && projectile.stillAlive) {
+				this.stillAlive = true;
 			}
 		}
 	}
