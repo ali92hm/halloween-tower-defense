@@ -6,6 +6,9 @@ import models.DriverModel;
 import org.junit.jupiter.api.Test;
 import utilities.Position;
 import utilities.Vector;
+import projectiles.Projectile;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,7 +27,6 @@ public class ProjectilesTest {
     RingOfFire sut_RingOfFire = new RingOfFire(new DriverModel(), new Position(0,0), new Vector(), 0,0);
     Shock sut_Shock = new Shock(new DriverModel(), new Position(0,0), new Vector(), new BasicMob(0,0, new Position(0,0)), 0,0);
     ThunderBolt sut_ThunderBolt = new ThunderBolt(new DriverModel(), new Position(0,0), new Vector(), 0,0, false);
-
 
 
     @Test
