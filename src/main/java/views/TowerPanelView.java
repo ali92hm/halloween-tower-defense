@@ -253,4 +253,8 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
         return towerFactory.create(position, driver);
     }
+
+    public ArrayList<TowerFactory> getTowerFactories() {
+        return this.towerFactories;
+    }
 }

@@ -1,67 +1,51 @@
 package views;
 
 
-import org.junit.jupiter.api.Disabled;
+import models.DriverModel;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import towers.Tower;
+import towers.factories.TowerFactory;
+import utilities.Position;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 public class TowerPanelViewTest {
     TowerPanelView SUT;
 
-    @Disabled
+    @BeforeEach
+    public void setup() {
+        SUT = new TowerPanelView(mock(DriverModel.class));
+    }
+
+    @Test
     public void givenTowerPanelView_WhenCalledGetButtons_AllTooltipsAreUnique() {
-        SUT = new TowerPanelView();
-
-        // get list of buttons
-        ArrayList<TowerBuyButton> buttons = SUT.getCurrentTowerButtons();
-
         // Strip buttons down to just tooltips in new array list
         ArrayList<String> toolTips = new ArrayList<>();
-        for (TowerBuyButton button : buttons)
-            toolTips.add(button.getToolTipText());
+        for (TowerFactory factory : SUT.getTowerFactories())
+            toolTips.add(factory.getBuyButton().getToolTipText());
 
         assertTrue(elementsInArrayListUnique(toolTips));
     }
 
     @Test
     public void givenTowerPanelView_WhenCalledGetButtons_AllButtonsPointToUniqueTower() {
-        SUT = new TowerPanelView();
+        ArrayList<Class> towerClasses = new ArrayList<>();
 
-        // get list of buttons
-        ArrayList<TowerBuyButton> buttons = SUT.getCurrentTowerButtons();
+        for (TowerFactory factory : SUT.getTowerFactories())
+            towerClasses.add(factory.create(mock(Position.class), mock(DriverModel.class)).getClass());
 
-        HashMap<Class<? extends Tower>, Integer> usageCountPerTower = new HashMap<>();
-
-        for (TowerBuyButton button : buttons) {
-            Class current = button.getTowerClass();
-            Integer currentCount = usageCountPerTower.get(current);
-            if (currentCount == null){
-                usageCountPerTower.put(current,1);
-            }else{
-                usageCountPerTower.replace(current, currentCount + 1);
-            }
-
-        }
-
+        assertTrue(elementsInArrayListUnique(towerClasses));
     }
 
-    @Disabled
+    @Test
     public void givenTowerPanelView_WhenCalledGetButtons_AllNamesAreUnique() {
-        SUT = new TowerPanelView();
-
-        // get list of buttons
-        ArrayList<TowerBuyButton> buttons = SUT.getCurrentTowerButtons();
-
         // Strip buttons down to just names in new array list
         ArrayList<String> buttonNames = new ArrayList<>();
-        for (JToggleButton button : buttons)
-            buttonNames.add(button.getName());
+        for (TowerFactory factory : SUT.getTowerFactories())
+            buttonNames.add(factory.getBuyButton().getName());
 
         assertTrue(elementsInArrayListUnique(buttonNames));
     }
