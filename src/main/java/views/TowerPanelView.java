@@ -40,7 +40,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
     private TowerBuyButton jtbBuildFireBombTower;
     private TowerBuyButton jtbBuildIcicleTower;
     private TDButtonGroup buildGroup = new TDButtonGroup();
-    private boolean towerPanelEnabled = false;
     private static ArrayList<TowerFactory> towerFactories = new ArrayList<>(Arrays.asList(
             new DenseLightningTowerFactory(),
             new FireBombTowerFactory(),
@@ -57,9 +56,12 @@ public class TowerPanelView extends JPanel implements ActionListener {
      * constructs the tower panel
      */
 
-    public TowerPanelView() {
+    public TowerPanelView(DriverModel model) {
+        this.model = model;
+        this.model.addActionListener(this);
         this.setupFrame();
         //this.setToolTips();
+        this.enableTowerButtons();
     }
 
     /**
@@ -77,14 +79,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
         this.setMinimumSize(this.getPreferredSize());
     }
 
-    /**
-     * enables all the main.towers to be clicked
-     *
-     * @param enable
-     */
-
-    public void enableTowerButtons(final boolean enable) {
-        this.towerPanelEnabled = enable;
+    public void enableTowerButtons() {
+        for (TowerFactory factory : this.towerFactories)
+            factory.getBuyButton().enable(this.model.getMoney() >= factory.getPrice());
     }
 
     /**
@@ -106,6 +103,8 @@ public class TowerPanelView extends JPanel implements ActionListener {
             c.gridx = i / 3;
             this.add(layoutTowerPanel(towerFactories.get(i)), c);
         }
+
+        enableTowerButtons();
     }
 
     /**
@@ -136,17 +135,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
         buildGroup.add(buyButton);
         return panel;
-    }
-
-    /**
-     * sets the model for the view
-     *
-     * @param model
-     */
-
-    public void setModel(DriverModel model) {
-        this.model = model;
-        this.model.addActionListener(this);
     }
 
     /**

@@ -183,7 +183,6 @@ public class DriverController {
 
     private class MapViewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent arg0) {
-            view.getSidePanelView().getTowerView().setModel(model);
             view.getSidePanelView().getInfoView().setModel(model);
             view.getSidePanelView().getUpgradeView().setModel(model);
             view.getSidePanelView().getInfoView().setText();
@@ -599,7 +598,7 @@ public class DriverController {
             view.getMapView().activateButtons(false);
             view.getMapView().repaint();
             view.getSidePanelView().getButtonView().getStartButton().setEnabled(true);
-            view.getSidePanelView().getTowerView().enableTowerButtons(true);
+            view.getSidePanelView().getTowerView().enableTowerButtons();
             view.markTutorialRead();
             view.getMapView().hideTutorial();
             view.getMapView().showTowers(true);

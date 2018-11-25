@@ -41,12 +41,11 @@ public class SidePanelView extends JPanel {
 		this.talentPanel = new TalentSideView();
 		this.buttonPanel = new ButtonView();
 		this.upgradePanel = new UpgradeView();
-		this.towerPanel = new TowerPanelView();
+		this.towerPanel = new TowerPanelView(model);
 		this.infoPanel = new InfoView();
 		
 		this.buttonPanel.setModel(this.model, this.view);
 		this.upgradePanel.setModel(this.model);
-		this.towerPanel.setModel(this.model);
 		this.infoPanel.setModel(this.model);
 		
 		this.midPanelCards = new CardLayout();
