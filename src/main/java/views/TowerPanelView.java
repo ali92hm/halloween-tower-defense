@@ -80,8 +80,10 @@ public class TowerPanelView extends JPanel implements ActionListener {
     }
 
     public void enableTowerButtons() {
-        for (TowerFactory factory : this.towerFactories)
-            factory.getBuyButton().enable(this.model.getMoney() >= factory.getPrice());
+        for (TowerFactory factory : this.towerFactories){
+            factory.getBuyButton().setEnabled(this.model.getMoney() >= factory.getPrice());
+        }
+
     }
 
     /**
@@ -153,17 +155,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
      */
 
     public void actionPerformed(ActionEvent e) {
-        disableTowersButtons();
-    }
-
-    /**
-     * when the model updates this view, checks
-     * if the buttons should be updated
-     */
-
-    private void disableTowersButtons() {
-        for (TowerFactory factory : towerFactories)
-            factory.getBuyButton().setEnabled(true);
+        enableTowerButtons();
     }
 
     /**
