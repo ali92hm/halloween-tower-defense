@@ -1,19 +1,15 @@
-package test.views;
+package views;
 
 
-import main.towers.Tower;
-import main.views.TowerBuyButton;
-import main.views.TowerPanelView;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import towers.Tower;
 
 import javax.swing.*;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TowerPanelViewTest {
     TowerPanelView SUT;
