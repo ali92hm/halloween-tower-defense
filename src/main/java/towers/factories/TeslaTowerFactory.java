@@ -20,6 +20,6 @@ public class TeslaTowerFactory implements TowerFactory<TeslaTower> {
 
     @Override
     public int getPrice() {
-        return 0;
+        return TeslaTower.TOWER_COST;
     }
 }
