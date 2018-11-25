@@ -6,7 +6,10 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public class LightningTowerFactory implements TowerFactory<LightningTower> {
-    private TowerBuyButton buyButton = new TowerBuyButton("Lightning Tower", "", "LightningTower.png");
+    private TowerBuyButton buyButton = new TowerBuyButton(
+            "Lightning Tower",
+            "Shoots single shots of lightning",
+            "LightningTower.png");
 
     @Override
     public LightningTower create(Position pos, DriverModel driver) {

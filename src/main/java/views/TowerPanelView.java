@@ -3,7 +3,6 @@ package views;
 import models.DriverModel;
 import towers.Tower;
 import towers.factories.*;
-import towers.implementations.*;
 import utilities.Position;
 import utilities.TDButtonGroup;
 
@@ -30,15 +29,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
     public static final int TOWER_ICON_WIDTH = 40;
     public static final int TOWER_ICON_HEIGHT = 40;
     private DriverModel model;
-    private TowerBuyButton jtbBuildDamageTower;
-    private TowerBuyButton jtbBuildFireTower;
-    private TowerBuyButton jtbBuildIceTower;
-    private TowerBuyButton jtbBuildDenseLightningTower;
-    private TowerBuyButton jtbBuildPatchOfFireTower;
-    private TowerBuyButton jtbBuildFreezeTower;
-    private TowerBuyButton jtbBuildTeslaTower;
-    private TowerBuyButton jtbBuildFireBombTower;
-    private TowerBuyButton jtbBuildIcicleTower;
     private TDButtonGroup buildGroup = new TDButtonGroup();
     private static ArrayList<TowerFactory> towerFactories = new ArrayList<>(Arrays.asList(
             new DenseLightningTowerFactory(),
@@ -60,7 +50,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
         this.model = model;
         this.model.addActionListener(this);
         this.setupFrame();
-        //this.setToolTips();
         this.enableTowerButtons();
     }
 
@@ -80,7 +69,7 @@ public class TowerPanelView extends JPanel implements ActionListener {
     }
 
     public void enableTowerButtons() {
-        for (TowerFactory factory : this.towerFactories){
+        for (TowerFactory factory : this.towerFactories) {
             factory.getBuyButton().setEnabled(this.model.getMoney() >= factory.getPrice());
         }
 
@@ -158,83 +147,11 @@ public class TowerPanelView extends JPanel implements ActionListener {
         enableTowerButtons();
     }
 
-    /**
-     * sets the tool tips for each button
-     */
-
-    private void setToolTips() {
-
-        UIManager.put("ToolTip.background", new ColorUIResource(255, 247, 200)); //#fff7c8
-        Border border = BorderFactory.createLineBorder(new Color(76, 79, 83));    //#4c4f53
-        UIManager.put("ToolTip.border", border);
-        ToolTipManager.sharedInstance().setInitialDelay(250);
-        ToolTipManager.sharedInstance().setDismissDelay(15000);
-
-        jtbBuildDamageTower.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + LightningTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a single shot of lightning at an enemy." + "</html>");
-
-        jtbBuildFireTower.setToolTipText("<html>" + "Fire Tower"
-                + "<br>"
-                + FireTower.TOWER_COST + "g"
-                + "<br>"
-                + "Emits a fiery explosion around the tower itself." + "</html>");
-
-        jtbBuildIceTower.setToolTipText("<html>" + "Ice Tower"
-                + "<br>"
-                + IceTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a single enemy and slows their movement down." + "</html>");
-
-        jtbBuildDenseLightningTower.setToolTipText("<html>" + "Dense Lightning Tower"
-                + "<br>"
-                + DenseLightningTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a single shot of lightning at an enemy that pierces"
-                + "<br>"
-                + " through and can hit multiple targets." + "</html>");
-
-        jtbBuildPatchOfFireTower.setToolTipText("<html>" + "Patch Of Fire Tower"
-                + "<br>"
-                + PatchOfFireTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a fireball at the target and leaves a patch of fire "
-                + "<br>"
-                + "on the ground that damages enemies that walk over it." + "</html>");
-
-        jtbBuildFreezeTower.setToolTipText("<html>" + "Freeze Tower"
-                + "<br>"
-                + FreezeTower.TOWER_COST + "g"
-                + "<br>"
-                + "Freezes all enemies around the tower in place for a short duration." + "</html>");
-
-        jtbBuildTeslaTower.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + TeslaTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots an electric charge at an enemy." + "</html>");
-
-        jtbBuildFireBombTower.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + FireBombTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots flaming bomb at an enemy." + "</html>");
-
-        jtbBuildIcicleTower.setToolTipText("<html>" + "Lightning Tower"
-                + "<br>"
-                + IcicleTower.TOWER_COST + "g"
-                + "<br>"
-                + "Shoots a jagged icicle at an enemy." + "</html>");
-
-    }
-
     public Tower createSelectedTower(Position position, DriverModel driver) {
         TowerBuyButton buyButton = buildGroup.getSelectedButton();
         TowerFactory towerFactory = null;
         int i = 0;
-        while(towerFactory == null &&  i < towerFactories.size()){
+        while (towerFactory == null && i < towerFactories.size()) {
             TowerFactory current = towerFactories.get(i);
 
             if (current.getBuyButton() == buyButton)

@@ -6,7 +6,10 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public class IcicleTowerFactory implements TowerFactory<IcicleTower> {
-    private TowerBuyButton buyButton = new TowerBuyButton("Icicle Tower", "", "IcicleTower.png");
+    private TowerBuyButton buyButton = new TowerBuyButton(
+            "Icicle Tower",
+            "Shoots jagged icicles",
+            "IcicleTower.png");
 
     @Override
     public IcicleTower create(Position pos, DriverModel driver) {

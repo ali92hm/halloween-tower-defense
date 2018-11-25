@@ -7,7 +7,10 @@ import views.TowerBuyButton;
 
 public class IceTowerFactory implements TowerFactory<IceTower> {
 
-    private TowerBuyButton buyButton = new TowerBuyButton("Ice Tower", "", "IceTower.png");
+    private TowerBuyButton buyButton = new TowerBuyButton(
+            "Ice Tower",
+            "Slows down targets with individual shots",
+            "IceTower.png");
 
     @Override
     public IceTower create(Position pos, DriverModel driver) {
