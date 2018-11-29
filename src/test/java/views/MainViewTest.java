@@ -24,12 +24,12 @@ public class MainViewTest {
     }
 
     @Test
-    public void givenMainView_WhenResetMainView_ThenEasyButtonIsSelected() {
+    public void givenMainView_WhenResetMainView_ThenEasySelected() {
         assertTrue(sut.getEasyButton().isSelected());
     }
 
     @Test
-    public void givenMainView_WhenResetMainViewAndSetHard_ThenHardButtonIsSelected() {
+    public void givenMainView_WhenResetMainViewAndSetHard_ThenHardSelected() {
         sut.getHardButton().setSelected(true);
         assertTrue(sut.getHardButton().isSelected());
     }
@@ -40,7 +40,7 @@ public class MainViewTest {
     }
 
     @Test
-    public void givenMainView_WhenResetMainViewAndSetMedium_ThenMediumIsSelected() {
+    public void givenMainView_WhenResetMainViewAndSetMedium_ThenMediumSelected() {
         sut.getMediumButton().setSelected(true);
         assertTrue(sut.getMediumButton().isSelected());
     }

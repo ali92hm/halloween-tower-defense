@@ -11,6 +11,7 @@ import mobs.LightningImmuneMob;
 import mobs.Mob;
 import mobs.SpeedyMob;
 import mobs.TankMob;
+import mobs.ProfessorMob;
 import models.DriverModel;
 
 
@@ -69,6 +70,8 @@ public class Map1Data extends MapData {
 
 			if (randomMobLevel < 4)
 				mob = new BasicMob(level, difficulty, startPos);
+			else if (randomMobLevel < 6)
+				mob = new ProfessorMob(level, difficulty, startPos);
 			else if (randomMobLevel < 7)
 				mob = new TankMob(level, difficulty, startPos);
 			else if (randomMobLevel < 10)
