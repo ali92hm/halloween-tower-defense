@@ -20,5 +20,6 @@ public class TowerBuyButton extends JToggleButton {
         UIManager.put("ToolTip.background", new ColorUIResource(255, 247, 200));
         UIManager.put("ToolTip.border", BorderFactory.createLineBorder(new Color(76, 79, 83)));
         this.setIcon(new ImageIcon(DriverView.getImage(iconPath, ICON_SIZE, ICON_SIZE)));
+        this.setDisabledIcon(new ImageIcon(DriverView.getImage("LockedTower.png", ICON_SIZE, ICON_SIZE)));
     }
 }
