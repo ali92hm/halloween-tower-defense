@@ -22,7 +22,7 @@ public class MichaelMob extends Mob {
      * @param position
      */
 
-    public ProfessorMob(final int level, final int difficulty, final Position position) {
+    public MichaelMob(final int level, final int difficulty, final Position position) {
         this.mobPath = MOB_IMAGE;
         this.mobWidth = MOB_WIDTH;
         this.mobHeight = MOB_HEIGHT;
