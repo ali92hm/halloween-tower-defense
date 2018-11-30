@@ -131,10 +131,8 @@ public class FreezeTower extends Tower {
 		for (Mob mob : model.allMobs()) 
 		{
 			if (this.position.getDistance(mob.getPosition()) < (((this.range + (25 * 
-					this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius())) {
-				if (mob.getDistanceTraveled() > this.mobTravelDistance) {
+					this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius()) && mob.getDistanceTraveled() > this.mobTravelDistance) {
 					projectiles[0] = new DeepFreeze(model, this.position, null, this.path3UpgradeLevel, this.path1UpgradeLevel);
-				}
 			}
 		}
 		return projectiles;
