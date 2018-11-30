@@ -12,7 +12,6 @@ import mobs.Mob;
 import mobs.SpeedyMob;
 import mobs.TankMob;
 import mobs.ProfessorMob;
-import mobs.MichaelMob;
 import models.DriverModel;
 
 
@@ -71,8 +70,6 @@ public class Map1Data extends MapData {
 
 			if (randomMobLevel < 4)
 				mob = new BasicMob(level, difficulty, startPos);
-			else if (randomMobLevel < 5)
-				mob = new MichaelMob(level, difficulty, startPos);
 			else if (randomMobLevel < 6)
 				mob = new ProfessorMob(level, difficulty, startPos);
 			else if (randomMobLevel < 7)
