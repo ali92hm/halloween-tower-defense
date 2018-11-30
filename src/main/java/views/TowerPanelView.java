@@ -7,8 +7,6 @@ import utilities.Position;
 import utilities.TDButtonGroup;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,10 +67,8 @@ public class TowerPanelView extends JPanel implements ActionListener {
     }
 
     public void enableTowerButtons() {
-        for (TowerFactory factory : this.towerFactories) {
+        for (TowerFactory factory : this.towerFactories)
             factory.getBuyButton().setEnabled(this.model.getMoney() >= factory.getPrice());
-        }
-
     }
 
     /**
@@ -94,8 +90,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
             c.gridx = i / 3;
             this.add(layoutTowerPanel(towerFactories.get(i)), c);
         }
-
-        enableTowerButtons();
     }
 
     /**
