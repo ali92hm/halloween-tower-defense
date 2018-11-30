@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class ProfessorMob extends Mob {
 
-    public static final String[] MOB_IMAGE = {"ProfessorMob.png","MichaelMob.png"};
+    public static final String[] MOB_IMAGE = {"ProfessorNewellMob.png","ProfessorMichaelMob.png"};
     public static final int MOB_WIDTH = 50;
     public static final int MOB_HEIGHT = 50;
     public static final int HEALTH = 200;
