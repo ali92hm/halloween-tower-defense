@@ -1,10 +1,11 @@
 package mobs;
 
 import utilities.Position;
+import java.util.Random;
 
 public class ProfessorMob extends Mob {
 
-    public static final String MOB_IMAGE = "ProfessorMob.png";
+    public static final String[] MOB_IMAGE = {"ProfessorNewellMob.png","ProfessorMichaelMob.png"};
     public static final int MOB_WIDTH = 50;
     public static final int MOB_HEIGHT = 50;
     public static final int HEALTH = 200;
@@ -23,7 +24,8 @@ public class ProfessorMob extends Mob {
      */
 
     public ProfessorMob(final int level, final int difficulty, final Position position) {
-        this.mobPath = MOB_IMAGE;
+        Random rand = new Random();
+        this.mobPath = MOB_IMAGE[rand.nextInt(2)];
         this.mobWidth = MOB_WIDTH;
         this.mobHeight = MOB_HEIGHT;
         this.maxHealth = HEALTH + this.getHealthBoost(level, LEVEL_HEALTH_BOOST, difficulty);
