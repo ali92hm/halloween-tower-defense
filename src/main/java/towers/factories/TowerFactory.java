@@ -6,11 +6,14 @@ import utilities.Position;
 import views.TowerBuyButton;
 
 public interface TowerFactory<T extends Tower> {
+    T create(Position pos, DriverModel driver);
 
-    public T create(Position pos, DriverModel driver);
+    TowerBuyButton getBuyButton();
 
-    public TowerBuyButton getBuyButton();
+    int getBasePrice();
 
-    public int getPrice();
+    default int getPrice() {
+        return (int) (getBasePrice() * T.getDiscountMultiplier());
+    }
 
 }

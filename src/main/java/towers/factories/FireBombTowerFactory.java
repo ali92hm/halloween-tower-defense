@@ -22,7 +22,7 @@ public class FireBombTowerFactory implements TowerFactory<FireBombTower> {
     }
 
     @Override
-    public int getPrice() {
+    public int getBasePrice() {
         return FireBombTower.TOWER_COST;
     }
 }

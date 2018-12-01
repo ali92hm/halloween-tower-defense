@@ -22,7 +22,7 @@ public class IcicleTowerFactory implements TowerFactory<IcicleTower> {
     }
 
     @Override
-    public int getPrice() {
+    public int getBasePrice() {
         return IcicleTower.TOWER_COST;
     }
 }

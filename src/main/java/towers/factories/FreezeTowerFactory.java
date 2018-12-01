@@ -22,7 +22,7 @@ public class FreezeTowerFactory implements TowerFactory<FreezeTower> {
     }
 
     @Override
-    public int getPrice() {
+    public int getBasePrice() {
         return FreezeTower.TOWER_COST;
     }
 }

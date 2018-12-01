@@ -86,6 +86,10 @@ public abstract class Tower extends TDButton {
         this.setIcon(new ImageIcon(this.towerBaseImage));
     }
 
+    public static double getDiscountMultiplier(){
+        return towerCostDecrease;
+    }
+
     /**
      * decreases the cool down rate of each tower by 10%
      */
@@ -325,16 +329,6 @@ public abstract class Tower extends TDButton {
 
     public int getFireRate() {
         return fireRate;
-    }
-
-    /**
-     * returns how much the tower costs
-     *
-     * @return int
-     */
-
-    public int getCost() {
-        return (int) (cost * towerCostDecrease);
     }
 
     /**

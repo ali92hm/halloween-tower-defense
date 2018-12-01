@@ -1,6 +1,7 @@
 package towers.factories;
 
 import models.DriverModel;
+import towers.Tower;
 import towers.implementations.LightningTower;
 import utilities.Position;
 import views.TowerBuyButton;
@@ -22,7 +23,7 @@ public class LightningTowerFactory implements TowerFactory<LightningTower> {
     }
 
     @Override
-    public int getPrice() {
+    public int getBasePrice() {
         return LightningTower.TOWER_COST;
     }
 }

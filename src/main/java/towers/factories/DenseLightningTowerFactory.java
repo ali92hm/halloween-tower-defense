@@ -22,7 +22,7 @@ public class DenseLightningTowerFactory implements TowerFactory<DenseLightningTo
     }
 
     @Override
-    public int getPrice() {
+    public int getBasePrice() {
         return DenseLightningTower.TOWER_COST;
     }
 }
