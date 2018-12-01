@@ -1,13 +1,12 @@
-
 package views;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import utilities.SelectButtonGroup;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import utilities.SelectButtonGroup;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * The main view of the game displaying the

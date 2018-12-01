@@ -1,19 +1,18 @@
 package test.views;
 
-import views.TowerPanelView;
 import org.junit.jupiter.api.Test;
+import views.TowerPanelView;
 
 import javax.swing.*;
-
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TowerPanelViewTest {
     TowerPanelView SUT;
 
     @Test
-    public void givenTowerPanelView_WhenCalledGetButtons_AllTooltipsAreUnique(){
+    public void givenTowerPanelView_WhenCalledGetButtons_AllTooltipsAreUnique() {
         SUT = new TowerPanelView();
 
         // get list of buttons
@@ -21,7 +20,7 @@ public class TowerPanelViewTest {
 
         // Strip buttons down to just tooltips in new array list
         ArrayList<String> toolTips = new ArrayList<>();
-        for (JToggleButton button: buttons)
+        for (JToggleButton button : buttons)
             toolTips.add(button.getToolTipText());
 
         /*
@@ -29,8 +28,8 @@ public class TowerPanelViewTest {
          */
         Boolean allToolTipsUnique = true;
         int i = 0;
-        while(i < toolTips.size() && allToolTipsUnique){
-            if(toolTips.lastIndexOf(toolTips.get(i)) > i)
+        while (i < toolTips.size() && allToolTipsUnique) {
+            if (toolTips.lastIndexOf(toolTips.get(i)) > i)
                 allToolTipsUnique = false;
             i++;
         }

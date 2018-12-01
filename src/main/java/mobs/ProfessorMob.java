@@ -1,11 +1,12 @@
 package mobs;
 
 import utilities.Position;
+
 import java.util.Random;
 
 public class ProfessorMob extends Mob {
 
-    public static final String[] MOB_IMAGE = {"ProfessorNewellMob.png","ProfessorMichaelMob.png"};
+    public static final String[] MOB_IMAGE = {"ProfessorNewellMob.png", "ProfessorMichaelMob.png"};
     public static final int MOB_WIDTH = 50;
     public static final int MOB_HEIGHT = 50;
     public static final int HEALTH = 200;
@@ -30,7 +31,7 @@ public class ProfessorMob extends Mob {
         this.mobHeight = MOB_HEIGHT;
         this.maxHealth = HEALTH + this.getHealthBoost(level, LEVEL_HEALTH_BOOST, difficulty);
         this.health = this.maxHealth;
-        this.mobDeathGold = MOB_DEATH_GOLD + (level*MOB_DEATH_GOLD_BOOST);
+        this.mobDeathGold = MOB_DEATH_GOLD + (level * MOB_DEATH_GOLD_BOOST);
         this.speed = MOB_SPEED + difficulty;
         this.radius = MOB_RADIUS;
         this.setImage();

@@ -1,39 +1,17 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import models.DriverModel;
+import towers.*;
+import utilities.TDButtonGroup;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ColorUIResource;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
-
-import models.DriverModel;
-import towers.DenseLightningTower;
-import towers.FireBombTower;
-import towers.FireTower;
-import towers.FreezeTower;
-import towers.IceTower;
-import towers.IcicleTower;
-import towers.LightningTower;
-import towers.PatchOfFireTower;
-import towers.TeslaTower;
-import utilities.TDButtonGroup;
 
 /**
  * the side panel view that contains
@@ -44,9 +22,9 @@ import utilities.TDButtonGroup;
 
 public class TowerPanelView extends JPanel implements ActionListener {
 
-    private static final long serialVersionUID = 1L;
     public static final int TOWER_ICON_WIDTH = 40;
     public static final int TOWER_ICON_HEIGHT = 40;
+    private static final long serialVersionUID = 1L;
     private DriverModel model;
     private JToggleButton jtbBuildDamageTower;
     private JToggleButton jtbBuildFireTower;
