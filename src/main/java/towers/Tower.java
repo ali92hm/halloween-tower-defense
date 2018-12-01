@@ -86,7 +86,7 @@ public abstract class Tower extends TDButton {
         this.setIcon(new ImageIcon(this.towerBaseImage));
     }
 
-    public static double getDiscountMultiplier(){
+    public static double getDiscountMultiplier() {
         return towerCostDecrease;
     }
 

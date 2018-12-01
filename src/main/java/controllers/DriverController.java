@@ -74,6 +74,97 @@ public class DriverController {
      */
 
     /**
+     * build tower method that handles
+     * both click and drag as well as
+     * click and place
+     */
+
+    private void buildTower() {
+        if (view.getMapView() == null || view.getMapView().getMousePosition() == null) {
+            view.getSidePanelView().repaint();
+            return;
+        }
+
+        if (view.getMapView().canBuild(new Position(view.getMapView().getMousePosition().getX(),
+                view.getMapView().getMousePosition().getY()))) {
+            Tower tower = null;
+            Position towerPosition = new Position(
+                    view.getMapView().getMousePosition().getX() - (TowerPanelView.TOWER_ICON_WIDTH) / 2,
+                    view.getMapView().getMousePosition().getY() - (TowerPanelView.TOWER_ICON_HEIGHT) / 2);
+
+            try {
+                tower = view.getSidePanelView().getTowerView().createSelectedTower(towerPosition, model);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+
+            tower.addActionListener(towerListener);
+            view.getMapView().addTower(tower);
+            model.addTower(tower);
+            view.getSidePanelView().getUpgradeView().setTower(tower);
+            view.getSidePanelView().getUpgradeView().needUpdateScreen();
+            model.setCancelConfirmOption(0);
+            model.processEvent();
+
+            if (model.allTowers() != null) {
+                for (Tower t : model.allTowers()) {
+                    t.setShowRange(false);
+                }
+            }
+
+            view.getSidePanelView().getTowerView().getBuildButtonGroup().clearSelection();
+        }
+
+        view.getMapView().repaint();
+    }
+
+    /*
+     ***********************
+     * Main View Listeners *
+     ***********************
+     */
+
+    /**
+     * adds the main driver view listeners
+     * to the main frame at the start
+     */
+
+    private void addComponentEventListener() {
+        view.addKeyListener(keyboardListener);
+        view.addMouseWheelListener(mouseWheelListener);
+
+        view.getMainView().getMap1().addActionListener(new ButtonUpdateListener());
+        view.getMainView().getMap2().addActionListener(new ButtonUpdateListener());
+        view.getMainView().getMap3().addActionListener(new ButtonUpdateListener());
+        view.getMainView().getEasyButton().addActionListener(new ButtonUpdateListener());
+        view.getMainView().getMediumButton().addActionListener(new ButtonUpdateListener());
+        view.getMainView().getHardButton().addActionListener(new ButtonUpdateListener());
+        view.getMainView().getExitButton().addActionListener(new ExitListener());
+        view.getMainView().getInfoButton().addActionListener(new InfoListener());
+        view.getMainView().getStartButton().addActionListener(new MapViewButtonListener());
+        view.getMainView().getStartButton().addActionListener(new DifficultyListener());
+
+        view.getTalentTreeMenuItem().addActionListener(new TalentTreeListener());//temp
+
+        view.getSidePanelView().getTowerView().getBuildButtonGroup().addItemListenerToAll(itemListener);
+        view.getSidePanelView().getTowerView().getBuildButtonGroup().addMouseListenerToAll(buttonMouseListener);
+        view.getSidePanelView().getTowerView().getBuildButtonGroup().addMouseMotionListenerToAll(buttonMouseMotionListener);
+        view.getSidePanelView().getButtonView().getStartButton().addActionListener(new StartListener());
+        view.getSidePanelView().getButtonView().getTalentTreeButton().addActionListener(new TalentTreeListener());
+        view.getSidePanelView().getTalentView().getBack().addActionListener(new TalentTreeListener());
+        view.getSidePanelView().getTalentView().getAccept().addActionListener(new TalentPointListener());
+        view.getSidePanelView().getButtonView().getHomeButton().addActionListener(new MenuListener());
+        view.getSidePanelView().getUpgradeView().getBackButton().addActionListener(new ReturnListener());
+        view.getSidePanelView().getUpgradeView().getPath1Button().addActionListener(new UpgradeListener());
+        view.getSidePanelView().getUpgradeView().getPath2Button().addActionListener(new UpgradeListener());
+        view.getSidePanelView().getUpgradeView().getPath3Button().addActionListener(new UpgradeListener());
+        view.getSidePanelView().getUpgradeView().getSellButton().addActionListener(new UpgradeListener());
+        view.getSidePanelView().getUpgradeView().getCancelButton().addActionListener(new CancelListener());
+        view.getSidePanelView().getUpgradeView().getConfirmButton().addActionListener(new ConfirmListener());
+    }
+
+    /**
      * keyboard listener for the driver view
      *
      * @author Scorpion
@@ -90,12 +181,6 @@ public class DriverController {
         public void keyTyped(KeyEvent e) {
         }
     }
-
-    /*
-     ***********************
-     * Main View Listeners *
-     ***********************
-     */
 
     /**
      * updates the start button when
@@ -223,52 +308,6 @@ public class DriverController {
                 System.exit(0);
             }
         }
-    }
-
-    /**
-     * build tower method that handles
-     * both click and drag as well as
-     * click and place
-     */
-
-    private void buildTower() {
-        if (view.getMapView() == null || view.getMapView().getMousePosition() == null) {
-            view.getSidePanelView().repaint();
-            return;
-        }
-
-        if (view.getMapView().canBuild(new Position(view.getMapView().getMousePosition().getX(),
-                view.getMapView().getMousePosition().getY()))) {
-            Tower tower = null;
-            Position towerPosition = new Position(
-                    view.getMapView().getMousePosition().getX() - (TowerPanelView.TOWER_ICON_WIDTH) / 2,
-                    view.getMapView().getMousePosition().getY() - (TowerPanelView.TOWER_ICON_HEIGHT) / 2);
-
-            try {
-                tower = view.getSidePanelView().getTowerView().createSelectedTower(towerPosition, model);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
-
-            tower.addActionListener(towerListener);
-            view.getMapView().addTower(tower);
-            model.addTower(tower);
-            view.getSidePanelView().getUpgradeView().setTower(tower);
-            view.getSidePanelView().getUpgradeView().needUpdateScreen();
-            model.setCancelConfirmOption(0);
-            model.processEvent();
-
-            if (model.allTowers() != null) {
-                for (Tower t : model.allTowers()) {
-                    t.setShowRange(false);
-                }
-            }
-
-            view.getSidePanelView().getTowerView().getBuildButtonGroup().clearSelection();
-        }
-
-        view.getMapView().repaint();
     }
 
     /**
@@ -567,6 +606,12 @@ public class DriverController {
         }
     }
 
+    /*
+     **********************
+     * Map View Listeners *
+     **********************
+     */
+
     /**
      * listens for the talent tree toggling
      * the talent between visible and invisible.
@@ -579,12 +624,6 @@ public class DriverController {
             view.triggerTalentTree();
         }
     }
-
-    /*
-     **********************
-     * Map View Listeners *
-     **********************
-     */
 
     /**
      * listens for the x-button on the tutorial
@@ -625,6 +664,12 @@ public class DriverController {
         }
     }
 
+    /*
+     ************************
+     * Side Panel Listeners *
+     ************************
+     */
+
     /**
      * listens for the forwards button on
      * the tutorial and goes to the
@@ -638,12 +683,6 @@ public class DriverController {
             view.getMapView().stepForwardsInTutorial();
         }
     }
-
-    /*
-     ************************
-     * Side Panel Listeners *
-     ************************
-     */
 
     /**
      * listens for if the user clicks
@@ -1008,44 +1047,5 @@ public class DriverController {
     private class TDMouseWheelListener implements MouseWheelListener {
         public void mouseWheelMoved(MouseWheelEvent e) {
         }
-    }
-
-    /**
-     * adds the main driver view listeners
-     * to the main frame at the start
-     */
-
-    private void addComponentEventListener() {
-        view.addKeyListener(keyboardListener);
-        view.addMouseWheelListener(mouseWheelListener);
-
-        view.getMainView().getMap1().addActionListener(new ButtonUpdateListener());
-        view.getMainView().getMap2().addActionListener(new ButtonUpdateListener());
-        view.getMainView().getMap3().addActionListener(new ButtonUpdateListener());
-        view.getMainView().getEasyButton().addActionListener(new ButtonUpdateListener());
-        view.getMainView().getMediumButton().addActionListener(new ButtonUpdateListener());
-        view.getMainView().getHardButton().addActionListener(new ButtonUpdateListener());
-        view.getMainView().getExitButton().addActionListener(new ExitListener());
-        view.getMainView().getInfoButton().addActionListener(new InfoListener());
-        view.getMainView().getStartButton().addActionListener(new MapViewButtonListener());
-        view.getMainView().getStartButton().addActionListener(new DifficultyListener());
-
-        view.getTalentTreeMenuItem().addActionListener(new TalentTreeListener());//temp
-
-        view.getSidePanelView().getTowerView().getBuildButtonGroup().addItemListenerToAll(itemListener);
-        view.getSidePanelView().getTowerView().getBuildButtonGroup().addMouseListenerToAll(buttonMouseListener);
-        view.getSidePanelView().getTowerView().getBuildButtonGroup().addMouseMotionListenerToAll(buttonMouseMotionListener);
-        view.getSidePanelView().getButtonView().getStartButton().addActionListener(new StartListener());
-        view.getSidePanelView().getButtonView().getTalentTreeButton().addActionListener(new TalentTreeListener());
-        view.getSidePanelView().getTalentView().getBack().addActionListener(new TalentTreeListener());
-        view.getSidePanelView().getTalentView().getAccept().addActionListener(new TalentPointListener());
-        view.getSidePanelView().getButtonView().getHomeButton().addActionListener(new MenuListener());
-        view.getSidePanelView().getUpgradeView().getBackButton().addActionListener(new ReturnListener());
-        view.getSidePanelView().getUpgradeView().getPath1Button().addActionListener(new UpgradeListener());
-        view.getSidePanelView().getUpgradeView().getPath2Button().addActionListener(new UpgradeListener());
-        view.getSidePanelView().getUpgradeView().getPath3Button().addActionListener(new UpgradeListener());
-        view.getSidePanelView().getUpgradeView().getSellButton().addActionListener(new UpgradeListener());
-        view.getSidePanelView().getUpgradeView().getCancelButton().addActionListener(new CancelListener());
-        view.getSidePanelView().getUpgradeView().getConfirmButton().addActionListener(new ConfirmListener());
     }
 }

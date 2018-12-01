@@ -1,13 +1,12 @@
-
 package views;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import utilities.SelectButtonGroup;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import utilities.SelectButtonGroup;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * The main view of the game displaying the
@@ -178,7 +177,6 @@ public class MainView extends ImagePanel {
         this.enableDifficulty();
         this.getMediumButton().setBorder(this.getDeSelectionBorder());
         this.getHardButton().setBorder(this.getDeSelectionBorder());
-        this.start.setEnabled(false);
         this.enableStartButton();
         this.getEasyButton().setBorder(this.getSelectionBorder());
         this.getEasyButton().setSelected(true);

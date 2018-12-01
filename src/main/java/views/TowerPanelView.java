@@ -23,11 +23,9 @@ import java.util.Arrays;
 
 public class TowerPanelView extends JPanel implements ActionListener {
 
-    private static final long serialVersionUID = 1L;
     public static final int TOWER_ICON_WIDTH = 40;
     public static final int TOWER_ICON_HEIGHT = 40;
-    private DriverModel model;
-    private TDButtonGroup buildGroup = new TDButtonGroup();
+    private static final long serialVersionUID = 1L;
     private static ArrayList<TowerFactory> towerFactories = new ArrayList<>(Arrays.asList(
             new DenseLightningTowerFactory(),
             new FireBombTowerFactory(),
@@ -39,6 +37,8 @@ public class TowerPanelView extends JPanel implements ActionListener {
             new PatchOfFireTowerFactory(),
             new TeslaTowerFactory()
     ));
+    private DriverModel model;
+    private TDButtonGroup buildGroup = new TDButtonGroup();
 
     /**
      * constructs the tower panel

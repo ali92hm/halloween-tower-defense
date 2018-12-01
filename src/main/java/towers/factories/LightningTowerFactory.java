@@ -1,7 +1,6 @@
 package towers.factories;
 
 import models.DriverModel;
-import towers.Tower;
 import towers.implementations.LightningTower;
 import utilities.Position;
 import views.TowerBuyButton;

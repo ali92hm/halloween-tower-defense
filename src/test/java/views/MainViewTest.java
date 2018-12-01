@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class MainViewTest {
@@ -24,12 +25,12 @@ public class MainViewTest {
     }
 
     @Test
-    public void givenMainView_WhenResetMainView_ThenEasyButtonIsSelected() {
+    public void givenMainView_WhenResetMainView_ThenEasySelected() {
         assertTrue(sut.getEasyButton().isSelected());
     }
 
     @Test
-    public void givenMainView_WhenResetMainViewAndSetHard_ThenHardButtonIsSelected() {
+    public void givenMainView_WhenResetMainViewAndSetHard_ThenHardSelected() {
         sut.getHardButton().setSelected(true);
         assertTrue(sut.getHardButton().isSelected());
     }
@@ -40,7 +41,7 @@ public class MainViewTest {
     }
 
     @Test
-    public void givenMainView_WhenResetMainViewAndSetMedium_ThenMediumIsSelected() {
+    public void givenMainView_WhenResetMainViewAndSetMedium_ThenMediumSelected() {
         sut.getMediumButton().setSelected(true);
         assertTrue(sut.getMediumButton().isSelected());
     }
