@@ -492,11 +492,9 @@ public class UpgradeView extends JPanel implements ActionListener {
 	 */
 	
 	public void actionPerformed(ActionEvent e) {
-		if (this.selectedTower != null) {
-			if (this.model.isUpdateScreen()) {
+		if (this.selectedTower != null && this.model.isUpdateScreen()) {
 				this.updateInfo();
 				this.model.setUpdateScreen(false);
-			}
 		}
 	}
 }

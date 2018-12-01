@@ -178,7 +178,6 @@ public class MainView extends ImagePanel {
         this.enableDifficulty();
         this.getMediumButton().setBorder(this.getDeSelectionBorder());
         this.getHardButton().setBorder(this.getDeSelectionBorder());
-        this.start.setEnabled(false);
         this.enableStartButton();
         this.getEasyButton().setBorder(this.getSelectionBorder());
         this.getEasyButton().setSelected(true);
