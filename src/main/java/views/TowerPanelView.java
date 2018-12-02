@@ -105,13 +105,9 @@ public class TowerPanelView extends JPanel implements ActionListener {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
         JLabel towerName = new JLabel(buyButton.getName());
-        JLabel towerLabel = new JLabel("Tower");
-        towerName.setFont(new Font("Serif", Font.BOLD, 10));
-        towerLabel.setFont(new Font("Serif", Font.BOLD, 10));
-        towerName.setHorizontalAlignment(SwingConstants.CENTER);
-        towerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            towerName.setFont(new Font("Serif", Font.BOLD, 10));
+            towerName.setHorizontalAlignment(SwingConstants.CENTER);
         labelPanel.add(towerName);
-        labelPanel.add(towerLabel);
         JLabel towerCost = new JLabel(factory.getPrice() + "g");
         towerCost.setFont(new Font("Serif", Font.BOLD, 10));
 
