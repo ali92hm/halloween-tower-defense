@@ -1,7 +1,8 @@
-package towers;
+package towers.implementations;
 
 import models.DriverModel;
 import projectiles.Projectile;
+import towers.Tower;
 import utilities.Position;
 
 public class MoneyTower extends Tower {

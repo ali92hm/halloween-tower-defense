@@ -315,21 +315,19 @@ public class DriverView extends JFrame implements ActionListener {
 
     public void maybeShowTalentTreeTutorial() {
         if (this.model.getLevel() == 5 && !this.shownTalentTreeTutorial) {
-            this.sidePanelView.getTowerView().enableTowerButtons(false);
             this.sidePanelView.getButtonView().getStartButton().setEnabled(false);
             this.sidePanelView.getButtonView().getTalentTreeButton().setEnabled(false);
             this.mapView.startTutorial(1);
         } else if (this.model.getLevel() == 10 && !this.shownBatTutorial) {
-            this.sidePanelView.getTowerView().enableTowerButtons(false);
             this.sidePanelView.getButtonView().getStartButton().setEnabled(false);
             this.sidePanelView.getButtonView().getTalentTreeButton().setEnabled(false);
             this.mapView.startTutorial(2);
         } else if (this.model.getLevel() == 15 && !this.shownGiantPumpkinTutorial) {
-            this.sidePanelView.getTowerView().enableTowerButtons(false);
             this.sidePanelView.getButtonView().getStartButton().setEnabled(false);
             this.sidePanelView.getButtonView().getTalentTreeButton().setEnabled(false);
             this.mapView.startTutorial(3);
         }
+        this.sidePanelView.getTowerView().enableTowerButtons();
     }
 
     /*
@@ -585,5 +583,4 @@ public class DriverView extends JFrame implements ActionListener {
             this.mapView.repaint();
         }
     }
-
 }

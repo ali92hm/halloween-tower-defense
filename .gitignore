@@ -25,6 +25,11 @@ Thumbs.db
 .idea/
 *.iml
 
+# Gradle things
+.gradle/
+gradle/
+gradlew
+gradlew.bat
 
 # Created by https://www.gitignore.io/api/java,gradle,intellij
 

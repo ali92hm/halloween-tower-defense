@@ -1,5 +1,7 @@
 package utilities;
 
+import views.TowerBuyButton;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
@@ -17,20 +19,16 @@ public class TDButtonGroup extends ButtonGroup {
 
     private static final long serialVersionUID = 1L;
 
-    public TDButtonGroup() {
-        super();
-    }
-
     /**
      * returns which button is selected
      *
      * @return AbstractButton
      */
 
-    public AbstractButton getSelectedButton() {
+    public TowerBuyButton getSelectedButton() {
         Enumeration<AbstractButton> en = this.getElements();
         while (en.hasMoreElements()) {
-            AbstractButton b = en.nextElement();
+            TowerBuyButton b = (TowerBuyButton) en.nextElement();
             if (b.isSelected()) {
                 return b;
             }

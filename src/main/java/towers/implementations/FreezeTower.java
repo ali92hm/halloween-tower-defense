@@ -1,9 +1,10 @@
-package towers;
+package towers.implementations;
 
 import mobs.Mob;
 import models.DriverModel;
 import projectiles.DeepFreeze;
 import projectiles.Projectile;
+import towers.Tower;
 import utilities.Position;
 import views.Alert;
 import views.DriverView;
@@ -126,8 +127,10 @@ public class FreezeTower extends Tower {
 
         for (Mob mob : model.allMobs()) {
             if (this.position.getDistance(mob.getPosition()) < (((this.range + (25 *
-                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius()) && mob.getDistanceTraveled() > this.mobTravelDistance) {
-                projectiles[0] = new DeepFreeze(model, this.position, null, this.path3UpgradeLevel, this.path1UpgradeLevel);
+                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius())) {
+                if (mob.getDistanceTraveled() > this.mobTravelDistance) {
+                    projectiles[0] = new DeepFreeze(model, this.position, null, this.path3UpgradeLevel, this.path1UpgradeLevel);
+                }
             }
         }
         return projectiles;
