@@ -7,7 +7,7 @@ import views.TowerBuyButton;
 
 public class FireBombTowerFactory implements TowerFactory<FireBombTower> {
     private TowerBuyButton buyButton = new TowerBuyButton(
-            "Fire Bomb Tower",
+            "Fire-Bomb Tower",
             "Shoots flaming bombs",
             "FireBombTower.png");
 
