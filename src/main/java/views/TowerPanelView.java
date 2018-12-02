@@ -2,11 +2,11 @@ package views;
 
 import models.DriverModel;
 import towers.Tower;
-import utilities.TDButtonGroup;
-import javax.swing.*;
 import towers.factories.*;
 import utilities.Position;
+import utilities.TDButtonGroup;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -102,21 +102,29 @@ public class TowerPanelView extends JPanel implements ActionListener {
 
         TowerBuyButton buyButton = factory.getBuyButton();
 
-        JPanel panel = new JPanel(new BorderLayout());
-        JPanel labelPanel = new JPanel(new GridLayout(2, 1));
-        JLabel towerName = new JLabel(buyButton.getName());
-            towerName.setFont(new Font("Serif", Font.BOLD, 10));
-            towerName.setHorizontalAlignment(SwingConstants.CENTER);
-        labelPanel.add(towerName);
+        JPanel buyButtonPanel = new JPanel(new BorderLayout());
+
+        String titleLines[] = buyButton.getName().trim().split(" ");
+        JPanel buyButtonTitlePanel = new JPanel(new GridLayout(titleLines.length, 1));
+
+        for (String line : titleLines) {
+            JLabel lineLabel = new JLabel(line);
+            lineLabel.setFont(new Font("Serif", Font.BOLD, 10));
+            lineLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+            buyButtonTitlePanel.add(lineLabel);
+        }
+
         JLabel towerCost = new JLabel(factory.getPrice() + "g");
+        towerCost.setHorizontalAlignment(SwingConstants.CENTER);
         towerCost.setFont(new Font("Serif", Font.BOLD, 10));
 
-        panel.add(labelPanel, BorderLayout.NORTH);
-        panel.add(buyButton, BorderLayout.CENTER);
-        panel.add(towerCost, BorderLayout.SOUTH);
+        buyButtonPanel.add(buyButtonTitlePanel, BorderLayout.NORTH);
+        buyButtonPanel.add(buyButton, BorderLayout.CENTER);
+        buyButtonPanel.add(towerCost, BorderLayout.SOUTH);
 
         buildGroup.add(buyButton);
-        return panel;
+        return buyButtonPanel;
     }
 
     /**
