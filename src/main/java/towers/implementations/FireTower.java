@@ -107,11 +107,9 @@ public class FireTower extends Tower {
         this.reloadProgress = (int) (((this.fireRate) - (200 * this.path2UpgradeLevel)) * fireRateBoost);
 
         for (Mob mob : model.allMobs()) {
-            if (this.position.getDistance(mob.getPosition()) < (((this.range + (25 *
-                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius())) {
-                if (mob.getDistanceTraveled() > this.mobTravelDistance) {
+            if ((this.position.getDistance(mob.getPosition()) < (((this.range + (25 *
+                    this.path3UpgradeLevel)) * rangeBoost) + mob.getRadius())) && (mob.getDistanceTraveled() > this.mobTravelDistance)) {
                     projectiles[0] = new RingOfFire(model, this.position, null, this.path3UpgradeLevel, this.path1UpgradeLevel);
-                }
             }
         }
         return projectiles;
