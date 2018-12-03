@@ -9,13 +9,13 @@ import java.awt.event.ActionListener;
  * Listener to display a brief description of the game
  *
  * @author Scorpion
- *
  */
 
 public class InfoListener implements ActionListener {
     private String info =
             "A very spooky tower defense game with a " +
                     "questionably organized code base. Created by Jack Skellington";
+
     public void actionPerformed(ActionEvent e) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
@@ -25,7 +25,7 @@ public class InfoListener implements ActionListener {
         infoText.setLineWrap(true);
         infoText.setWrapStyleWord(true);
 
-        infoDialogue.setSize(300,100);
+        infoDialogue.setSize(300, 100);
         int xpos, ypos;
         xpos = (screenSize.width - infoDialogue.getWidth()) / 2;
         ypos = (screenSize.height - infoDialogue.getHeight()) / 2;

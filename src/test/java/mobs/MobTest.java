@@ -1,6 +1,7 @@
 package mobs;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import projectiles.ChainLightning;
@@ -8,13 +9,12 @@ import projectiles.FireBlast;
 import projectiles.IceBeam;
 import projectiles.Projectile;
 import utilities.Position;
-import org.junit.jupiter.api.Test;
 import views.DriverView;
 
 import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class MobTest {
     private Mob sut_BasicMob;

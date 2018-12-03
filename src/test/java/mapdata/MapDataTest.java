@@ -7,14 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import utilities.Position;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class MapDataTest {
 
-    @Mock DriverModel model;
-    @Mock Mob mob;
+    @Mock
+    DriverModel model;
+    @Mock
+    Mob mob;
     private Map1Data sut;
 
     @BeforeEach
@@ -47,12 +49,12 @@ class MapDataTest {
     /* Test mob count given levels */
 
     @Test
-   void givenLevel1_whenGetMobs_MobCountEqualsSix() {
+    void givenLevel1_whenGetMobs_MobCountEqualsSix() {
         assertEquals(6, sut.getMobs(1).size());
     }
 
     @Test
-   void givenLeven10_whenGetMobds_MobCountEqualsEleven() {
+    void givenLeven10_whenGetMobds_MobCountEqualsEleven() {
         assertEquals(11, sut.getMobs(10).size());
     }
 
