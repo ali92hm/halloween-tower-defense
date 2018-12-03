@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import utilities.Position;
 import utilities.Vector;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectilesTest {
     ChainingDenseLightning sut_ChainingDeseLightning = new ChainingDenseLightning(new DriverModel(), new Position(0, 0), new Vector(), new BasicMob(0, 0, new Position(0, 0)), 0, 0);
@@ -25,11 +25,112 @@ public class ProjectilesTest {
     Shock sut_Shock = new Shock(new DriverModel(), new Position(0, 0), new Vector(), new BasicMob(0, 0, new Position(0, 0)), 0, 0);
     ThunderBolt sut_ThunderBolt = new ThunderBolt(new DriverModel(), new Position(0, 0), new Vector(), 0, 0, false);
 
+    @Test
+    public void givenThunderBolt_whenSetAlive_thenReturnTrue() {
+        sut_ThunderBolt.setAlive();
+        assertTrue(sut_ThunderBolt.stillAlive);
+    }
 
     @Test
-    public void givenChainingDenseLightning_whenIsLightning_thenReturnTrue() {
-        assertTrue(sut_ChainingDeseLightning.isLightning());
+    public void givenThunderBolt_whenSetAlive_thenReturnFalse() {
+        sut_ThunderBolt.movements = 10;
+        sut_ThunderBolt.setAlive();
+        assertFalse(sut_ThunderBolt.stillAlive);
     }
+
+    @Test
+    public void givenRingOfFire_whenSetAlive_thenReturnTrue() {
+        sut_RingOfFire.setAlive();
+        assertTrue(sut_RingOfFire.stillAlive);
+    }
+
+    @Test
+    public void givenRingOfFire_whenSetAlive_thenReturnFalse() {
+        sut_RingOfFire.movements = 10;
+        sut_RingOfFire.setAlive();
+        assertFalse(sut_RingOfFire.stillAlive);
+    }
+
+    @Test
+    public void givenShock_whenSetAlive_thenReturnTrue() {
+        sut_Shock.setAlive();
+        assertTrue(sut_Shock.stillAlive);
+    }
+
+    @Test
+    public void givenShock_whenSetAlive_thenReturnFalse() {
+        sut_Shock.movements = 10;
+        sut_Shock.setAlive();
+        assertFalse(sut_Shock.stillAlive);
+    }
+
+    @Test
+    public void givenFireBomb_thenSetAlive_thenReturnTrue() {
+        sut_FireBomb.setAlive();
+        assertTrue(sut_FireBomb.stillAlive);
+    }
+
+    @Test
+    public void givenFireBomb_thenSetAlive_thenReturnFalse() {
+        sut_FireBomb.movements = 15;
+        sut_FireBomb.setAlive();
+        assertFalse(sut_FireBomb.stillAlive);
+    }
+
+    @Test
+    public void givenIceBeam_thenSetAlive_thenReturnTrue(){
+        sut_IceBeam.setAlive();
+        assertTrue(sut_IceBeam.stillAlive);
+    }
+
+    @Test
+    public void givenIceBeam_thenSetAlive_thenReturnFalse(){
+        sut_IceBeam.movements = 15;
+        sut_IceBeam.setAlive();
+        assertFalse(sut_IceBeam.stillAlive);
+    }
+
+    @Test
+    public void givenIcicle_whenSetAlive_thenReturnTrue() {
+        sut_Icicle.setAlive();
+        assertTrue(sut_Icicle.stillAlive);
+    }
+
+    @Test
+    public void givenIcicle_whenSetAlive_thenReturnFalse() {
+        sut_Icicle.movements = 15;
+        sut_Icicle.setAlive();
+        assertFalse(sut_Icicle.stillAlive);
+    }
+
+    @Test
+    public void givenPatchOfFire_whenSetAlive_theReturnTrue() {
+        sut_PatchOfFire.setAlive();
+        assertTrue(sut_PatchOfFire.stillAlive);
+    }
+
+    @Test
+    public void givenPatchOfFire_whenSetAlive_theReturnFalse() {
+        sut_PatchOfFire.movements = 21;
+        sut_PatchOfFire.setAlive();
+        assertFalse(sut_PatchOfFire.stillAlive);
+    }
+
+    @Test
+    public void givenPitOfFire_whenSetAlive_thenReturnTrue() {
+        sut_PitOfFire.setAlive();
+        assertTrue(sut_PitOfFire.stillAlive);
+    }
+
+    @Test
+    public void givenPitOfFire_whenSetAlive_thenReturnFalse() {
+        sut_PitOfFire.movements = 41;
+        sut_PitOfFire.setAlive();
+        assertFalse(sut_PitOfFire.stillAlive);
+    }
+
+    @Test
+    public void givenChainingDenseLightning_whenIsLightning_thenReturnTrue() { assertTrue(sut_ChainingDeseLightning.isLightning()); }
 
     @Test
     public void givenChainingShock_whenIsLightning_thenReturnTrue() {
@@ -87,7 +188,7 @@ public class ProjectilesTest {
     }
 
     @Test
-    public void givenShock_whenIs_thenReturnTrue() {
+    public void givenShock_whenIsLightning_thenReturnTrue() {
         assertTrue(sut_Shock.isLightning());
     }
 
