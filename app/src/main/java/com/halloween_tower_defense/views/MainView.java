@@ -17,7 +17,7 @@ import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import utilities.SelectButtonGroup;
+import com.halloween_tower_defense.utilities.SelectButtonGroup;
 
 /**
  * The main view of the game displaying the

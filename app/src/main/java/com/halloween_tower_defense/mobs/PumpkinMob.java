@@ -1,13 +1,13 @@
 package com.halloween_tower_defense.mobs;
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 public class PumpkinMob extends Mob {
-	
+
 	/**
 	 * basic mob place holder that is not used
 	 */
-	
+
 	public static final String MOB_IMAGE = "PumpkinMob.png";
 	public static final int MOB_WIDTH = 50;
 	public static final int MOB_HEIGHT = 50;
@@ -20,14 +20,14 @@ public class PumpkinMob extends Mob {
 
 	/**
 	 * constructs a brand new mob
-	 * 
+	 *
 	 * @param level
 	 * @param difficulty
 	 * @param position
 	 */
-	
+
 	public PumpkinMob(final int level, final int difficulty, final Position position) {
-		this.mobPath = MOB_IMAGE; 
+		this.mobPath = MOB_IMAGE;
 		this.mobWidth = MOB_WIDTH;
 		this.mobHeight = MOB_HEIGHT;
 		this.maxHealth = HEALTH + this.getHealthBoost(level, LEVEL_HEALTH_BOOST, difficulty);
@@ -38,5 +38,5 @@ public class PumpkinMob extends Mob {
 		this.setImage();
 		this.position = position;
 	}
-	
+
 }

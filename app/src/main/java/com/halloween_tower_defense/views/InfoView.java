@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * Displays information about their

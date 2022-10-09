@@ -1,8 +1,8 @@
 package com.halloween_tower_defense.towers;
 
-import projectiles.Projectile;
-import utilities.Position;
-import models.DriverModel;
+import com.halloween_tower_defense.projectiles.Projectile;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.models.DriverModel;
 
 public class MoneyTower extends Tower
 {
@@ -11,11 +11,11 @@ public class MoneyTower extends Tower
 	public static final int TOWER_RANGE = 0;
 	public static final int TOWER_FIRE_RATE = 0;
 	public static final int TOWER_COST = 0;
-	
+
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor 
+	 * Constructor
 	 * @param location
 	 * @param model
 	 */
@@ -30,10 +30,10 @@ public class MoneyTower extends Tower
 	public Projectile[] attackMob(DriverModel model) {
 		return new Projectile[0];
 	}
-	
+
 	public void upgradePath1(final DriverModel model) {
 	}
-	
+
 	public void upgradePath2(final DriverModel model) {
 	}
 
@@ -76,7 +76,7 @@ public class MoneyTower extends Tower
 	@Override
 	public void upgradePath3(DriverModel model) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

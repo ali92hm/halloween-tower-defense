@@ -1,24 +1,24 @@
 package com.halloween_tower_defense.towers;
 
-import projectiles.IceBeam;
-import projectiles.Projectile;
-import projectiles.ThunderBolt;
-import utilities.Position;
-import utilities.Vector;
-import views.Alert;
-import views.DriverView;
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.projectiles.IceBeam;
+import com.halloween_tower_defense.projectiles.Projectile;
+import com.halloween_tower_defense.projectiles.ThunderBolt;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
+import com.halloween_tower_defense.views.Alert;
+import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * Creates a tower that shoots a projectile
  * that slows a mob down
- * 
+ *
  * @author Scorpion
  *
  */
 
-public class IceTower extends Tower 
+public class IceTower extends Tower
 {
 	public static final String TOWER_BASE_IMAGE = "IceTower.png";
 	public static final String TOWER_TURRET_IMAGE = null;
@@ -28,23 +28,23 @@ public class IceTower extends Tower
 	public static final int NUMBER_MOBS_CAN_ATTACK = 2;
 
 	private static boolean clickedTowerBefore = true;
-	
+
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor for the IceTower
-	 * 
+	 *
 	 * @param location
 	 * @param model
 	 */
-	
+
 	public IceTower(final Position location, final DriverModel model)
 	{
 		super(location, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
 		this.range = (int) (TOWER_RANGE);
 		this.fireRate = (int) (TOWER_FIRE_RATE);
 		this.cost = TOWER_COST;
-		
+
 		this.path1UpgradeName = "Slow Mob";
 		this.path1UpgradeIcon = "Damage Icon.png";
 		this.path1UpgradeLevel = 0;
@@ -52,7 +52,7 @@ public class IceTower extends Tower
 		this.path1UpgradeCosts[0] = 200;
 		this.path1UpgradeCosts[1] = 800;
 		this.path1UpgradeCosts[2] = 1600;
-		
+
 		this.path2UpgradeName = "Targets";
 		this.path2UpgradeIcon = "Count Icon.jpeg";
 		this.path2UpgradeLevel = 0;
@@ -60,7 +60,7 @@ public class IceTower extends Tower
 		this.path2UpgradeCosts[0] = 500;
 		this.path2UpgradeCosts[1] = 1150;
 		this.path2UpgradeCosts[2] = 2400;
-		
+
 		this.path3UpgradeName = "Range";
 		this.path3UpgradeIcon = "Range Icon.png";
 		this.path3UpgradeLevel = 0;
@@ -68,24 +68,24 @@ public class IceTower extends Tower
 		this.path3UpgradeCosts[0] = 400;
 		this.path3UpgradeCosts[1] = 800;
 		this.path3UpgradeCosts[2] = 1600;
-		
+
 		model.towerBuyUpgradeMoney(this.cost);
 	}
-	
+
 	/**
-	 * Method that shows the tower's tutorial 
+	 * Method that shows the tower's tutorial
 	 * if its the first time users clicked on it
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public static boolean clickedTower(final DriverView view) {
 		if (clickedTowerBefore) {
 			return true;
 		}
-		new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50), 
-				  "Thick Ice Tower", 
-				  "This tower shoots several", 
+		new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
+				  "Thick Ice Tower",
+				  "This tower shoots several",
 				  "beams of ice slowing all",
 				  "affected mobs.");
 		clickedTowerBefore = true;
@@ -95,11 +95,11 @@ public class IceTower extends Tower
 	/**
 	 * method to tell towers to attack a mob if
 	 * their fire rate cool down is finished
-	 * 
+	 *
 	 * @param model
 	 * @return Projectile[]
 	 */
-	
+
 	public Projectile[] attackMob(final DriverModel model) {
 		Projectile[] projectiles = new Projectile[5];
 		this.attackingMob = new Mob[5];
@@ -107,15 +107,15 @@ public class IceTower extends Tower
 			this.reloadProgress -= 30;
 			return projectiles;
 		}
-		
+
 		this.attackingMob[0] = null;
 		this.attackingMob[1] = null;
 		this.attackingMob[2] = null;
 		this.attackingMob[3] = null;
 		this.attackingMob[4] = null;
-		for (Mob mob : model.allMobs()) 
+		for (Mob mob : model.allMobs())
 		{
-			if (this.position.getDistance(mob.getPosition()) < (this.range + (45 * 
+			if (this.position.getDistance(mob.getPosition()) < (this.range + (45 *
 					this.path3UpgradeLevel) * rangeBoost) + mob.getRadius() && !mob.isHitByIceBeam()) {
 				if (this.attackingMob[0] == null) {
 					this.attackingMob[0] = mob;
@@ -132,36 +132,36 @@ public class IceTower extends Tower
 		}
 		if (this.attackingMob[0] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 0) {
 			projectiles[0] = this.shootMob(this.attackingMob[0], model);
-		} 
+		}
 		if (this.attackingMob[1] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 1) {
 			projectiles[1] = this.shootMob(this.attackingMob[1], model);
-		} 
+		}
 		if (this.attackingMob[2] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 2) {
 			projectiles[2] = this.shootMob(this.attackingMob[2], model);
-		} 
+		}
 		if (this.attackingMob[3] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 3) {
 			projectiles[3] = this.shootMob(this.attackingMob[3], model);
-		} 
+		}
 		if (this.attackingMob[4] != null && (NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel) > 4) {
 			projectiles[4] = this.shootMob(this.attackingMob[4], model);
-		} 
+		}
 		return projectiles;
 	}
 
 	/**
 	 * has the tower actually create and release
 	 * a projectile
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 */
-	
+
 	public Projectile shootMob(final Mob currentAttackingMob, final DriverModel model) {
 		Vector vector = new Vector(this.position, currentAttackingMob.getPosition(), ThunderBolt.PROJECTILE_SPEED);
-		
+
 		double xComp = 0;
 		double yComp = 0;
-		
+
 		switch (currentAttackingMob.getDirection()) {
 			case 'u': yComp = (-1) * currentAttackingMob.getSpeed();
 			break;
@@ -172,7 +172,7 @@ public class IceTower extends Tower
 			case 'l': xComp = (-1) * currentAttackingMob.getSpeed();
 			break;
 		}
-		
+
 		Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
 		this.reloadProgress = (int) (this.fireRate * fireRateBoost);
 		return new IceBeam(model, this.position, currentAttackingMob, trajectory, this.path1UpgradeLevel, this.path3UpgradeLevel);
@@ -180,10 +180,10 @@ public class IceTower extends Tower
 
 	/**
 	 * getting the range of a tower
-	 * 
+	 *
 	 * @return int
 	 */
-	
+
 	public int getRange() {
 		return path3CurrentValue();
 	}
@@ -191,10 +191,10 @@ public class IceTower extends Tower
 	/**
 	 * returns the current value of the attribute
 	 * for the towers first upgrade path
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
-	
+
 	public int path1CurrentValue() {
 		return (int) IceBeam.getSlowPotencyLevelBoost(this.path1UpgradeLevel);
 	}
@@ -202,10 +202,10 @@ public class IceTower extends Tower
 	/**
 	 * returns the current value of the attribute
 	 * for the towers second upgrade path
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
-	
+
 	public int path2CurrentValue() {
 		return NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel;
 	}
@@ -213,10 +213,10 @@ public class IceTower extends Tower
 	/**
 	 * returns the current value of the attribute
 	 * for the towers third upgrade path
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
-	
+
 	public int path3CurrentValue() {
 		return (int) (this.range + (45 * this.path3UpgradeLevel) * rangeBoost);
 	}
@@ -225,10 +225,10 @@ public class IceTower extends Tower
 	 * returns the value of the attribute
 	 * if it were to go to the next upgrade
 	 * for the towers first upgrade path
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
-	
+
 	public int path1UpgradeValue() {
 		return this.path1UpgradeLevel == 3 ? -1 :
 			(int) IceBeam.getSlowPotencyLevelBoost(this.path1UpgradeLevel+1);
@@ -238,10 +238,10 @@ public class IceTower extends Tower
 	 * returns the value of the attribute
 	 * if it were to go to the next upgrade
 	 * for the towers second upgrade path
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
-	
+
 	public int path2UpgradeValue() {
 		return this.path2UpgradeLevel == 3 ? -1 :
 			(NUMBER_MOBS_CAN_ATTACK + this.path2UpgradeLevel+1);
@@ -251,10 +251,10 @@ public class IceTower extends Tower
 	 * returns the value of the attribute
 	 * if it were to go to the next upgrade
 	 * for the towers third upgrade path
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
-	
+
 	public int path3UpgradeValue() {
 		return this.path3UpgradeLevel == 3 ? -1 :
 			(int) (this.range + (45 * (this.path3UpgradeLevel+1)) * rangeBoost);
@@ -262,10 +262,10 @@ public class IceTower extends Tower
 
 	/**
 	 * upgrades the first upgrade path to the next level
-	 * 
+	 *
 	 * @param model
 	 */
-	
+
 	public void upgradePath1(final DriverModel model) {
 		if (this.path1UpgradeLevel == 3) {
 			model.towerBuyUpgradeMoney(this.path1UpgradeCosts[this.path1UpgradeLevel]);
@@ -278,10 +278,10 @@ public class IceTower extends Tower
 
 	/**
 	 * upgrades the second upgrade path to the next level
-	 * 
+	 *
 	 * @param model
 	 */
-	
+
 	public void upgradePath2(final DriverModel model) {
 		if (this.path2UpgradeLevel == 3) {
 			model.towerBuyUpgradeMoney(this.path2UpgradeCosts[this.path2UpgradeLevel]);
@@ -294,10 +294,10 @@ public class IceTower extends Tower
 
 	/**
 	 * upgrades the third upgrade path to the next level
-	 * 
+	 *
 	 * @param model
 	 */
-	
+
 	public void upgradePath3(final DriverModel model) {
 		if (this.path3UpgradeLevel == 3) {
 			model.towerBuyUpgradeMoney(this.path3UpgradeCosts[this.path3UpgradeLevel]);
@@ -307,5 +307,5 @@ public class IceTower extends Tower
 			this.path3UpgradeLevel++;
 		}
 	}
-	
+
 }

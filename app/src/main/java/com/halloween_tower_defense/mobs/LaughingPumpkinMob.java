@@ -1,10 +1,10 @@
 package com.halloween_tower_defense.mobs;
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * basic mob placeholder that is not used
- * 
+ *
  * @author Scorpion
  *
  */
@@ -19,17 +19,17 @@ public class LaughingPumpkinMob extends Mob {
 	public static final int MOB_DEATH_GOLD_BOOST = 2;
 	public static final int MOB_SPEED = 4;
 	public static final int MOB_RADIUS = 30;
-	
+
 	/**
 	 * constructs a brand new mob
-	 * 
+	 *
 	 * @param level
 	 * @param difficulty
 	 * @param position
 	 */
 
 	public LaughingPumpkinMob(final int level, final int difficulty, final Position position) {
-		this.mobPath = MOB_IMAGE; 
+		this.mobPath = MOB_IMAGE;
 		this.mobWidth = MOB_WIDTH;
 		this.mobHeight = MOB_HEIGHT;
 		this.maxHealth = HEALTH + this.getHealthBoost(level, LEVEL_HEALTH_BOOST, difficulty);

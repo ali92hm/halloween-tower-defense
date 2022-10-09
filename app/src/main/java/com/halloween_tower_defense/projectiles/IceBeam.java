@@ -4,16 +4,16 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.Position;
-import utilities.Vector;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
 
 /**
  * creates a projectile continually hits
  * a mob slowing them down
- * 
+ *
  * @author Scorpion
  *
  */
@@ -37,12 +37,12 @@ public class IceBeam extends Projectile {
 	public final static int SLOW_DURATION = 2;
 	public final static int PROJECTILE_HITS = 1;
 	public final static int PROJECTILE_MOVEMENTS = 15;
-	
+
 	private Mob attackingMob;
-	
+
 	/**
 	 * constructor for IceBeam
-	 * 
+	 *
 	 * @param model
 	 * @param position
 	 * @param attackingMob
@@ -50,8 +50,8 @@ public class IceBeam extends Projectile {
 	 * @param slowPotencyLevel
 	 * @param rangeUpgradeLevel
 	 */
-	
-	public IceBeam(final DriverModel model, final Position position, final Mob attackingMob, 
+
+	public IceBeam(final DriverModel model, final Position position, final Mob attackingMob,
 			final Vector vector, final int slowPotencyLevel, final int rangeUpgradeLevel) {
 		super(model, position, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
 		this.attackingMob = attackingMob;
@@ -69,38 +69,38 @@ public class IceBeam extends Projectile {
 		this.drawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * returns how much the slowing effect is
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getSlowPotencyLevelBoost(final int level) {
 		return (int) ((SLOW_POTENCY + (SLOW_POTENCY * level)) * 10);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 	    ArrayList<Position> positions = new ArrayList<Position>(this.drawRounds);
 		for (Position position : positions) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		int increase = 0;
 		if (rangeBoost == true) {
@@ -111,12 +111,12 @@ public class IceBeam extends Projectile {
 			this.endPosition = this.position;
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		if (this.movements > 0) {
@@ -127,9 +127,9 @@ public class IceBeam extends Projectile {
 		this.position = this.vector.getNextPosition(this.position, this.speed);
 		this.drawRounds.clear();
 		this.drawRounds.add(this.position);
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
-			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) && 
+			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) &&
 					mob.isVisible() && mob.equals(this.attackingMob)) {
 				mob.mobHitBy(this);
 				this.impactPosition = this.position;
@@ -138,15 +138,15 @@ public class IceBeam extends Projectile {
 			}
 		}
 		this.movements++;
-		
+
 		this.setAlive();
 		if (!this.stillAlive) {
 			return;
 		}
-		
+
 		this.position = this.vector.getNextPosition(this.position, this.speed);
 		this.drawRounds.add(this.position);
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) && mob.isVisible()) {
 				mob.mobHitBy(this);
@@ -156,15 +156,15 @@ public class IceBeam extends Projectile {
 			}
 		}
 		this.movements++;
-		
+
 		this.setAlive();
 		if (!this.stillAlive) {
 			return;
 		}
-		
+
 		this.position = this.vector.getNextPosition(this.position, this.speed);
 		this.drawRounds.add(this.position);
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) && mob.isVisible()) {
 				mob.mobHitBy(this);
@@ -175,14 +175,14 @@ public class IceBeam extends Projectile {
 		}
 		this.movements++;
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is ice
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isIce() {
 		return true;
 	}

@@ -1,11 +1,11 @@
 package com.halloween_tower_defense.mobs;
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * the speedy mob of the game which
  * has low health and fast speed
- * 
+ *
  * @author Scorpion
  *
  */
@@ -21,10 +21,10 @@ public class SpeedyMob extends Mob {
 	public static final int MOB_DEATH_GOLD_BOOST = 2;
 	public static final int MOB_SPEED = 4;
 	public static final int MOB_RADIUS = 30;
-	
+
 	/**
 	 * constructs a brand new mob
-	 * 
+	 *
 	 * @param level
 	 * @param difficulty
 	 * @param position
@@ -42,20 +42,20 @@ public class SpeedyMob extends Mob {
 		this.setImage();
 		this.position = position;
 	}
-	
+
 	/**
 	 * turns the image of the mob to the right
 	 */
-	
+
 	public void movingRight() {
 		this.mobPath = MOB_IMAGE_RIGHT;
 		this.setImage();
 	}
-	
+
 	/**
 	 * turns the image of the mob to the left
 	 */
-	
+
 	public void movingLeft() {
 		this.mobPath = MOB_IMAGE_LEFT;
 		this.setImage();

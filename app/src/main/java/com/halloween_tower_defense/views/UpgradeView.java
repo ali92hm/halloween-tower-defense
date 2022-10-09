@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import towerdefence.Driver;
-import towers.Tower;
-import utilities.TDButton;
+import com.halloween_tower_defense.App;
+import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.TDButton;
 
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * The panel for upgrading towers
@@ -296,7 +296,7 @@ public class UpgradeView extends JPanel implements ActionListener {
 		fillerPanel.setPreferredSize(new Dimension(20, 30));
 		
 		buttonPanel.add(cancelButton);
-		if (!Driver.isMac()){
+		if (!App.isMac()){
 		    buttonPanel.add(fillerPanel);
 		}
 		buttonPanel.add(confirmButton);

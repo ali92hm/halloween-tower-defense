@@ -4,17 +4,17 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.Position;
-import utilities.Vector;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
 
 /**
  * creates a projectile that shoots
  * in a line of lightning from the tower
  * hitting a single mob
- * 
+ *
  * @author Scorpion
  *
  */
@@ -38,10 +38,10 @@ public class ThunderBolt extends Projectile {
 	public final static int SLOW_DURATION = 0;
 	public final static int PROJECTILE_HITS = 1;
 	public final static int PROJECTILE_MOVEMENTS = 6;
-	
+
 	/**
 	 * constructor for ThunderBolt
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
@@ -49,7 +49,7 @@ public class ThunderBolt extends Projectile {
 	 * @param damageBoostLevel
 	 * @param chain
 	 */
-	
+
 	public ThunderBolt(final DriverModel model, final Position startingPosition, final Vector vector,
 			final int rangeBoostLevel, final int damageBoostLevel, final boolean chain) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
@@ -68,10 +68,10 @@ public class ThunderBolt extends Projectile {
 		this.drawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * constructor for chaining version of a ThunderBolt
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
@@ -80,7 +80,7 @@ public class ThunderBolt extends Projectile {
 	 * @param damageBoostLevel
 	 * @param chain
 	 */
-	
+
 	public ThunderBolt(final DriverModel model, final Position startingPosition, final Vector vector, final Mob chainingMob,
 			final int rangeBoostLevel, final int damageBoostLevel, final boolean chain) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
@@ -100,39 +100,39 @@ public class ThunderBolt extends Projectile {
 		this.drawRounds.add(this.position);
 		this.chainingMob = chainingMob;
 	}
-	
+
 	/**
 	 * returns how much damage the round does
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDamageLevelBoost(final int level) {
 		int damage = PROJECTILE_DAMAGE;
 		return (int) ((damage + (((damage*2)/3) * level * level)) * damageBoost);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 		ArrayList<Position> tempPosition = new ArrayList<Position>(this.drawRounds);
 		for (Position position : tempPosition) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		int increase = 0;
 		if (rangeBoost == true) {
@@ -143,12 +143,12 @@ public class ThunderBolt extends Projectile {
 			this.endPosition = this.position;
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		if (!this.stillAlive) {
@@ -159,15 +159,15 @@ public class ThunderBolt extends Projectile {
 			this.impactPosition = null;
 			this.endPosition = null;
 		}
-		
+
 		this.position = this.vector.getNextPosition(this.position, this.speed);
 		this.drawRounds.add(this.position);
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.equals(chainingMob)) {
 				continue;
 			}
-			
+
 			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) && mob.isVisible()) {
 				mob.mobHitBy(this);
 				this.impactPosition = this.position;
@@ -176,15 +176,15 @@ public class ThunderBolt extends Projectile {
 			}
 		}
 		this.movements++;
-		
+
 		this.setAlive();
 		if (!this.stillAlive) {
 			return;
 		}
-		
+
 		this.position = this.vector.getNextPosition(this.position, this.speed);
 		this.drawRounds.add(this.position);
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.equals(chainingMob)) {
 				continue;
@@ -197,15 +197,15 @@ public class ThunderBolt extends Projectile {
 			}
 		}
 		this.movements++;
-		
+
 		this.setAlive();
 		if (!this.stillAlive) {
 			return;
 		}
-		
+
 		this.position = this.vector.getNextPosition(this.position, this.speed);
 		this.drawRounds.add(this.position);
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.equals(chainingMob)) {
 				continue;
@@ -219,14 +219,14 @@ public class ThunderBolt extends Projectile {
 		}
 		this.movements++;
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is lightning
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isLightning() {
 		return true;
 	}

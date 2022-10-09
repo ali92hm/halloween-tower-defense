@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import projectiles.Projectile;
+import com.halloween_tower_defense.projectiles.Projectile;
 
-import towers.Tower;
+import com.halloween_tower_defense.towers.Tower;
 
-import mapdata.MapData;
-import mobs.Mob;
+import com.halloween_tower_defense.mapdata.MapData;
+import com.halloween_tower_defense.mobs.Mob;
 
 
 /**

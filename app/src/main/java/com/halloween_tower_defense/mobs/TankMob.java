@@ -1,13 +1,13 @@
 package com.halloween_tower_defense.mobs;
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * this is the tank mob that
  * can take a lot of hits.
  * It has high health and
  * slow speed
- * 
+ *
  * @author Scorpion
  *
  */
@@ -23,17 +23,17 @@ public class TankMob extends Mob {
 	public static final int MOB_DEATH_GOLD_BOOST = 2;
 	public static final int MOB_SPEED = 1;
 	public static final int MOB_RADIUS = 30;
-	
+
 	/**
 	 * constructs a brand new mob
-	 * 
+	 *
 	 * @param level
 	 * @param difficulty
 	 * @param position
 	 */
 
 	public TankMob(final int level, final int difficulty, final Position position) {
-		this.mobPath = MOB_IMAGE_RIGHT; 
+		this.mobPath = MOB_IMAGE_RIGHT;
 		this.mobWidth = MOB_WIDTH;
 		this.mobHeight = MOB_HEIGHT;
 		this.maxHealth = HEALTH + this.getHealthBoost(level, LEVEL_HEALTH_BOOST, difficulty);
@@ -48,16 +48,16 @@ public class TankMob extends Mob {
 	/**
 	 * turns the image of the mob to the right
 	 */
-	
+
 	public void movingRight() {
 		this.mobPath = MOB_IMAGE_RIGHT;
 		this.setImage();
 	}
-	
+
 	/**
 	 * turns the image of the mob to the left
 	 */
-	
+
 	public void movingLeft() {
 		this.mobPath = MOB_IMAGE_LEFT;
 		this.setImage();

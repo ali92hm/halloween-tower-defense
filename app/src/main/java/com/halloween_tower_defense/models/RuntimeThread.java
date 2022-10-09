@@ -1,15 +1,15 @@
 package com.halloween_tower_defense.models;
 
-import mobs.Mob;
-import projectiles.Projectile;
-import towers.Tower;
-import utilities.Position;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.projectiles.Projectile;
+import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * this is the thread that updates the
  * mobs positions, when the towers fire
  * and the projectile movements and hits
- * 
+ *
  * @author Scorpion
  *
  */
@@ -24,23 +24,23 @@ public class RuntimeThread extends Thread {
 	private boolean gameOver = false;
 	private boolean endGame = false;
 	private boolean restart = false;
-	
+
 	/**
 	 * constructs the runtime thread
-	 * 
+	 *
 	 * @param model
 	 */
-	
+
 	public RuntimeThread(final DriverModel model) {
 		this.model = model;
 	}
-	
+
 	/**
 	 * begins the runtime thread
 	 * this happens at the start of
 	 * every level
 	 */
-	
+
 	public void run() {
 		try {
 			this.isRunning = true;
@@ -51,7 +51,7 @@ public class RuntimeThread extends Thread {
 			{
 				boolean endRound = true;
 				this.model.sortMobs();
-				
+
 				if (mobReleaseCooldown > 0 && !this.isSuspended && !this.isTalentTreeActive) {
 					mobReleaseCooldown--;
 				}
@@ -59,7 +59,7 @@ public class RuntimeThread extends Thread {
 					mobReleaseCooldown = 20;
 					canActivateMob = true;
 				}
-				
+
 				for (Mob mob : model.allMobs()) {
 					if (mob.isVisible()) {
 						endRound = false;
@@ -78,22 +78,22 @@ public class RuntimeThread extends Thread {
 					if (!mob.isVisible()) {
 						continue;
 					}
-					
+
 					if (!mob.isActive() && canActivateMob && !this.isSuspended && !this.isTalentTreeActive) {
 						mob.activate();
 						canActivateMob = false;
 					}
-					
+
 					if (mob.isActive() && !this.isSuspended && !this.isTalentTreeActive) {
 						Position newPosition = this.model.getMapData().travelDistance(mob);
 						mob.setPosition(newPosition);
 					}
 				}
-				
+
 				for (Tower tower : this.model.allTowers()) {
 					if (!this.isSuspended && !this.isTalentTreeActive) {
 						Projectile[] projectiles = tower.attackMob(this.model);
-						for (Projectile projectile : projectiles) 
+						for (Projectile projectile : projectiles)
 						{
 							if (projectile != null) {
 								this.model.addProjectile(projectile);
@@ -101,42 +101,42 @@ public class RuntimeThread extends Thread {
 						}
 					}
 				}
-				
+
 				for (final Projectile projectile : this.model.allProjectiles())
 				{
 					if (!projectile.stillAlive()) {
 						this.model.removeProjectile(projectile);
 						continue;
 					}
-					
+
 					if (!this.isSuspended && !this.isTalentTreeActive) {
 						projectile.updateProjectile();
 					}
-					
+
 					endRound = false;
 				}
-				
+
 				for (Mob mob : model.allMobs()) {
-					
+
 					if (!mob.isVisible()) {
 						model.removeMob(mob);
 						continue;
 					}
-					
+
 					int mobMoney = mob.mobDamageTick();
 					if (mobMoney > 0) {
 						model.addMobDeathMoney(mobMoney);
 					}
 				}
-				
+
 				if (model.getLives() < 1) {
 					this.gameOver = true;
 				}
-				
+
 				if (gameOver || endGame || restart) {
 					break;
 				}
-				
+
 				if (endRound) {
 					break;
 				}
@@ -144,7 +144,7 @@ public class RuntimeThread extends Thread {
 			}
 		} catch (InterruptedException e) {
 		}
-		
+
 		if (gameOver) {
 			this.model.setStartButtonState(0);
 			model.resetValues();
@@ -163,82 +163,82 @@ public class RuntimeThread extends Thread {
 		this.model.processEvent();
 		this.halt();
 	}
-	
+
 	/**
 	 * stops the thread
 	 */
-	
+
 	public void halt() {
 		this.isRunning = false;
 	}
-	
+
 	/**
 	 * returns whether the thread is
 	 * actively running or not
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isRunning() {
 		return this.isRunning;
 	}
-	
+
 	/**
 	 * returns whether the game is
 	 * updating or not
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isSuspended() {
 		return this.isSuspended;
 	}
-	
+
 	/**
 	 * returns whether the talent tree
 	 * is active or not
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isTalentTreeActive() {
 		return this.isTalentTreeActive;
 	}
-	
+
 	/**
 	 * sets whether the games loop
 	 * should be updating the mobs
 	 * towers, and projectiles or not
-	 * 
+	 *
 	 * @param isSuspended
 	 */
-	
+
 	public void setSuspended(final boolean isSuspended) {
 		this.isSuspended = isSuspended;
 	}
-	
+
 	/**
 	 * sets whether the talent tree is active or not
-	 * 
+	 *
 	 * @param isTalentTreeActive
 	 */
-	
+
 	public void setTalentTreeActive(final boolean isTalentTreeActive) {
 		this.isTalentTreeActive = isTalentTreeActive;
 	}
-	
+
 	/**
 	 * tells the model the game is over
 	 */
-	
+
 	public void endGame() {
 		this.endGame = true;
 	}
-	
+
 	/**
 	 * tells the model to reset itself
 	 */
-	
+
 	public void restart() {
 		this.restart = true;
 	}

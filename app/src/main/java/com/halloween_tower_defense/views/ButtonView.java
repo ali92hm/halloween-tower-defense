@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.TDButton;
+import com.halloween_tower_defense.utilities.TDButton;
 
 
 public class ButtonView extends ImagePanel implements ActionListener {

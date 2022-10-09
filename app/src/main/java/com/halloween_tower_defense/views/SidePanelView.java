@@ -5,7 +5,7 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * Contains all the components 

@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import utilities.TDButton;
+import com.halloween_tower_defense.utilities.TDButton;
 
 /**
  * Shows the Talent Tree side panel

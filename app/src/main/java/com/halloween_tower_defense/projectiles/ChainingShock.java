@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.Position;
-import utilities.Vector;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
 
 /**
  * creates a projectile that hits a single mob
  * and adds a single chain lightning to any affected mob
- * 
+ *
  * @author Scorpion
  *
  */
@@ -39,17 +39,17 @@ public class ChainingShock extends Projectile {
 	public final static int PROJECTILE_HITS = 1;
 	public final static int PROJECTILE_MOVEMENTS = 3;
 	public static final int CHAINING_DISTANCE = 100;
-	
+
 	private Projectile projectile;
 	private Projectile[] chainLightning;
 	private List<Position> chain1DrawRounds;
 	private int rangeBoostLevel;
 	private int damageBoostLevel;
 	private int currentChain;
-	
+
 	/**
 	 * constructor for ChainingShock
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
@@ -57,8 +57,8 @@ public class ChainingShock extends Projectile {
 	 * @param rangeBoostLevel
 	 * @param targetCountBoostLevel
 	 */
-	
-	public ChainingShock(final DriverModel model, final Position startingPosition, final Vector vector, final Mob targetMob, 
+
+	public ChainingShock(final DriverModel model, final Position startingPosition, final Vector vector, final Mob targetMob,
 			final int rangeBoostLevel, final int targetCountBoostLevel) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
 		this.projectile = new Shock(model, startingPosition, vector, rangeBoostLevel, this.damageBoostLevel);
@@ -78,56 +78,56 @@ public class ChainingShock extends Projectile {
 		this.chain1DrawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * returns how much damage the round does
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDamageLevelBoost(final int level) {
 		return Shock.getDamageLevelBoost(level);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 		for (Position position : this.drawRounds) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
-		
+
 		for (Projectile projectile : this.chainLightning) {
 			if (projectile != null) {
 				if (projectile.stillAlive || !projectile.isSeen()) {
 					for (Position position : this.chain1DrawRounds) {
 						projectile.seen();
-						imageGraphics.drawImage(projectile.getProjectileImage(), (int) position.getXCord(), 
+						imageGraphics.drawImage(projectile.getProjectileImage(), (int) position.getXCord(),
 								(int) position.getYCord(), null);
 					}
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		projectile.setAlive();
 		this.stillAlive = false;
 		if (projectile.stillAlive) {
 			this.stillAlive = true;
-		} 
-		
+		}
+
 		for (Projectile projectile : this.chainLightning) {
 			if (projectile != null) {
 				if (projectile.stillAlive) {
@@ -136,12 +136,12 @@ public class ChainingShock extends Projectile {
 			}
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		this.drawRounds.clear();
@@ -149,20 +149,20 @@ public class ChainingShock extends Projectile {
 			projectile.updateProjectile();
 			this.drawRounds.addAll(projectile.getDrawRounds());
 		}
-		
+
 		if (!projectile.stillAlive && this.projectile.getHitMob() != null) {
 			for (Mob mob : model.allMobs()) {
 				double mobDistance = projectile.getHitMob().getPosition().getDistance(mob.getPosition());
 				if (!mob.equals(this.projectile.getHitMob()) && mobDistance < CHAINING_DISTANCE &&
 						currentChain < 5) {
-					
-					this.chainLightning[currentChain] = this.chainDenseLightningVectors(model, 
+
+					this.chainLightning[currentChain] = this.chainDenseLightningVectors(model,
 							projectile.getHitMob(), mob);
 					break;
 				}
 			}
 		}
-		
+
 		this.chain1DrawRounds.clear();
 		for (Projectile projectile : this.chainLightning) {
 		if (projectile != null) {
@@ -173,22 +173,22 @@ public class ChainingShock extends Projectile {
 		}
 		}
 	}
-	
+
 	/**
 	 * sets the new vector for the chaining round to go
-	 * 
+	 *
 	 * @param model
 	 * @param targetMob
 	 * @param chainingMob
 	 * @return
 	 */
-	
+
 	public Projectile chainDenseLightningVectors(final DriverModel model, final Mob targetMob, final Mob chainingMob) {
 		Vector vector = new Vector(targetMob.getPosition(), chainingMob.getPosition(), Shock.PROJECTILE_SPEED);
-		
+
 		double xComp = 0;
 		double yComp = 0;
-		
+
 		switch (chainingMob.getDirection()) {
 			case 'u': yComp = (-1) * chainingMob.getSpeed();
 			break;
@@ -199,19 +199,19 @@ public class ChainingShock extends Projectile {
 			case 'l': xComp = (-1) * chainingMob.getSpeed();
 			break;
 		}
-		
+
 		Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
-		return new Shock(model, targetMob.getPosition(), trajectory, targetMob, 
+		return new Shock(model, targetMob.getPosition(), trajectory, targetMob,
 				this.rangeBoostLevel, this.damageBoostLevel);
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is lightning
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isLightning() {
 		return true;
 	}

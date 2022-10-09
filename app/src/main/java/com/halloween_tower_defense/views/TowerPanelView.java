@@ -21,17 +21,17 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
 
-import models.DriverModel;
-import towers.DenseLightningTower;
-import towers.FireBombTower;
-import towers.FireTower;
-import towers.FreezeTower;
-import towers.IceTower;
-import towers.IcicleTower;
-import towers.LightningTower;
-import towers.PatchOfFireTower;
-import towers.TeslaTower;
-import utilities.TDButtonGroup;
+import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.towers.DenseLightningTower;
+import com.halloween_tower_defense.towers.FireBombTower;
+import com.halloween_tower_defense.towers.FireTower;
+import com.halloween_tower_defense.towers.FreezeTower;
+import com.halloween_tower_defense.towers.IceTower;
+import com.halloween_tower_defense.towers.IcicleTower;
+import com.halloween_tower_defense.towers.LightningTower;
+import com.halloween_tower_defense.towers.PatchOfFireTower;
+import com.halloween_tower_defense.towers.TeslaTower;
+import com.halloween_tower_defense.utilities.TDButtonGroup;
 
 /**
  * the side panel view that contains

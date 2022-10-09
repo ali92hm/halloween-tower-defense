@@ -4,16 +4,16 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.Position;
-import utilities.Vector;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
 
 /**
- * creates a projectile that hits a mob 
+ * creates a projectile that hits a mob
  * stopping it for an extended period of time
- * 
+ *
  * @author Scorpion
  *
  */
@@ -37,17 +37,17 @@ public class Icicle extends Projectile {
 	public final static int SLOW_DURATION = 50;
 	public final static int PROJECTILE_HITS = 1;
 	public final static int PROJECTILE_MOVEMENTS = 3;
-	
+
 	/**
 	 * constructor for an Icicle
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
 	 * @param rangeBoostLevel
 	 * @param durationBoostLevel
 	 */
-	
+
 	public Icicle(final DriverModel model, final Position startingPosition, final Vector vector,
 			final int rangeBoostLevel, final int durationBoostLevel) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
@@ -65,37 +65,37 @@ public class Icicle extends Projectile {
 		this.drawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * returns how much long the projectile effects the mob
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDurationLevelBoost(final int level) {
 		return SLOW_DURATION + (50 * level);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 		for (Position position : this.drawRounds) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		int increase = 0;
 		if (rangeBoost == true) {
@@ -105,12 +105,12 @@ public class Icicle extends Projectile {
 			this.stillAlive = false;
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		this.position = this.vector.getNextPosition(this.position, this.speed);
@@ -122,7 +122,7 @@ public class Icicle extends Projectile {
 			this.impactPosition = null;
 			this.endPosition = null;
 		}
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) && mob.isVisible() &&
 					!mob.equals(this.hitMob)) {
@@ -135,14 +135,14 @@ public class Icicle extends Projectile {
 			}
 		}
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is ice
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isIce() {
 		return true;
 	}

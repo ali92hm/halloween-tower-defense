@@ -4,17 +4,17 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.Position;
-import utilities.Vector;
-import views.DriverView;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
+import com.halloween_tower_defense.views.DriverView;
 
 /**
- * creates a projectile that hits all surrounding mobs 
+ * creates a projectile that hits all surrounding mobs
  * stopping them in place
- * 
+ *
  * @author Scorpion
  *
  */
@@ -38,22 +38,22 @@ public class DeepFreeze extends Projectile {
 	public final static int SLOW_DURATION = 5;
 	public final static int PROJECTILE_HITS = -1;
 	public final static int PROJECTILE_MOVEMENTS = 3;
-	
+
 	public Position startingPosition;
 	public int width = PROJECTILE_WIDTH;
 	public int height = PROJECTILE_HEIGHT;
-	
+
 	/**
 	 * constructor for DeepFreeze
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
 	 * @param rangeBoostLevel
 	 * @param durationBoostLevel
 	 */
-	
-	public DeepFreeze(final DriverModel model, final Position startingPosition, 
+
+	public DeepFreeze(final DriverModel model, final Position startingPosition,
 			final Vector vector, final int rangeBoostLevel, final int durationBoostLevel) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
 		this.speed = PROJECTILE_SPEED;
@@ -69,53 +69,53 @@ public class DeepFreeze extends Projectile {
 		this.drawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * returns how long the projectile lasts for
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDurationLevelBoost(final int level) {
 		return SLOW_DURATION + (5 * level);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 		for (Position position : this.drawRounds) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		int increase = 0;
 		if (rangeBoost == true) {
 			increase = 1;
 		}
-		
+
 		if (this.movements >= this.maxMovements + increase) {
 			this.stillAlive = false;
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		this.width += PROJECTILE_SPEED;
@@ -130,9 +130,9 @@ public class DeepFreeze extends Projectile {
 			this.impactPosition = null;
 			this.endPosition = null;
 		}
-		
+
 		if (this.movements == 2) {
-			for (Mob mob : this.model.allMobs()) 
+			for (Mob mob : this.model.allMobs())
 			{
 				if (mob.getPosition().getDistance(this.startingPosition) < (mob.getRadius() + this.radius) && mob.isVisible()) {
 					mob.mobHitBy(this);
@@ -140,14 +140,14 @@ public class DeepFreeze extends Projectile {
 			}
 		}
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is ice
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isIce() {
 		return true;
 	}

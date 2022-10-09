@@ -24,7 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * Driver for all of the view. The driver view itself extends JFrame and is the main panel for our game.

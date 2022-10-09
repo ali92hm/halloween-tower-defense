@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * The talent tree in our tower defense game

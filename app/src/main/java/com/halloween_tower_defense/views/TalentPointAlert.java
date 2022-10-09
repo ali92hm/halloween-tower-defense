@@ -17,9 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import towers.Tower;
+import com.halloween_tower_defense.towers.Tower;
 
-import models.DriverModel;
+import com.halloween_tower_defense.models.DriverModel;
 
 
 /**

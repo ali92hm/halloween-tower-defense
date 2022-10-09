@@ -4,15 +4,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import utilities.Position;
-import utilities.Vector;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
 
 /**
  * creates a projectile that passes through multiple mobs
- * 
+ *
  * @author Scorpion
  *
  */
@@ -36,10 +36,10 @@ public class DenseLightning extends Projectile {
 	public final static int SLOW_DURATION = 0;
 	public final static int PROJECTILE_HITS = 2;
 	public final static int PROJECTILE_MOVEMENTS = 3;
-	
+
 	/**
 	 * constructor for DenseLightning
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
@@ -47,7 +47,7 @@ public class DenseLightning extends Projectile {
 	 * @param targetCountBoostLevel
 	 * @param damageBoostLevel
 	 */
-	
+
 	public DenseLightning(final DriverModel model, final Position startingPosition, final Vector vector,
 			final int rangeBoostLevel, final int targetCountBoostLevel, final int damageBoostLevel) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
@@ -65,10 +65,10 @@ public class DenseLightning extends Projectile {
 		this.drawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * constructor for DenseLightning
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
@@ -77,7 +77,7 @@ public class DenseLightning extends Projectile {
 	 * @param targetCountBoostLevel
 	 * @param damageBoostLevel
 	 */
-	
+
 	public DenseLightning(final DriverModel model, final Position startingPosition, final Vector vector, final Mob chainingMob,
 			final int rangeBoostLevel, final int targetCountBoostLevel, final int damageBoostLevel) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
@@ -96,48 +96,48 @@ public class DenseLightning extends Projectile {
 		this.drawRounds.add(this.position);
 		this.chainingMob = chainingMob;
 	}
-	
+
 	/**
 	 * returns how many mobs the projectile can hit
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getTargetCountLevelBoost(final int level) {
 		return PROJECTILE_HITS + (level * 3);
 	}
-	
+
 	/**
 	 * returns how much damage the round does
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDamageLevelBoost(final int level) {
 		return (int) ((PROJECTILE_DAMAGE + (200 * (level * level))) * damageBoost);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 		for (Position position : this.drawRounds) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		int increase = 0;
 		if (rangeBoost == true) {
@@ -147,12 +147,12 @@ public class DenseLightning extends Projectile {
 			this.stillAlive = false;
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		this.position = this.vector.getNextPosition(this.position, this.speed);
@@ -164,7 +164,7 @@ public class DenseLightning extends Projectile {
 			this.impactPosition = null;
 			this.endPosition = null;
 		}
-		for (Mob mob : this.model.allMobs()) 
+		for (Mob mob : this.model.allMobs())
 		{
 			if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) && mob.isVisible() &&
 					!mob.equals(this.hitMob)) {
@@ -177,14 +177,14 @@ public class DenseLightning extends Projectile {
 			}
 		}
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is lightning
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isLightning() {
 		return true;
 	}

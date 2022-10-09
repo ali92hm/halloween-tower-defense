@@ -1,19 +1,19 @@
 package com.halloween_tower_defense.mobs;
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * a mob that is immune to all
  * lightning damage and lightning
- * effects. Has low health and 
- * medium speed 
- * 
+ * effects. Has low health and
+ * medium speed
+ *
  * @author Scorpion
  *
  */
 
 public class LightningImmuneMob extends Mob {
-	
+
 	public static final String MOB_IMAGE_RIGHT = "LightningGolemMobR.png";
 	public static final String MOB_IMAGE_LEFT = "LightningGolemMob.png";
 	public static final int MOB_WIDTH = 50;
@@ -27,14 +27,14 @@ public class LightningImmuneMob extends Mob {
 
 	/**
 	 * constructs a brand new mob
-	 * 
+	 *
 	 * @param level
 	 * @param difficulty
 	 * @param position
 	 */
-	
+
 	public LightningImmuneMob(final int level, final int difficulty, final Position position) {
-		this.mobPath = MOB_IMAGE_RIGHT; 
+		this.mobPath = MOB_IMAGE_RIGHT;
 		this.mobWidth = MOB_WIDTH;
 		this.mobHeight = MOB_HEIGHT;
 		this.maxHealth = HEALTH + this.getHealthBoost(level, LEVEL_HEALTH_BOOST, difficulty);
@@ -45,29 +45,29 @@ public class LightningImmuneMob extends Mob {
 		this.setImage();
 		this.position = position;
 	}
-	
+
 	/**
 	 * turns the image of the mob to the right
 	 */
-	
+
 	public void movingRight() {
 		this.mobPath = MOB_IMAGE_RIGHT;
 		this.setImage();
 	}
-	
+
 	/**
 	 * turns the image of the mob to the left
 	 */
-	
+
 	public void movingLeft() {
 		this.mobPath = MOB_IMAGE_LEFT;
 		this.setImage();
 	}
-	
+
 	/**
 	 * makes this mob immune to lightning attacks
 	 */
-	
+
 	public boolean immuneToLightning() {
 		return true;
 	}

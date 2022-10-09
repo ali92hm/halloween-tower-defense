@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
-import towers.Tower;
+import com.halloween_tower_defense.towers.Tower;
 
 /**
  * An old test view that is no longer

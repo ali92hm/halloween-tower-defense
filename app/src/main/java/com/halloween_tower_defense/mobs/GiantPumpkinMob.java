@@ -1,10 +1,10 @@
 package com.halloween_tower_defense.mobs;
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * Boss mob placeholder that is not used
- * 
+ *
  * @author Scorpion
  *
  */
@@ -20,17 +20,17 @@ public class GiantPumpkinMob extends Mob {
 	public static final int MOB_DEATH_GOLD_BOOST = 10;
 	public static final int MOB_SPEED = 1;
 	public static final int MOB_RADIUS = 42;
-	
+
 	/**
 	 * constructs a brand new mob
-	 * 
+	 *
 	 * @param level
 	 * @param difficulty
 	 * @param position
 	 */
-	
+
 	public GiantPumpkinMob(final int level, final int difficulty, final Position position) {
-		this.mobPath = MOB_IMAGE; 
+		this.mobPath = MOB_IMAGE;
 		this.mobWidth = MOB_WIDTH;
 		this.mobHeight = MOB_HEIGHT;
 		this.speed = MOB_SPEED + (difficulty*2);
@@ -42,5 +42,5 @@ public class GiantPumpkinMob extends Mob {
 		this.setImage();
 		this.position = position;
 	}
-	
+
 }

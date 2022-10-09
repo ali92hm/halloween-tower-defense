@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
-import towers.Tower;
-import utilities.Position;
-import utilities.Vector;
+import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.Position;
+import com.halloween_tower_defense.utilities.Vector;
 
 /**
  * creates a projectile that hits a single mob
  * and adds two chain lightning to any affected mob
- * 
+ *
  * @author Scorpion
  *
  */
@@ -39,7 +39,7 @@ public class ChainLightning extends Projectile {
 	public final static int SLOW_DURATION = 0;
 	public final static int PROJECTILE_HITS = 1;
 	public final static int PROJECTILE_MOVEMENTS = 3;
-	
+
 	private Projectile projectile;
 	private Projectile chain1;
 	private Projectile chain2;
@@ -49,10 +49,10 @@ public class ChainLightning extends Projectile {
 	private List<Position> chain2DrawRounds;
 	private int rangeBoostLevel;
 	private int damageBoostLevel;
-	
+
 	/**
 	 * constructor for ChainLightning
-	 * 
+	 *
 	 * @param model
 	 * @param startingPosition
 	 * @param vector
@@ -61,8 +61,8 @@ public class ChainLightning extends Projectile {
 	 * @param rangeBoostLevel
 	 * @param damageBoostLevel
 	 */
-	
-	public ChainLightning(final DriverModel model, final Position startingPosition, final Vector vector, 
+
+	public ChainLightning(final DriverModel model, final Position startingPosition, final Vector vector,
 			final Mob targetMob, final Mob[] mobs, final int rangeBoostLevel, final int damageBoostLevel) {
 		super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
 		this.projectile = new ThunderBolt(model, startingPosition, vector, rangeBoostLevel, damageBoostLevel, true);
@@ -84,60 +84,60 @@ public class ChainLightning extends Projectile {
 		this.chain2DrawRounds = new ArrayList<Position>();
 		this.drawRounds.add(this.position);
 	}
-	
+
 	/**
 	 * returns how much damage the round does
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDamageLevelBoost(final int level) {
-		return Tower.getFireDOTDamageUpgrade() ? ThunderBolt.getDamageLevelBoost(level) * 3 : 
+		return Tower.getFireDOTDamageUpgrade() ? ThunderBolt.getDamageLevelBoost(level) * 3 :
 			ThunderBolt.getDamageLevelBoost(level);
 	}
-	
+
 	/**
 	 * returns how long the projectile lasts for
-	 * 
+	 *
 	 * @param level
 	 * @return
 	 */
-	
+
 	public static int getDurationLevelBoost(final int level) {
 		return PROJECTILE_MOVEMENTS + (level * 14);
 	}
-	
+
 	/**
 	 * adds the image(s) of any projectile
 	 * that needs to be drawn to the map
-	 * 
+	 *
 	 * @param imageGraphics
 	 */
-	
+
 	public void addImages(final Graphics imageGraphics) {
 	    	ArrayList<Position> drawRounds = new ArrayList<Position>(this.drawRounds);
 		for (Position position : drawRounds) {
-			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(this.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 		ArrayList<Position> chain1DrawRounds = new ArrayList<Position>(this.chain1DrawRounds);
 		for (Position position : chain1DrawRounds) {
-			imageGraphics.drawImage(chain1.getProjectileImage(), (int) position.getXCord(), 
+			imageGraphics.drawImage(chain1.getProjectileImage(), (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 		ArrayList<Position> chain2DrawRounds = new ArrayList<Position>(this.chain2DrawRounds);
 		for (Position position : chain2DrawRounds) {
-			imageGraphics.drawImage(chain2.projectileImage, (int) position.getXCord(), 
+			imageGraphics.drawImage(chain2.projectileImage, (int) position.getXCord(),
 					(int) position.getYCord(), null);
 		}
 	}
-	
+
 	/**
 	 * checks to see if the projectile is
 	 * still alive
 	 */
-	
+
 	public void setAlive() {
 		projectile.setAlive();
 		if (!projectile.stillAlive && chainingMobs[0] == null && chainingMobs[1] == null) {
@@ -163,12 +163,12 @@ public class ChainLightning extends Projectile {
 			}
 		}
 	}
-	
+
 	/**
 	 * moves the projectile and checks whether its
 	 * impacted a mob
 	 */
-	
+
 	public void updateProjectile() {
 		this.setAlive();
 		this.drawRounds.clear();
@@ -176,14 +176,14 @@ public class ChainLightning extends Projectile {
 			projectile.updateProjectile();
 		}
 		this.drawRounds.addAll(projectile.getDrawRounds());
-		
+
 		if (chain1 != null) {
 			if (chain1.stillAlive) {
 				chain1.updateProjectile();
 			}
 			this.chain1DrawRounds.addAll(chain1.getDrawRounds());
 		}
-		
+
 		if (chain2 != null) {
 			if (chain2.stillAlive) {
 				chain2.updateProjectile();
@@ -191,22 +191,22 @@ public class ChainLightning extends Projectile {
 			this.chain2DrawRounds.addAll(chain2.getDrawRounds());
 		}
 	}
-	
+
 	/**
 	 * sets the new vector for the chaining round to go
-	 * 
+	 *
 	 * @param model
 	 * @param targetMob
 	 * @param chainingMob
 	 * @return
 	 */
-	
+
 	public Projectile chainLightningVectors(final DriverModel model, final Mob targetMob, final Mob chainingMob) {
 		Vector vector = new Vector(targetMob.getPosition(), chainingMob.getPosition(), ThunderBolt.PROJECTILE_SPEED);
-		
+
 		double xComp = 0;
 		double yComp = 0;
-		
+
 		switch (chainingMob.getDirection()) {
 			case 'u': yComp = (-1) * chainingMob.getSpeed();
 			break;
@@ -217,19 +217,19 @@ public class ChainLightning extends Projectile {
 			case 'l': xComp = (-1) * chainingMob.getSpeed();
 			break;
 		}
-		
+
 		Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
-		return new ThunderBolt(model, targetMob.getPosition(), trajectory, this.targetMob, 
+		return new ThunderBolt(model, targetMob.getPosition(), trajectory, this.targetMob,
 				this.rangeBoostLevel, this.damageBoostLevel, true);
 	}
-	
+
 	/**
 	 * returns true if the projectile
 	 * is lightning
-	 * 
+	 *
 	 * @return boolean
 	 */
-	
+
 	public boolean isLightning() {
 		return true;
 	}
