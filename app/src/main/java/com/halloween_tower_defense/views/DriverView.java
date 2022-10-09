@@ -11,8 +11,8 @@ import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -37,9 +37,7 @@ public class DriverView extends JFrame implements ActionListener {
 
 	private DriverModel model;
 
-	private static final String workingDir = System.getProperty("user.dir");
-	private static final String pathBuilder = "/images/";
-	private static final String imageFolderPath = DriverModel.buildStrings(workingDir, pathBuilder);
+	private static final String imageResourceFolder = "images";
 	
 	private boolean shownStartingTutorial = false;
 	private boolean shownTalentTreeTutorial = false;
@@ -519,11 +517,16 @@ public class DriverView extends JFrame implements ActionListener {
 	public static BufferedImage getImage(final String imageName, 
 			final int width, final int height) {
 		try {
-			final BufferedImage image = ImageIO.read(new File(DriverModel.buildStrings(
-					imageFolderPath, imageName)));
-			final BufferedImage resizedImage = resizeImage(image, width, height);
-			return resizedImage;
+			InputStream inputStream = DriverView.class.getClassLoader().getResourceAsStream(imageResourceFolder + "/" + imageName);
+
+			if (inputStream == null) {
+				throw new IllegalArgumentException("Image not found " + imageName);
+			}
+
+			return resizeImage(ImageIO.read(inputStream), width, height);
 		} catch (IOException e) {
+			System.err.println(e);
+			System.exit(128);
 		}
 		return null;
 	}
