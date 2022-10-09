@@ -20,27 +20,27 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import projectiles.Projectile;
+import com.halloween_tower_defense.projectiles.Projectile;
 
-import towers.DenseLightningTower;
-import towers.FireBombTower;
-import towers.FireTower;
-import towers.FreezeTower;
-import towers.IceTower;
-import towers.IcicleTower;
-import towers.LightningTower;
-import towers.PatchOfFireTower;
-import towers.TeslaTower;
-import towers.Tower;
-import utilities.Position;
+import com.halloween_tower_defense.towers.DenseLightningTower;
+import com.halloween_tower_defense.towers.FireBombTower;
+import com.halloween_tower_defense.towers.FireTower;
+import com.halloween_tower_defense.towers.FreezeTower;
+import com.halloween_tower_defense.towers.IceTower;
+import com.halloween_tower_defense.towers.IcicleTower;
+import com.halloween_tower_defense.towers.LightningTower;
+import com.halloween_tower_defense.towers.PatchOfFireTower;
+import com.halloween_tower_defense.towers.TeslaTower;
+import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.Position;
 
-import views.DriverView;
-import views.MapView;
-import views.TalentPointAlert;
-import views.TowerPanelView;
-import mapdata.Map1Data;
-import mobs.Mob;
-import models.DriverModel;
+import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.MapView;
+import com.halloween_tower_defense.views.TalentPointAlert;
+import com.halloween_tower_defense.views.TowerPanelView;
+import com.halloween_tower_defense.mapdata.Map1Data;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.models.DriverModel;
 
 /**
  * Stores all the listeners for the driver view

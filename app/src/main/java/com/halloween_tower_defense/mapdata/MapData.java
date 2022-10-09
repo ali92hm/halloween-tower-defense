@@ -2,8 +2,8 @@ package com.halloween_tower_defense.mapdata;
 
 import java.util.ArrayList;
 
-import mobs.Mob;
-import utilities.Position;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.utilities.Position;
 
 public abstract class MapData {
 

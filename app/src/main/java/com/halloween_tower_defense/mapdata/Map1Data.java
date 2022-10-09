@@ -3,19 +3,19 @@ package com.halloween_tower_defense.mapdata;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mobs.BasicMob;
-import mobs.FireImmuneMob;
-import mobs.FrostImmuneMob;
-import mobs.GiantPumpkinMob;
-import mobs.LightningImmuneMob;
-import mobs.Mob;
-import mobs.SpeedyMob;
-import mobs.TankMob;
-import mobs.WitchMob;
-import models.DriverModel;
+import com.halloween_tower_defense.mobs.BasicMob;
+import com.halloween_tower_defense.mobs.FireImmuneMob;
+import com.halloween_tower_defense.mobs.FrostImmuneMob;
+import com.halloween_tower_defense.mobs.GiantPumpkinMob;
+import com.halloween_tower_defense.mobs.LightningImmuneMob;
+import com.halloween_tower_defense.mobs.Mob;
+import com.halloween_tower_defense.mobs.SpeedyMob;
+import com.halloween_tower_defense.mobs.TankMob;
+import com.halloween_tower_defense.mobs.WitchMob;
+import com.halloween_tower_defense.models.DriverModel;
 
 
-import utilities.Position;
+import com.halloween_tower_defense.utilities.Position;
 
 /**
  * stores the data for a map including
