@@ -21,14 +21,11 @@ public abstract class Projectile {
 
   protected static double damageBoost = 1.0;
   protected static boolean rangeBoost = false;
-
+  protected final String projectileName;
+  protected final UUID id;
   protected int damageBoostLevel;
   protected int rangeBoostLevel;
   protected int durationBoostLevel;
-
-  protected final String projectileName;
-  protected final UUID id;
-
   protected DriverModel model;
   protected BufferedImage projectileImage;
   protected BufferedImage fireImage;
@@ -77,9 +74,26 @@ public abstract class Projectile {
     if (vector == null) {
       return;
     }
-    this.projectileImage = vector.getAngle() < 0 ?
+    this.projectileImage = vector.getAngle() < 0
+        ?
         DriverView.rotateImage(this.projectileImage, vector.getAngle() + Math.PI) :
         DriverView.rotateImage(this.projectileImage, vector.getAngle());
+  }
+
+  /**
+   * increases the damage all projectiles do by 10%
+   */
+
+  public static void upgradeDamageBoost() {
+    damageBoost = 1.1;
+  }
+
+  /**
+   * increases the range of all projectiles by a fixed amount
+   */
+
+  public static void upgradeRangeBoost() {
+    rangeBoost = true;
   }
 
   /**
@@ -99,22 +113,6 @@ public abstract class Projectile {
   public abstract void updateProjectile();
 
   /**
-   * increases the damage all projectiles do by 10%
-   */
-
-  public static void upgradeDamageBoost() {
-    damageBoost = 1.1;
-  }
-
-  /**
-   * increases the range of all projectiles by a fixed amount
-   */
-
-  public static void upgradeRangeBoost() {
-    rangeBoost = true;
-  }
-
-  /**
    * sets the image of the projectile for
    * when it was just fired
    *
@@ -132,7 +130,8 @@ public abstract class Projectile {
     if (vector == null) {
       return;
     }
-    this.fireImage = vector.getAngle() < 0 ?
+    this.fireImage = vector.getAngle() < 0
+        ?
         DriverView.rotateImage(this.fireImage, vector.getAngle() + Math.PI) :
         DriverView.rotateImage(this.fireImage, vector.getAngle());
   }
@@ -153,7 +152,8 @@ public abstract class Projectile {
     if (vector == null) {
       return;
     }
-    this.impactImage = vector.getAngle() < 0 ?
+    this.impactImage = vector.getAngle() < 0
+        ?
         DriverView.rotateImage(this.impactImage, (vector.getAngle() + Math.PI)) :
         DriverView.rotateImage(this.impactImage, vector.getAngle());
   }
@@ -240,7 +240,7 @@ public abstract class Projectile {
    * @return UUID
    */
 
-  public UUID getID() {
+  public UUID getId() {
     return this.id;
   }
 
@@ -402,7 +402,7 @@ public abstract class Projectile {
    * returns the list of positions where the projectile
    * needs to be drawn
    *
-   * @return List<Position>
+   * @return List Position
    */
 
   public List<Position> getDrawRounds() {

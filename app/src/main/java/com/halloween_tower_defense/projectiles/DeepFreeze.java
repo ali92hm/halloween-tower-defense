@@ -17,24 +17,23 @@ import java.util.ArrayList;
 
 public class DeepFreeze extends Projectile {
 
+  public static final int PROJECTILE_WIDTH = 50;
+  public static final int PROJECTILE_HEIGHT = 50;
+  public static final String FIRE_IMAGE = null;
+  public static final int FIRE_WIDTH = 0;
+  public static final int FIRE_HEIGHT = 0;
+  public static final String IMPACT_IMAGE = null;
+  public static final int IMPACT_WIDTH = 0;
+  public static final int IMPACT_HEIGHT = 0;
+  public static final int PROJECTILE_SPEED = 25;
+  public static final int PROJECTILE_RADIUS = 75;
+  public static final int PROJECTILE_DAMAGE = 100;
+  public static final int DAMAGE_DURATION = 1;
+  public static final int SLOW_POTENTCY = 1;
+  public static final int SLOW_DURATION = 5;
+  public static final int PROJECTILE_HITS = -1;
+  public static final int PROJECTILE_MOVEMENTS = 3;
   private static final String PROJECTILE_IMAGE = "Ring of Ice.png";
-  public final static int PROJECTILE_WIDTH = 50;
-  public final static int PROJECTILE_HEIGHT = 50;
-  public final static String FIRE_IMAGE = null;
-  public final static int FIRE_WIDTH = 0;
-  public final static int FIRE_HEIGHT = 0;
-  public final static String IMPACT_IMAGE = null;
-  public final static int IMPACT_WIDTH = 0;
-  public final static int IMPACT_HEIGHT = 0;
-  public final static int PROJECTILE_SPEED = 25;
-  public final static int PROJECTILE_RADIUS = 75;
-  public final static int PROJECTILE_DAMAGE = 100;
-  public final static int DAMAGE_DURATION = 1;
-  public final static int SLOW_POTENTCY = 1;
-  public final static int SLOW_DURATION = 5;
-  public final static int PROJECTILE_HITS = -1;
-  public final static int PROJECTILE_MOVEMENTS = 3;
-
   public Position startingPosition;
   public int width = PROJECTILE_WIDTH;
   public int height = PROJECTILE_HEIGHT;

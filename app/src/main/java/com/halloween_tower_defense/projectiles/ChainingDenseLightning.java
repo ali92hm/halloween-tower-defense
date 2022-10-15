@@ -17,25 +17,24 @@ import java.util.List;
 
 public class ChainingDenseLightning extends Projectile {
 
-  private static final String PROJECTILE_IMAGE = "DenseLightning.png";
-  public final static int PROJECTILE_WIDTH = 30;
-  public final static int PROJECTILE_HEIGHT = 15;
-  public final static String FIRE_IMAGE = null;
-  public final static int FIRE_WIDTH = 0;
-  public final static int FIRE_HEIGHT = 0;
-  public final static String IMPACT_IMAGE = null;
-  public final static int IMPACT_WIDTH = 0;
-  public final static int IMPACT_HEIGHT = 0;
-  public final static int PROJECTILE_SPEED = 40;
-  public final static int PROJECTILE_RADIUS = 3;
-  public final static int PROJECTILE_DAMAGE = 200;
-  public final static int DAMAGE_DURATION = 1;
-  public final static int SLOW_POTENTCY = 0;
-  public final static int SLOW_DURATION = 0;
-  public final static int PROJECTILE_HITS = 2;
-  public final static int PROJECTILE_MOVEMENTS = 3;
+  public static final int PROJECTILE_WIDTH = 30;
+  public static final int PROJECTILE_HEIGHT = 15;
+  public static final String FIRE_IMAGE = null;
+  public static final int FIRE_WIDTH = 0;
+  public static final int FIRE_HEIGHT = 0;
+  public static final String IMPACT_IMAGE = null;
+  public static final int IMPACT_WIDTH = 0;
+  public static final int IMPACT_HEIGHT = 0;
+  public static final int PROJECTILE_SPEED = 40;
+  public static final int PROJECTILE_RADIUS = 3;
+  public static final int PROJECTILE_DAMAGE = 200;
+  public static final int DAMAGE_DURATION = 1;
+  public static final int SLOW_POTENTCY = 0;
+  public static final int SLOW_DURATION = 0;
+  public static final int PROJECTILE_HITS = 2;
+  public static final int PROJECTILE_MOVEMENTS = 3;
   public static final int CHAINING_DISTANCE = 100;
-
+  private static final String PROJECTILE_IMAGE = "DenseLightning.png";
   private final Projectile projectile;
   private final Projectile[] chainLightning;
   private final List<Position> chain1DrawRounds;
@@ -159,8 +158,8 @@ public class ChainingDenseLightning extends Projectile {
     if (projectile.getHitTargets() != currentChain) {
       for (Mob mob : model.allMobs()) {
         double mobDistance = projectile.getHitMob().getPosition().getDistance(mob.getPosition());
-        if (!mob.equals(this.projectile.getHitMob()) && mobDistance < CHAINING_DISTANCE &&
-            currentChain < 5) {
+        if (!mob.equals(this.projectile.getHitMob()) && mobDistance < CHAINING_DISTANCE
+            && currentChain < 5) {
           this.chainLightning[currentChain] = this.chainDenseLightningVectors(model,
               projectile.getHitMob(), mob);
           this.currentChain++;
@@ -193,25 +192,26 @@ public class ChainingDenseLightning extends Projectile {
     Vector vector = new Vector(targetMob.getPosition(), chainingMob.getPosition(),
         ThunderBolt.PROJECTILE_SPEED);
 
-    double xComp = 0;
-    double yComp = 0;
+    double componentX = 0;
+    double componentY = 0;
 
     switch (chainingMob.getDirection()) {
       case 'u':
-        yComp = (-1) * chainingMob.getSpeed();
+        componentY = (-1) * chainingMob.getSpeed();
         break;
       case 'r':
-        xComp = chainingMob.getSpeed();
+        componentX = chainingMob.getSpeed();
         break;
       case 'd':
-        yComp = chainingMob.getSpeed();
+        componentY = chainingMob.getSpeed();
         break;
       case 'l':
-        xComp = (-1) * chainingMob.getSpeed();
+        componentX = (-1) * chainingMob.getSpeed();
         break;
+      default:
     }
 
-    Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
+    Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));
     return new ThunderBolt(model, targetMob.getPosition(), trajectory, targetMob,
         this.rangeBoostLevel, this.damageBoostLevel, true);
   }

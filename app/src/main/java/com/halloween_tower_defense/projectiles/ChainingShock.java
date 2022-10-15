@@ -17,31 +17,32 @@ import java.util.List;
 
 public class ChainingShock extends Projectile {
 
-  private static final String PROJECTILE_IMAGE = "lightning.png";
-  public final static int PROJECTILE_WIDTH = 30;
-  public final static int PROJECTILE_HEIGHT = 15;
-  public final static String FIRE_IMAGE = null;
-  public final static int FIRE_WIDTH = 0;
-  public final static int FIRE_HEIGHT = 0;
-  public final static String IMPACT_IMAGE = null;
-  public final static int IMPACT_WIDTH = 0;
-  public final static int IMPACT_HEIGHT = 0;
-  public final static int PROJECTILE_SPEED = 20;
-  public final static int PROJECTILE_RADIUS = 3;
-  public final static int PROJECTILE_DAMAGE = 15;
-  public final static int DAMAGE_DURATION = 1;
-  public final static int SLOW_POTENTCY = 0;
-  public final static int SLOW_DURATION = 0;
-  public final static int PROJECTILE_HITS = 1;
-  public final static int PROJECTILE_MOVEMENTS = 3;
+  public static final int PROJECTILE_WIDTH = 30;
+  public static final int PROJECTILE_HEIGHT = 15;
+  public static final String FIRE_IMAGE = null;
+  public static final int FIRE_WIDTH = 0;
+  public static final int FIRE_HEIGHT = 0;
+  public static final String IMPACT_IMAGE = null;
+  public static final int IMPACT_WIDTH = 0;
+  public static final int IMPACT_HEIGHT = 0;
+  public static final int PROJECTILE_SPEED = 20;
+  public static final int PROJECTILE_RADIUS = 3;
+  public static final int PROJECTILE_DAMAGE = 15;
+  public static final int DAMAGE_DURATION = 1;
+  public static final int SLOW_POTENTCY = 0;
+  public static final int SLOW_DURATION = 0;
+  public static final int PROJECTILE_HITS = 1;
+  public static final int PROJECTILE_MOVEMENTS = 3;
   public static final int CHAINING_DISTANCE = 100;
+
+  private static final String PROJECTILE_IMAGE = "lightning.png";
 
   private final Projectile projectile;
   private final Projectile[] chainLightning;
   private final List<Position> chain1DrawRounds;
   private final int rangeBoostLevel;
-  private int damageBoostLevel;
   private final int currentChain;
+  private int damageBoostLevel;
 
   /**
    * constructor for ChainingShock

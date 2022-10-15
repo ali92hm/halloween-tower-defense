@@ -16,23 +16,23 @@ import java.util.ArrayList;
 
 public class IceBeam extends Projectile {
 
-  public final static String PROJECTILE_IMAGE = "IceBeam.png";
-  public final static int PROJECTILE_WIDTH = 20;
-  public final static int PROJECTILE_HEIGHT = 10;
-  public final static String FIRE_IMAGE = null;
-  public final static int FIRE_WIDTH = 0;
-  public final static int FIRE_HEIGHT = 0;
-  public final static String IMPACT_IMAGE = null;
-  public final static int IMPACT_WIDTH = 0;
-  public final static int IMPACT_HEIGHT = 0;
-  public final static int PROJECTILE_SPEED = 15;
-  public final static int PROJECTILE_RADIUS = 2;
-  public final static int PROJECTILE_DAMAGE = 5;
-  public final static int DAMAGE_DURATION = 1;
-  public final static double SLOW_POTENCY = 0.2;
-  public final static int SLOW_DURATION = 2;
-  public final static int PROJECTILE_HITS = 1;
-  public final static int PROJECTILE_MOVEMENTS = 15;
+  public static final String PROJECTILE_IMAGE = "IceBeam.png";
+  public static final int PROJECTILE_WIDTH = 20;
+  public static final int PROJECTILE_HEIGHT = 10;
+  public static final String FIRE_IMAGE = null;
+  public static final int FIRE_WIDTH = 0;
+  public static final int FIRE_HEIGHT = 0;
+  public static final String IMPACT_IMAGE = null;
+  public static final int IMPACT_WIDTH = 0;
+  public static final int IMPACT_HEIGHT = 0;
+  public static final int PROJECTILE_SPEED = 15;
+  public static final int PROJECTILE_RADIUS = 2;
+  public static final int PROJECTILE_DAMAGE = 5;
+  public static final int DAMAGE_DURATION = 1;
+  public static final double SLOW_POTENCY = 0.2;
+  public static final int SLOW_DURATION = 2;
+  public static final int PROJECTILE_HITS = 1;
+  public static final int PROJECTILE_MOVEMENTS = 15;
 
   private final Mob attackingMob;
 
