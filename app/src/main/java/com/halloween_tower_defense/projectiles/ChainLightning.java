@@ -221,6 +221,7 @@ public class ChainLightning extends Projectile {
       case 'l':
         componentX = (-1) * chainingMob.getSpeed();
         break;
+      default:
     }
 
     Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));

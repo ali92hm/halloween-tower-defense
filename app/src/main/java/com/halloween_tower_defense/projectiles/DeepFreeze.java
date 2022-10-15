@@ -129,8 +129,8 @@ public class DeepFreeze extends Projectile {
 
     if (this.movements == 2) {
       for (Mob mob : this.model.allMobs()) {
-        if (mob.getPosition().getDistance(this.startingPosition) <
-            (mob.getRadius() + this.radius) && mob.isVisible()) {
+        if (mob.getPosition().getDistance(this.startingPosition) < (mob.getRadius() + this.radius)
+            && mob.isVisible()) {
           mob.mobHitBy(this);
         }
       }

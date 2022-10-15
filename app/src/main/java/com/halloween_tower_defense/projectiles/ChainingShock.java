@@ -149,8 +149,8 @@ public class ChainingShock extends Projectile {
     if (!projectile.stillAlive && this.projectile.getHitMob() != null) {
       for (Mob mob : model.allMobs()) {
         double mobDistance = projectile.getHitMob().getPosition().getDistance(mob.getPosition());
-        if (!mob.equals(this.projectile.getHitMob()) && mobDistance < CHAINING_DISTANCE &&
-            currentChain < 5) {
+        if (!mob.equals(this.projectile.getHitMob()) && mobDistance < CHAINING_DISTANCE
+            && currentChain < 5) {
 
           this.chainLightning[currentChain] = this.chainDenseLightningVectors(model,
               projectile.getHitMob(), mob);
@@ -200,6 +200,7 @@ public class ChainingShock extends Projectile {
       case 'l':
         componentX = (-1) * chainingMob.getSpeed();
         break;
+      default:
     }
 
     Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));

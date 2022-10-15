@@ -165,9 +165,8 @@ public class DenseLightning extends Projectile {
       this.endPosition = null;
     }
     for (Mob mob : this.model.allMobs()) {
-      if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius) &&
-          mob.isVisible() &&
-          !mob.equals(this.hitMob)) {
+      if (mob.getPosition().getDistance(this.position) < (mob.getRadius() + this.radius)
+          && mob.isVisible() && !mob.equals(this.hitMob)) {
         mob.mobHitBy(this);
         this.hitTargets++;
         this.hitMob = mob;
