@@ -29,3 +29,11 @@ application {
     // Define the main class for the application.
     mainClass = 'com.halloween_tower_defense.App'
 }
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false
+        html.required = true
+        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
+}
