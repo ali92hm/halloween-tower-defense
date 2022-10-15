@@ -156,25 +156,25 @@ public class IceTower extends Tower {
     Vector vector =
         new Vector(this.position, currentAttackingMob.getPosition(), ThunderBolt.PROJECTILE_SPEED);
 
-    double xComp = 0;
-    double yComp = 0;
+    double componentX = 0;
+    double componentY = 0;
 
     switch (currentAttackingMob.getDirection()) {
       case 'u':
-        yComp = (-1) * currentAttackingMob.getSpeed();
+        componentY = (-1) * currentAttackingMob.getSpeed();
         break;
       case 'r':
-        xComp = currentAttackingMob.getSpeed();
+        componentX = currentAttackingMob.getSpeed();
         break;
       case 'd':
-        yComp = currentAttackingMob.getSpeed();
+        componentY = currentAttackingMob.getSpeed();
         break;
       case 'l':
-        xComp = (-1) * currentAttackingMob.getSpeed();
+        componentX = (-1) * currentAttackingMob.getSpeed();
         break;
     }
 
-    Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
+    Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));
     this.reloadProgress = (int) (this.fireRate * fireRateBoost);
     return new IceBeam(model, this.position, currentAttackingMob, trajectory,
         this.path1UpgradeLevel, this.path3UpgradeLevel);

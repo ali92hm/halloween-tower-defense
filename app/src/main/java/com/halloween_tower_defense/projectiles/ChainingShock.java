@@ -184,25 +184,25 @@ public class ChainingShock extends Projectile {
     Vector vector =
         new Vector(targetMob.getPosition(), chainingMob.getPosition(), Shock.PROJECTILE_SPEED);
 
-    double xComp = 0;
-    double yComp = 0;
+    double componentX = 0;
+    double componentY = 0;
 
     switch (chainingMob.getDirection()) {
       case 'u':
-        yComp = (-1) * chainingMob.getSpeed();
+        componentY = (-1) * chainingMob.getSpeed();
         break;
       case 'r':
-        xComp = chainingMob.getSpeed();
+        componentX = chainingMob.getSpeed();
         break;
       case 'd':
-        yComp = chainingMob.getSpeed();
+        componentY = chainingMob.getSpeed();
         break;
       case 'l':
-        xComp = (-1) * chainingMob.getSpeed();
+        componentX = (-1) * chainingMob.getSpeed();
         break;
     }
 
-    Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
+    Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));
     return new Shock(model, targetMob.getPosition(), trajectory, targetMob,
         this.rangeBoostLevel, this.damageBoostLevel);
   }

@@ -15,8 +15,8 @@ public class Vector {
    **********
    */
 
-  private double xComp;
-  private double yComp;
+  private double componentX;
+  private double componentY;
   private double magnitude;
   private double angle;
 
@@ -31,8 +31,8 @@ public class Vector {
    */
 
   public Vector() {
-    this.xComp = 0;
-    this.yComp = 0;
+    this.componentX = 0;
+    this.componentY = 0;
     this.findMagnitude();
     this.findAngle();
   }
@@ -45,8 +45,8 @@ public class Vector {
    */
 
   public Vector(final double comp) {
-    this.xComp = comp;
-    this.yComp = comp;
+    this.componentX = comp;
+    this.componentY = comp;
     this.findMagnitude();
     this.findAngle();
   }
@@ -55,13 +55,13 @@ public class Vector {
    * constructor for a vector with different
    * x and y components
    *
-   * @param xComp
-   * @param yComp
+   * @param componentX
+   * @param componentY
    */
 
-  public Vector(final double xComp, final double yComp) {
-    this.xComp = xComp;
-    this.yComp = yComp;
+  public Vector(final double componentX, final double componentY) {
+    this.componentX = componentX;
+    this.componentY = componentY;
     this.findMagnitude();
     this.findAngle();
   }
@@ -78,8 +78,8 @@ public class Vector {
 
   public Vector(final Position startPosition, final Position destinationPosition,
                 final double magnitude) {
-    this.xComp = destinationPosition.getXCord() - startPosition.getXCord();
-    this.yComp = destinationPosition.getYCord() - startPosition.getYCord();
+    this.componentX = destinationPosition.getXCord() - startPosition.getXCord();
+    this.componentY = destinationPosition.getYCord() - startPosition.getYCord();
     this.magnitude = magnitude;
     this.findAngle();
     this.findComps();
@@ -137,8 +137,8 @@ public class Vector {
    * @return double
    */
 
-  public double getXComp() {
-    return this.xComp;
+  public double getcomponentX() {
+    return this.componentX;
   }
 
   /**
@@ -147,8 +147,8 @@ public class Vector {
    * @return double
    */
 
-  public double getYComp() {
-    return this.yComp;
+  public double getcomponentY() {
+    return this.componentY;
   }
 
   /**
@@ -194,18 +194,18 @@ public class Vector {
 
   public void findComps() {
     if (Math.abs(this.angle) < Math.PI / 2) {
-      this.xComp = this.magnitude * Math.cos(Math.abs(this.angle));
+      this.componentX = this.magnitude * Math.cos(Math.abs(this.angle));
       if (this.angle < 0) {
-        this.yComp = this.magnitude * Math.sin(Math.abs(this.angle)) * (-1);
+        this.componentY = this.magnitude * Math.sin(Math.abs(this.angle)) * (-1);
       } else {
-        this.yComp = this.magnitude * Math.sin(Math.abs(this.angle));
+        this.componentY = this.magnitude * Math.sin(Math.abs(this.angle));
       }
     } else {
-      this.xComp = this.magnitude * Math.cos(Math.PI - Math.abs(this.angle)) * (-1);
+      this.componentX = this.magnitude * Math.cos(Math.PI - Math.abs(this.angle)) * (-1);
       if (this.angle < 0) {
-        this.yComp = this.magnitude * Math.sin(Math.abs(this.angle)) * (-1);
+        this.componentY = this.magnitude * Math.sin(Math.abs(this.angle)) * (-1);
       } else {
-        this.yComp = this.magnitude * Math.sin(Math.abs(this.angle));
+        this.componentY = this.magnitude * Math.sin(Math.abs(this.angle));
       }
     }
   }
@@ -215,7 +215,7 @@ public class Vector {
    */
 
   public void findMagnitude() {
-    this.magnitude = Math.sqrt((xComp * xComp) + (yComp * yComp));
+    this.magnitude = Math.sqrt((componentX * componentX) + (componentY * componentY));
   }
 
   /**
@@ -223,7 +223,7 @@ public class Vector {
    */
 
   public void findAngle() {
-    this.angle = Math.atan2(yComp, xComp);
+    this.angle = Math.atan2(componentY, componentX);
   }
 
   /**
@@ -235,6 +235,6 @@ public class Vector {
    */
 
   public Vector findVectorSum(final Vector vector) {
-    return new Vector(vector.getXComp() + this.xComp, vector.yComp + this.yComp);
+    return new Vector(vector.getcomponentX() + this.componentX, vector.componentY + this.componentY);
   }
 }

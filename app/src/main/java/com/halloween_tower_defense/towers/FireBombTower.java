@@ -150,25 +150,25 @@ public class FireBombTower extends Tower {
     Vector vector =
         new Vector(this.position, this.attackingMob[0].getPosition(), FireBomb.PROJECTILE_SPEED);
 
-    double xComp = 0;
-    double yComp = 0;
+    double componentX = 0;
+    double componentY = 0;
 
     switch (this.attackingMob[0].getDirection()) {
       case 'u':
-        yComp = (-1) * this.attackingMob[0].getSpeed();
+        componentY = (-1) * this.attackingMob[0].getSpeed();
         break;
       case 'r':
-        xComp = this.attackingMob[0].getSpeed();
+        componentX = this.attackingMob[0].getSpeed();
         break;
       case 'd':
-        yComp = this.attackingMob[0].getSpeed();
+        componentY = this.attackingMob[0].getSpeed();
         break;
       case 'l':
-        xComp = (-1) * this.attackingMob[0].getSpeed();
+        componentX = (-1) * this.attackingMob[0].getSpeed();
         break;
     }
 
-    Vector trajectory = vector.findVectorSum(new Vector(xComp, yComp));
+    Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));
     this.reloadProgress = (int) ((this.fireRate - (200 * this.path2UpgradeLevel)) * fireRateBoost);
     if (this.towerTurretImage != null) {
       this.towerTurretImage = DriverView.rotateImage(towerTurretImage, trajectory.getAngle());

@@ -73,8 +73,8 @@ public class Position {
    */
 
   public double getDistance(final Position position) {
-    final double xComp = Math.abs(position.getXCord() - this.xCord);
-    final double yComp = Math.abs(position.getYCord() - this.yCord);
-    return Math.sqrt((xComp * xComp) + (yComp * yComp));
+    final double componentX = Math.abs(position.getXCord() - this.xCord);
+    final double componentY = Math.abs(position.getYCord() - this.yCord);
+    return Math.sqrt((componentX * componentX) + (componentY * componentY));
   }
 }
