@@ -227,14 +227,16 @@ public class MapView extends JPanel {
     for (final Projectile projectile : this.model.allProjectiles()) {
       projectile.addImages(g2);
 
-//			if (projectile.getFireImage() != null && projectile.getFirePosition() != null) {
-//				imageGraphics.drawImage(projectile.getFireImage(), (int) projectile.getFirePosition().getXCord(),
-//						(int) projectile.getFirePosition().getYCord(), null);
-//			}
-//			if (projectile.getImpactImage() != null && projectile.getImpactPosition() != null) {
-//				imageGraphics.drawImage(projectile.getImpactImage(), (int) projectile.getImpactPosition().getXCord(),
-//						(int) projectile.getImpactPosition().getYCord(), null);
-//			}
+      // if (projectile.getFireImage() != null && projectile.getFirePosition() != null) {
+      //   imageGraphics.drawImage(projectile.getFireImage(),
+      //       (int) projectile.getFirePosition().getXCord(),
+      //       (int) projectile.getFirePosition().getYCord(), null);
+      // }
+      // if (projectile.getImpactImage() != null && projectile.getImpactPosition() != null) {
+      //   imageGraphics.drawImage(projectile.getImpactImage(),
+      //       (int) projectile.getImpactPosition().getXCord(),
+      //       (int) projectile.getImpactPosition().getYCord(), null);
+      // }
     }
     if (model.allMobs() != null) {
       for (Mob mob : model.allMobs()) {
