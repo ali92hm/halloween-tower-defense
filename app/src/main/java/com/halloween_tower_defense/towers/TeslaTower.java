@@ -6,6 +6,7 @@ import com.halloween_tower_defense.projectiles.ChainingShock;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.Shock;
 import com.halloween_tower_defense.projectiles.ThunderBolt;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import com.halloween_tower_defense.views.Alert;
@@ -19,18 +20,16 @@ import com.halloween_tower_defense.views.GameView;
  */
 
 public class TeslaTower extends Tower {
-  private static final String TOWER_BASE_IMAGE = "TeslaTower.png";
   public static final String TOWER_TURRET_IMAGE = null;
   public static final int TOWER_RANGE = 80;
   public static final int TOWER_FIRE_RATE = 50;
   public static final int TOWER_COST = 1000;
   public static final int CHAINING_DISTANCE = 100;
   public static final int NUMBER_MOBS_CAN_ATTACK = 2;
-
+  private static final String TOWER_BASE_IMAGE = "TeslaTower.png";
+  private static final long serialVersionUID = 1L;
   private static boolean towerUnlocked = false;
   private static boolean clickedTowerBefore = false;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Constructor for the TeslaTower
@@ -101,7 +100,7 @@ public class TeslaTower extends Tower {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Tesla Tower",
         "This tower shoots multiple",
         "bolt of lightning at a multiple",

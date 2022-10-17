@@ -14,6 +14,7 @@ import com.halloween_tower_defense.towers.LightningTower;
 import com.halloween_tower_defense.towers.PatchOfFireTower;
 import com.halloween_tower_defense.towers.TeslaTower;
 import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.views.GameView;
 import com.halloween_tower_defense.views.MapView;
@@ -46,8 +47,6 @@ import javax.swing.SwingUtilities;
 
 public class GameController {
 
-  private GameModel model;
-  private GameView view;
   private final TDKeyboardListener keyboardListener = new TDKeyboardListener();
   private final TDMouseMotionListener mouseMotionListener = new TDMouseMotionListener();
   private final TDMouseListener mouseListener = new TDMouseListener();
@@ -55,9 +54,12 @@ public class GameController {
   private final TowerListener towerListener = new TowerListener();
   private final TDItemListener itemListener = new TDItemListener();
   private final ButtonMouseListener buttonMouseListener = new ButtonMouseListener();
-  private final ButtonMouseMotionListener buttonMouseMotionListener = new ButtonMouseMotionListener();
+  private final ButtonMouseMotionListener buttonMouseMotionListener =
+      new ButtonMouseMotionListener();
+  private final GameModel model;
+  private final GameView view;
 
-  public GameController (final GameModel model, final GameView view) {
+  public GameController(final GameModel model, final GameView view) {
     this.model = model;
     this.view = view;
     addComponentEventListener();
@@ -69,6 +71,135 @@ public class GameController {
    * Title View Listeners *
    ************************
    */
+
+  /**
+   * build tower method that handles
+   * both click and drag as well as
+   * click and place
+   */
+
+  private void buildTower() {
+    if (view.getMapView() == null || view.getMapView().getMousePosition() == null) {
+      view.getSidePanelView().repaint();
+      return;
+    }
+
+    if (view.getMapView().canBuild(new Position(view.getMapView().getMousePosition().getX(),
+        view.getMapView().getMousePosition().getY()))) {
+      Tower tower = null;
+      Position towerPosition = new Position(
+          view.getMapView().getMousePosition().getX() - (TowerPanelView.TOWER_ICON_WIDTH) / 2,
+          view.getMapView().getMousePosition().getY() - (TowerPanelView.TOWER_ICON_HEIGHT) / 2);
+
+      // Switch the tower
+      switch (view.getSidePanelView().getTowerView().getBuildButtonGroup().getSelectedButton()
+          .getName()) {
+        case "DamageTower":
+          tower = new LightningTower(towerPosition, model);
+          break;
+        case "FireTower":
+          tower = new FireTower(towerPosition, model);
+          break;
+        case "IceTower":
+          tower = new IceTower(towerPosition, model);
+          break;
+        case "DenseLightningTower":
+          tower = new DenseLightningTower(towerPosition, model);
+          break;
+        case "PatchOfFireTower":
+          tower = new PatchOfFireTower(towerPosition, model);
+          break;
+        case "FreezeTower":
+          tower = new FreezeTower(towerPosition, model);
+          break;
+        case "TeslaTower":
+          tower = new TeslaTower(towerPosition, model);
+          break;
+        case "FireBombTower":
+          tower = new FireBombTower(towerPosition, model);
+          break;
+        case "IcicleTower":
+          tower = new IcicleTower(towerPosition, model);
+          break;
+        default:
+          return;
+      }
+
+      tower.addActionListener(towerListener);
+      view.getMapView().addTower(tower);
+      model.addTower(tower);
+      view.getSidePanelView().getUpgradeView().setTower(tower);
+      view.getSidePanelView().getUpgradeView().needUpdateScreen();
+      model.setCancelConfirmOption(0);
+      model.processEvent();
+
+      if (model.allTowers() != null) {
+        for (Tower t : model.allTowers()) {
+          t.setShowRange(false);
+        }
+      }
+
+      view.getSidePanelView().getTowerView().getBuildButtonGroup().clearSelection();
+    }
+
+    view.getMapView().repaint();
+  }
+
+  /*
+   ***********************
+   * Main View Listeners *
+   ***********************
+   */
+
+  /**
+   * adds the main driver view listeners
+   * to the main frame at the start
+   */
+
+  private void addComponentEventListener() {
+    view.addKeyListener(keyboardListener);
+    view.addMouseWheelListener(mouseWheelListener);
+
+    view.getMainView().getMap1().addActionListener(new ButtonUpdateListener());
+    view.getMainView().getMap2().addActionListener(new ButtonUpdateListener());
+    view.getMainView().getMap3().addActionListener(new ButtonUpdateListener());
+    view.getMainView().getEasyButton().addActionListener(new ButtonUpdateListener());
+    view.getMainView().getMediumButton().addActionListener(new ButtonUpdateListener());
+    view.getMainView().getHardButton().addActionListener(new ButtonUpdateListener());
+    view.getMainView().getExitButton().addActionListener(new ExitListener());
+    view.getMainView().getInfoButton().addActionListener(new InfoListener());
+    view.getMainView().getStartButton().addActionListener(new MapViewButtonListener());
+    view.getMainView().getStartButton().addActionListener(new DifficultyListener());
+
+    view.getTalentTreeMenuItem().addActionListener(new TalentTreeListener());//temp
+
+    view.getSidePanelView().getTowerView().getBuildButtonGroup().addItemListenerToAll(itemListener);
+    view.getSidePanelView().getTowerView().getBuildButtonGroup()
+        .addMouseListenerToAll(buttonMouseListener);
+    view.getSidePanelView().getTowerView().getBuildButtonGroup()
+        .addMouseMotionListenerToAll(buttonMouseMotionListener);
+    view.getSidePanelView().getButtonView().getStartButton().addActionListener(new StartListener());
+    view.getSidePanelView().getButtonView().getTalentTreeButton()
+        .addActionListener(new TalentTreeListener());
+    view.getSidePanelView().getTalentView().getBack().addActionListener(new TalentTreeListener());
+    view.getSidePanelView().getTalentView().getAccept()
+        .addActionListener(new TalentPointListener());
+    view.getSidePanelView().getButtonView().getHomeButton().addActionListener(new MenuListener());
+    view.getSidePanelView().getUpgradeView().getBackButton()
+        .addActionListener(new ReturnListener());
+    view.getSidePanelView().getUpgradeView().getPath1Button()
+        .addActionListener(new UpgradeListener());
+    view.getSidePanelView().getUpgradeView().getPath2Button()
+        .addActionListener(new UpgradeListener());
+    view.getSidePanelView().getUpgradeView().getPath3Button()
+        .addActionListener(new UpgradeListener());
+    view.getSidePanelView().getUpgradeView().getSellButton()
+        .addActionListener(new UpgradeListener());
+    view.getSidePanelView().getUpgradeView().getCancelButton()
+        .addActionListener(new CancelListener());
+    view.getSidePanelView().getUpgradeView().getConfirmButton()
+        .addActionListener(new ConfirmListener());
+  }
 
   /**
    * keyboard listener for the driver view
@@ -90,12 +221,6 @@ public class GameController {
     public void keyTyped(KeyEvent e) {
     }
   }
-
-  /*
-   ***********************
-   * Main View Listeners *
-   ***********************
-   */
 
   /**
    * updates the start button when
@@ -256,79 +381,6 @@ public class GameController {
   }
 
   /**
-   * build tower method that handles
-   * both click and drag as well as
-   * click and place
-   */
-
-  private void buildTower() {
-    if (view.getMapView() == null || view.getMapView().getMousePosition() == null) {
-      view.getSidePanelView().repaint();
-      return;
-    }
-
-    if (view.getMapView().canBuild(new Position(view.getMapView().getMousePosition().getX(),
-        view.getMapView().getMousePosition().getY()))) {
-      Tower tower = null;
-      Position towerPosition = new Position(
-          view.getMapView().getMousePosition().getX() - (TowerPanelView.TOWER_ICON_WIDTH) / 2,
-          view.getMapView().getMousePosition().getY() - (TowerPanelView.TOWER_ICON_HEIGHT) / 2);
-
-      // Switch the tower
-      switch (view.getSidePanelView().getTowerView().getBuildButtonGroup().getSelectedButton()
-          .getName()) {
-        case "DamageTower":
-          tower = new LightningTower(towerPosition, model);
-          break;
-        case "FireTower":
-          tower = new FireTower(towerPosition, model);
-          break;
-        case "IceTower":
-          tower = new IceTower(towerPosition, model);
-          break;
-        case "DenseLightningTower":
-          tower = new DenseLightningTower(towerPosition, model);
-          break;
-        case "PatchOfFireTower":
-          tower = new PatchOfFireTower(towerPosition, model);
-          break;
-        case "FreezeTower":
-          tower = new FreezeTower(towerPosition, model);
-          break;
-        case "TeslaTower":
-          tower = new TeslaTower(towerPosition, model);
-          break;
-        case "FireBombTower":
-          tower = new FireBombTower(towerPosition, model);
-          break;
-        case "IcicleTower":
-          tower = new IcicleTower(towerPosition, model);
-          break;
-        default:
-          return;
-      }
-
-      tower.addActionListener(towerListener);
-      view.getMapView().addTower(tower);
-      model.addTower(tower);
-      view.getSidePanelView().getUpgradeView().setTower(tower);
-      view.getSidePanelView().getUpgradeView().needUpdateScreen();
-      model.setCancelConfirmOption(0);
-      model.processEvent();
-
-      if (model.allTowers() != null) {
-        for (Tower t : model.allTowers()) {
-          t.setShowRange(false);
-        }
-      }
-
-      view.getSidePanelView().getTowerView().getBuildButtonGroup().clearSelection();
-    }
-
-    view.getMapView().repaint();
-  }
-
-  /**
    * Listener for building tower on drag
    */
   private class ButtonMouseListener extends MouseAdapter {
@@ -375,14 +427,14 @@ public class GameController {
       if (view.getTalentTreeView().getIncreaseDamage().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("IncreaseDamage.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("IncreaseDamage.png", 50, 50),
                 "Increased Damage", "Increases the damage", "of all towers.");
       }
 
       if (view.getTalentTreeView().getIncreaseFireRate().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("FireRate.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("FireRate.png", 50, 50),
                 "Increased Fire Rate", "Increases the fire rate", "of all towers.");
 
       }
@@ -390,14 +442,14 @@ public class GameController {
       if (view.getTalentTreeView().getIncreaseRange().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("Range.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("Range.png", 50, 50),
                 "Increased Range", "Increases the range", "of all towers.");
       }
 
       if (view.getTalentTreeView().getIncreaseGoldLevel().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("EndLevelGold.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("EndLevelGold.png", 50, 50),
                 "Increase Level Gold", "Each time you complete a level",
                 "you will gain additional gold.");
       }
@@ -405,7 +457,7 @@ public class GameController {
       if (view.getTalentTreeView().getIncreaseGoldEnemy().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("MobGold.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("MobGold.png", 50, 50),
                 "Increased Enemy Gold", "Each time you kill an enemy",
                 "you will gain additional gold.");
       }
@@ -413,14 +465,14 @@ public class GameController {
       if (view.getTalentTreeView().getReduceGoldTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("TowerGold.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("TowerGold.png", 50, 50),
                 "Reduced Tower Cost", "Each tower you place", "will cost less gold.");
       }
 
       if (view.getTalentTreeView().getChainLightning().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("ChainLightning.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("ChainLightning.png", 50, 50),
                 "Chain Lightning", "Makes your lightning towers chain",
                 "their lightning between enemies");
       }
@@ -428,21 +480,21 @@ public class GameController {
       if (view.getTalentTreeView().getDamageOverTime().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("FieryClock.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("FieryClock.png", 50, 50),
                 "Damage Over Time", "Makes your fire towers cause", "additional damage over time.");
       }
 
       if (view.getTalentTreeView().getFrostDamage().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("IceDamage.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("IceDamage.png", 50, 50),
                 "Ice Damage", "All frost towers will", "now do damage.");
       }
 
       if (view.getTalentTreeView().getPiercingShotTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("DenseLightningTower.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("DenseLightningTower.png", 50, 50),
                 "Dense Lightning Tower", "Lightning tower thats shoots",
                 "lightning bolts through enemies.");
       }
@@ -450,7 +502,7 @@ public class GameController {
       if (view.getTalentTreeView().getPatchOfFireTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("PatchOfFireTower.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("PatchOfFireTower.png", 50, 50),
                 "Patch Of Fire Tower", "Fire tower that shoots fire.",
                 "Damages enemies who walk over it.");
       }
@@ -458,28 +510,28 @@ public class GameController {
       if (view.getTalentTreeView().getStoppingTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("FreezeTower.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("FreezeTower.png", 50, 50),
                 "Freeze Tower", "Frost tower that temporarily", "stops nearby enemies.");
       }
 
       if (view.getTalentTreeView().getMultiShotTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("TeslaTower.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("TeslaTower.png", 50, 50),
                 "Tesla Tower", "Lightning tower that shoots", "multiple shots at the same time.");
       }
 
       if (view.getTalentTreeView().getRangedExplosionTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("FireBombTower.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("FireBombTower.png", 50, 50),
                 "Fire Bomb Tower", "Fire Tower that shoots area", "of effect damage at enemies.");
       }
 
       if (view.getTalentTreeView().getIcicleTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(GameView.getImage("IcicleTower.png", 50, 50),
+            .setTalentInfo(ImageUtility.getImage("IcicleTower.png", 50, 50),
                 "Icicle Tower", "I have no idea what", "the icicle tower does.");
       }
     }
@@ -641,6 +693,12 @@ public class GameController {
     }
   }
 
+  /*
+   **********************
+   * Map View Listeners *
+   **********************
+   */
+
   /**
    * listens for the talent tree toggling
    * the talent between visible and invisible.
@@ -653,12 +711,6 @@ public class GameController {
       view.triggerTalentTree();
     }
   }
-
-  /*
-   **********************
-   * Map View Listeners *
-   **********************
-   */
 
   /**
    * listens for the x-button on the tutorial
@@ -699,6 +751,12 @@ public class GameController {
     }
   }
 
+  /*
+   ************************
+   * Side Panel Listeners *
+   ************************
+   */
+
   /**
    * listens for the forwards button on
    * the tutorial and goes to the
@@ -712,12 +770,6 @@ public class GameController {
       view.getMapView().stepForwardsInTutorial();
     }
   }
-
-  /*
-   ************************
-   * Side Panel Listeners *
-   ************************
-   */
 
   /**
    * listens for if the user clicks
@@ -1087,55 +1139,5 @@ public class GameController {
   private class TDMouseWheelListener implements MouseWheelListener {
     public void mouseWheelMoved(MouseWheelEvent e) {
     }
-  }
-
-  /**
-   * adds the main driver view listeners
-   * to the main frame at the start
-   */
-
-  private void addComponentEventListener() {
-    view.addKeyListener(keyboardListener);
-    view.addMouseWheelListener(mouseWheelListener);
-
-    view.getMainView().getMap1().addActionListener(new ButtonUpdateListener());
-    view.getMainView().getMap2().addActionListener(new ButtonUpdateListener());
-    view.getMainView().getMap3().addActionListener(new ButtonUpdateListener());
-    view.getMainView().getEasyButton().addActionListener(new ButtonUpdateListener());
-    view.getMainView().getMediumButton().addActionListener(new ButtonUpdateListener());
-    view.getMainView().getHardButton().addActionListener(new ButtonUpdateListener());
-    view.getMainView().getExitButton().addActionListener(new ExitListener());
-    view.getMainView().getInfoButton().addActionListener(new InfoListener());
-    view.getMainView().getStartButton().addActionListener(new MapViewButtonListener());
-    view.getMainView().getStartButton().addActionListener(new DifficultyListener());
-
-    view.getTalentTreeMenuItem().addActionListener(new TalentTreeListener());//temp
-
-    view.getSidePanelView().getTowerView().getBuildButtonGroup().addItemListenerToAll(itemListener);
-    view.getSidePanelView().getTowerView().getBuildButtonGroup()
-        .addMouseListenerToAll(buttonMouseListener);
-    view.getSidePanelView().getTowerView().getBuildButtonGroup()
-        .addMouseMotionListenerToAll(buttonMouseMotionListener);
-    view.getSidePanelView().getButtonView().getStartButton().addActionListener(new StartListener());
-    view.getSidePanelView().getButtonView().getTalentTreeButton()
-        .addActionListener(new TalentTreeListener());
-    view.getSidePanelView().getTalentView().getBack().addActionListener(new TalentTreeListener());
-    view.getSidePanelView().getTalentView().getAccept()
-        .addActionListener(new TalentPointListener());
-    view.getSidePanelView().getButtonView().getHomeButton().addActionListener(new MenuListener());
-    view.getSidePanelView().getUpgradeView().getBackButton()
-        .addActionListener(new ReturnListener());
-    view.getSidePanelView().getUpgradeView().getPath1Button()
-        .addActionListener(new UpgradeListener());
-    view.getSidePanelView().getUpgradeView().getPath2Button()
-        .addActionListener(new UpgradeListener());
-    view.getSidePanelView().getUpgradeView().getPath3Button()
-        .addActionListener(new UpgradeListener());
-    view.getSidePanelView().getUpgradeView().getSellButton()
-        .addActionListener(new UpgradeListener());
-    view.getSidePanelView().getUpgradeView().getCancelButton()
-        .addActionListener(new CancelListener());
-    view.getSidePanelView().getUpgradeView().getConfirmButton()
-        .addActionListener(new ConfirmListener());
   }
 }

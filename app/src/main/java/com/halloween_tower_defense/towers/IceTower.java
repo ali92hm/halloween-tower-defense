@@ -5,6 +5,7 @@ import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.IceBeam;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.ThunderBolt;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import com.halloween_tower_defense.views.Alert;
@@ -24,10 +25,8 @@ public class IceTower extends Tower {
   public static final int TOWER_FIRE_RATE = 1;
   public static final int TOWER_COST = 350;
   public static final int NUMBER_MOBS_CAN_ATTACK = 2;
-
-  private static boolean clickedTowerBefore = true;
-
   private static final long serialVersionUID = 1L;
+  private static boolean clickedTowerBefore = true;
 
   /**
    * Constructor for the IceTower
@@ -80,7 +79,7 @@ public class IceTower extends Tower {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Thick Ice Tower",
         "This tower shoots several",
         "beams of ice slowing all",

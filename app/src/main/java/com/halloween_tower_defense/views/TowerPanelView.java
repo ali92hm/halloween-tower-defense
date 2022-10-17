@@ -10,6 +10,7 @@ import com.halloween_tower_defense.towers.IcicleTower;
 import com.halloween_tower_defense.towers.LightningTower;
 import com.halloween_tower_defense.towers.PatchOfFireTower;
 import com.halloween_tower_defense.towers.TeslaTower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.TDButtonGroup;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -41,9 +42,10 @@ import javax.swing.plaf.ColorUIResource;
 
 public class TowerPanelView extends JPanel implements ActionListener {
 
-  private static final long serialVersionUID = 1L;
   public static final int TOWER_ICON_WIDTH = 40;
   public static final int TOWER_ICON_HEIGHT = 40;
+  private static final long serialVersionUID = 1L;
+  private final TDButtonGroup buildGroup = new TDButtonGroup();
   private GameModel model;
   private JToggleButton jtbBuildDamageTower;
   private JToggleButton jtbBuildAOETower;
@@ -57,7 +59,6 @@ public class TowerPanelView extends JPanel implements ActionListener {
   private JToggleButton test7;
   private JToggleButton test8;
   private JToggleButton test9;
-  private final TDButtonGroup buildGroup = new TDButtonGroup();
   private boolean towerPanelEnabled = false;
 
   /**
@@ -177,81 +178,81 @@ public class TowerPanelView extends JPanel implements ActionListener {
   public void createTowers() {
 
     BufferedImage damageButtonImage =
-        GameView.getImage("DamageTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("DamageTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildDamageTower = new JToggleButton(new ImageIcon(damageButtonImage, "DamageTower.png"));
     jtbBuildDamageTower.setName("DamageTower");
     buildGroup.add(jtbBuildDamageTower);
 
     BufferedImage AOEButtonImage =
-        GameView.getImage("FireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("FireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildAOETower = new JToggleButton(new ImageIcon(AOEButtonImage, "FireTower.png"));
     jtbBuildAOETower.setName("FireTower");
     buildGroup.add(jtbBuildAOETower);
 
     BufferedImage slowButtonImage =
-        GameView.getImage("IceTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("IceTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildSlowTower = new JToggleButton(new ImageIcon(slowButtonImage, "IceTower.png"));
     jtbBuildSlowTower.setName("IceTower");
     buildGroup.add(jtbBuildSlowTower);
 
     BufferedImage straightShotButtonImage =
-        GameView.getImage("DenseLightningTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("DenseLightningTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildDenseLightningTower =
         new JToggleButton(new ImageIcon(straightShotButtonImage, "DenseLightningTower.png"));
     jtbBuildDenseLightningTower.setDisabledIcon(
-        new ImageIcon(GameView.getImage("LockedTower.png", 40, 40)));
+        new ImageIcon(ImageUtility.getImage("LockedTower.png", 40, 40)));
     jtbBuildDenseLightningTower.setName("DenseLightningTower");
     buildGroup.add(jtbBuildDenseLightningTower);
 
     BufferedImage patchOfFireButtonImage =
-        GameView.getImage("PatchOfFireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("PatchOfFireTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildPatchOfFireTower =
         new JToggleButton(new ImageIcon(patchOfFireButtonImage, "PatchOfFireTower.png"));
     jtbBuildPatchOfFireTower.setDisabledIcon(
-        new ImageIcon(GameView.getImage("LockedTower.png", 40, 40)));
+        new ImageIcon(ImageUtility.getImage("LockedTower.png", 40, 40)));
     jtbBuildPatchOfFireTower.setName("PatchOfFireTower");
     buildGroup.add(jtbBuildPatchOfFireTower);
 
     BufferedImage freezeButtonImage =
-        GameView.getImage("FreezeTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("FreezeTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildFreezeTower = new JToggleButton(new ImageIcon(freezeButtonImage, "FreezeTower.png"));
     jtbBuildFreezeTower.setDisabledIcon(
-        new ImageIcon(GameView.getImage("LockedTower.png", 40, 40)));
+        new ImageIcon(ImageUtility.getImage("LockedTower.png", 40, 40)));
     jtbBuildFreezeTower.setName("FreezeTower");
     buildGroup.add(jtbBuildFreezeTower);
 
     BufferedImage teslaButtonImage =
-        GameView.getImage("TeslaTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("TeslaTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildTeslaTower = new JToggleButton(new ImageIcon(teslaButtonImage, "TeslaTower.png"));
     jtbBuildTeslaTower.setDisabledIcon(
-        new ImageIcon(GameView.getImage("LockedTower.png", 40, 40)));
+        new ImageIcon(ImageUtility.getImage("LockedTower.png", 40, 40)));
     jtbBuildTeslaTower.setName("TeslaTower");
     jtbBuildTeslaTower.setEnabled(false);
     buildGroup.add(jtbBuildTeslaTower);
 
     BufferedImage fireBombButtonImage =
-        GameView.getImage("FireBombTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("FireBombTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildFireBombTower =
         new JToggleButton(new ImageIcon(fireBombButtonImage, "FireBombTower.png"));
     jtbBuildFireBombTower.setDisabledIcon(
-        new ImageIcon(GameView.getImage("LockedTower.png", 40, 40)));
+        new ImageIcon(ImageUtility.getImage("LockedTower.png", 40, 40)));
     jtbBuildFireBombTower.setName("FireBombTower");
     jtbBuildFireBombTower.setEnabled(false);
     buildGroup.add(jtbBuildFireBombTower);
 
     BufferedImage icicleButtonImage =
-        GameView.getImage("IcicleTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("IcicleTower.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     jtbBuildIcicleTower = new JToggleButton(new ImageIcon(icicleButtonImage, "IcicleTower.png"));
     jtbBuildIcicleTower.setDisabledIcon(
-        new ImageIcon(GameView.getImage("LockedTower.png", 40, 40)));
+        new ImageIcon(ImageUtility.getImage("LockedTower.png", 40, 40)));
     jtbBuildIcicleTower.setName("IcicleTower");
     jtbBuildIcicleTower.setEnabled(false);
     buildGroup.add(jtbBuildIcicleTower);
 
     BufferedImage underConstructionButtonImage =
-        GameView.getImage("ComingSoon.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("ComingSoon.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     BufferedImage underConstructionButtonImageDisable =
-        GameView.getImage("ComingSoon.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
+        ImageUtility.getImage("ComingSoon.png", TOWER_ICON_WIDTH, TOWER_ICON_HEIGHT);
     test7 = new JToggleButton(new ImageIcon(underConstructionButtonImage, "UnderConstruction.png"));
     test7.setDisabledIcon(new ImageIcon(underConstructionButtonImageDisable));
     test7.setName("UnderConstruction");

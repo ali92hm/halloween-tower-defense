@@ -3,9 +3,9 @@ package com.halloween_tower_defense.towers;
 import com.halloween_tower_defense.mobs.Mob;
 import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.TDButton;
-import com.halloween_tower_defense.views.GameView;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,12 +20,10 @@ import javax.swing.ImageIcon;
 
 public abstract class Tower extends TDButton {
 
-  protected static double towerCostDecrease = 1.0;
-
-  private static final long serialVersionUID = 1L;
   protected static final int TOWER_HEIGHT = 40;
   protected static final int TOWER_WIDTH = 40;
-
+  private static final long serialVersionUID = 1L;
+  protected static double towerCostDecrease = 1.0;
   protected static double fireRateBoost = 1.0;
   protected static double rangeBoost = 1.0;
 
@@ -63,6 +61,114 @@ public abstract class Tower extends TDButton {
   protected String path3UpgradeIcon;
   protected int path3UpgradeLevel;
   protected int[] path3UpgradeCosts;
+
+  /**
+   * super constructor for every tower
+   *
+   * @param position
+   * @param towerBaseImage
+   * @param towerTurretImage
+   */
+
+  protected Tower(final Position position, final String towerBaseImage,
+                  final String towerTurretImage) {
+    this.towerName = this.getClass().getSimpleName();
+    this.id = UUID.randomUUID();
+    this.setContentAreaFilled(false);
+    this.position = new Position(position.getXCord() + (TOWER_WIDTH / 2),
+        position.getYCord() + (TOWER_HEIGHT / 2));
+    this.setPreferredSize(new Dimension(TOWER_HEIGHT, TOWER_WIDTH));
+    this.setMaximumSize(this.getPreferredSize());
+    this.setMinimumSize(this.getPreferredSize());
+    this.setLocation((int) position.getXCord() + (TOWER_HEIGHT / 2),
+        (int) position.getYCord() + (TOWER_WIDTH / 2));
+    this.setBounds((int) position.getXCord(), (int) position.getYCord(), TOWER_HEIGHT, TOWER_WIDTH);
+    this.towerBaseImage = ImageUtility.getImage(towerBaseImage, TOWER_WIDTH, TOWER_HEIGHT);
+    this.towerTurretImage = ImageUtility.getImage(towerTurretImage, TOWER_WIDTH, TOWER_HEIGHT);
+    this.setIcon(new ImageIcon(this.towerBaseImage));
+  }
+
+  /**
+   * decreases the cool down rate of each tower by 10%
+   */
+
+  public static void upgradeFireRateBoost() {
+    fireRateBoost = 0.9;
+  }
+
+  /**
+   * increases the range of each tower by 10%
+   */
+
+  public static void upgradeRangeBoost() {
+    rangeBoost = 1.1;
+  }
+
+  /**
+   * decreases the cost of each tower by 10%
+   */
+
+  public static void upgradeTowerCostDecrease() {
+    towerCostDecrease = 0.9;
+  }
+
+  /**
+   * gives all lightning towers the ability to shoot
+   * projectiles that chain lightning
+   */
+
+  public static void upgradeChainLightning() {
+    chainLightning = true;
+  }
+
+  /**
+   * gives all fire towers the ability to shoot
+   * projectiles that damage over time
+   */
+
+  public static void upgradeFireDOTDamage() {
+    fireDOTDamage = true;
+  }
+
+  /**
+   * gives all ice towers the ability to shoot
+   * projectiles that slow mobs down even after
+   * the effect has worn off
+   */
+
+  public static void upgradeIceDamage() {
+    iceDamage = true;
+  }
+
+  /**
+   * returns whether lightning towers have chain lightning
+   *
+   * @return boolean
+   */
+
+  public static boolean getChainLightningUpgrade() {
+    return chainLightning;
+  }
+
+  /**
+   * returns whether fire towers have dot damage
+   *
+   * @return boolean
+   */
+
+  public static boolean getFireDOTDamageUpgrade() {
+    return fireDOTDamage;
+  }
+
+  /**
+   * returns whether ice towers have permifrost
+   *
+   * @return boolean
+   */
+
+  public static boolean getIceDamageUpgrade() {
+    return iceDamage;
+  }
 
   /**
    * returns the current value of the attribute
@@ -122,32 +228,6 @@ public abstract class Tower extends TDButton {
   public abstract int path3UpgradeValue();
 
   /**
-   * super constructor for every tower
-   *
-   * @param position
-   * @param towerBaseImage
-   * @param towerTurretImage
-   */
-
-  protected Tower(final Position position, final String towerBaseImage,
-                  final String towerTurretImage) {
-    this.towerName = this.getClass().getSimpleName();
-    this.id = UUID.randomUUID();
-    this.setContentAreaFilled(false);
-    this.position = new Position(position.getXCord() + (TOWER_WIDTH / 2),
-        position.getYCord() + (TOWER_HEIGHT / 2));
-    this.setPreferredSize(new Dimension(TOWER_HEIGHT, TOWER_WIDTH));
-    this.setMaximumSize(this.getPreferredSize());
-    this.setMinimumSize(this.getPreferredSize());
-    this.setLocation((int) position.getXCord() + (TOWER_HEIGHT / 2),
-        (int) position.getYCord() + (TOWER_WIDTH / 2));
-    this.setBounds((int) position.getXCord(), (int) position.getYCord(), TOWER_HEIGHT, TOWER_WIDTH);
-    this.towerBaseImage = GameView.getImage(towerBaseImage, TOWER_WIDTH, TOWER_HEIGHT);
-    this.towerTurretImage = GameView.getImage(towerTurretImage, TOWER_WIDTH, TOWER_HEIGHT);
-    this.setIcon(new ImageIcon(this.towerBaseImage));
-  }
-
-  /**
    * method to tell towers to attack a mob if
    * their fire rate cool down is finished
    *
@@ -180,99 +260,6 @@ public abstract class Tower extends TDButton {
    */
 
   public abstract void upgradePath3(final GameModel model);
-
-  /**
-   * decreases the cool down rate of each tower by 10%
-   */
-
-  public static void upgradeFireRateBoost() {
-    fireRateBoost = 0.9;
-  }
-
-  /**
-   * increases the range of each tower by 10%
-   */
-
-  public static void upgradeRangeBoost() {
-    rangeBoost = 1.1;
-  }
-
-  /**
-   * decreases the cost of each tower by 10%
-   */
-
-  public static void upgradeTowerCostDecrease() {
-    towerCostDecrease = 0.9;
-  }
-
-  /**
-   * gives all lightning towers the ability to shoot
-   * projectiles that chain lightning
-   */
-
-  public static void upgradeChainLightning() {
-    chainLightning = true;
-  }
-
-  /**
-   * gives all fire towers the ability to shoot
-   * projectiles that damage over time
-   */
-
-  public static void upgradeFireDOTDamage() {
-    fireDOTDamage = true;
-  }
-
-  /**
-   * gives all ice towers the ability to shoot
-   * projectiles that slow mobs down even after
-   * the effect has worn off
-   */
-
-  public static void upgradeIceDamage() {
-    iceDamage = true;
-  }
-
-  /**
-   * sets whether the tower should be showing
-   * its range footprint
-   *
-   * @param show
-   */
-
-  public void setShowRange(final boolean show) {
-    showRange = show;
-  }
-
-  /**
-   * returns whether lightning towers have chain lightning
-   *
-   * @return boolean
-   */
-
-  public static boolean getChainLightningUpgrade() {
-    return chainLightning;
-  }
-
-  /**
-   * returns whether fire towers have dot damage
-   *
-   * @return boolean
-   */
-
-  public static boolean getFireDOTDamageUpgrade() {
-    return fireDOTDamage;
-  }
-
-  /**
-   * returns whether ice towers have permifrost
-   *
-   * @return boolean
-   */
-
-  public static boolean getIceDamageUpgrade() {
-    return iceDamage;
-  }
 
   /**
    * returns the name of the tower
@@ -361,6 +348,17 @@ public abstract class Tower extends TDButton {
 
   public boolean getShowRange() {
     return showRange;
+  }
+
+  /**
+   * sets whether the tower should be showing
+   * its range footprint
+   *
+   * @param show
+   */
+
+  public void setShowRange(final boolean show) {
+    showRange = show;
   }
 
   /**

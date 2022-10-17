@@ -3,9 +3,9 @@ package com.halloween_tower_defense.projectiles;
 import com.halloween_tower_defense.mobs.Mob;
 import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
-import com.halloween_tower_defense.views.GameView;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -124,7 +124,7 @@ public class RingOfFire extends Projectile {
     this.setAlive();
     this.width += PROJECTILE_SPEED;
     this.height += PROJECTILE_SPEED;
-    this.projectileImage = GameView.getImage(PROJECTILE_IMAGE, width, height);
+    this.projectileImage = ImageUtility.getImage(PROJECTILE_IMAGE, width, height);
     this.position = new Position(this.startingPosition.getXCord() - (width / 2),
         this.startingPosition.getYCord() - (height / 2));
     this.drawRounds.clear();

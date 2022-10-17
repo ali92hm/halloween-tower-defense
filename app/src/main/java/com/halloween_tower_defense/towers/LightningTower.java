@@ -5,6 +5,7 @@ import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.ChainLightning;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.ThunderBolt;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import com.halloween_tower_defense.views.Alert;
@@ -19,16 +20,14 @@ import com.halloween_tower_defense.views.GameView;
 
 public class LightningTower extends Tower {
 
-  private static final String TOWER_BASE_IMAGE = "DamageTower.png";
   public static final String TOWER_TURRET_IMAGE = null;
   public static final int TOWER_RANGE = 80;
   public static final int TOWER_FIRE_RATE = 700;
   public static final int TOWER_COST = 250;
   public static final int CHAINING_DISTANCE = 100;
-
-  private static boolean clickedTowerBefore = true;
-
+  private static final String TOWER_BASE_IMAGE = "DamageTower.png";
   private static final long serialVersionUID = 1L;
+  private static boolean clickedTowerBefore = true;
 
   /**
    * Constructor for the LightningTower
@@ -81,7 +80,7 @@ public class LightningTower extends Tower {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Lightning Tower",
         "This tower shoots a single",
         "bolt of lightning at a target",

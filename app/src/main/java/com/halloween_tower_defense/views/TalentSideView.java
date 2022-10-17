@@ -1,5 +1,6 @@
 package com.halloween_tower_defense.views;
 
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.TDButton;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -18,8 +19,8 @@ public class TalentSideView extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  private final TDButton back = new TDButton(GameView.getImage("Back Button.png", 75, 30));
-  private final TDButton accept = new TDButton(GameView.getImage("AcceptButton.png", 150, 50));
+  private final TDButton back = new TDButton(ImageUtility.getImage("Back Button.png", 75, 30));
+  private final TDButton accept = new TDButton(ImageUtility.getImage("AcceptButton.png", 150, 50));
   private final JLabel talentIcon = new JLabel("");
   private final JLabel talentName = new JLabel("");
   private final JLabel talentDescription = new JLabel("");

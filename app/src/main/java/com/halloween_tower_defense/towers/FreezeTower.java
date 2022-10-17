@@ -4,6 +4,7 @@ import com.halloween_tower_defense.mobs.Mob;
 import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.DeepFreeze;
 import com.halloween_tower_defense.projectiles.Projectile;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.views.Alert;
 import com.halloween_tower_defense.views.GameView;
@@ -17,16 +18,14 @@ import com.halloween_tower_defense.views.GameView;
 
 public class FreezeTower extends Tower {
 
-  private static final String TOWER_BASE_IMAGE = "FreezeTower.png";
   public static final String TOWER_TURRET_IMAGE = null;
   public static final int TOWER_RANGE = 75;
   public static final int TOWER_FIRE_RATE = 1500;
   public static final int TOWER_COST = 700;
-
+  private static final String TOWER_BASE_IMAGE = "FreezeTower.png";
+  private static final long serialVersionUID = 1L;
   private static boolean towerUnlocked = false;
   private static boolean clickedTowerBefore = false;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Constructor for the FreezeTower
@@ -97,7 +96,7 @@ public class FreezeTower extends Tower {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Freeze Tower",
         "This tower blasts the area",
         "with ice stopping all mobs",

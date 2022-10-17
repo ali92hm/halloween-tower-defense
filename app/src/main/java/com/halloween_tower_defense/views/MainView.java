@@ -1,5 +1,6 @@
 package com.halloween_tower_defense.views;
 
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.SelectButtonGroup;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,15 +34,17 @@ public class MainView extends ImagePanel {
   private final JToggleButton map2 = new JToggleButton();
   private final JToggleButton map3 = new JToggleButton();
   private final JToggleButton easy =
-      new JToggleButton(new ImageIcon(GameView.getImage("EasyButton.png", 65, 28)));
+      new JToggleButton(new ImageIcon(ImageUtility.getImage("EasyButton.png", 65, 28)));
   private final JToggleButton medium =
-      new JToggleButton(new ImageIcon(GameView.getImage("MediumButton.png", 60, 28)));
+      new JToggleButton(new ImageIcon(ImageUtility.getImage("MediumButton.png", 60, 28)));
   private final JToggleButton hard =
-      new JToggleButton(new ImageIcon(GameView.getImage("HardButton.png", 65, 28)));
+      new JToggleButton(new ImageIcon(ImageUtility.getImage("HardButton.png", 65, 28)));
   private final JButton start =
-      new JButton(new ImageIcon(GameView.getImage("StartButton.png", 125, 50)));
-  private final JButton exit = new JButton(new ImageIcon(GameView.getImage("ExitButton.png", 90, 40)));
-  private final JButton info = new JButton(new ImageIcon(GameView.getImage("InfoButton.png", 90, 40)));
+      new JButton(new ImageIcon(ImageUtility.getImage("StartButton.png", 125, 50)));
+  private final JButton exit =
+      new JButton(new ImageIcon(ImageUtility.getImage("ExitButton.png", 90, 40)));
+  private final JButton info = new JButton(new ImageIcon(
+      ImageUtility.getImage("InfoButton.png", 90, 40)));
   private final SelectButtonGroup mapGroup = new SelectButtonGroup();
   private final SelectButtonGroup difficultyGroup = new SelectButtonGroup();
   private final JPanel buttonPanel = new JPanel();
@@ -134,19 +137,19 @@ public class MainView extends ImagePanel {
     c.gridy = 1;
     c.ipadx = -32;
     c.ipady = -11;
-    map1.setIcon(new ImageIcon("images/map1thumbnail.png"));
+    map1.setIcon(new ImageIcon(ImageUtility.getImage("map1thumbnail.png")));
     this.add(map1Panel, c);
 
     c.gridx = 1;
     c.gridy = 1;
     c.ipadx = -32;
     c.ipady = -11;
-    map2.setIcon(new ImageIcon("images/map2thumbnail.png"));
+    map2.setIcon(new ImageIcon(ImageUtility.getImage("map2thumbnail.png")));
     this.add(map2, c);
 
     c.gridx = 2;
     c.gridy = 1;
-    map3.setIcon(new ImageIcon("images/map3thumbnail.png"));
+    map3.setIcon(new ImageIcon(ImageUtility.getImage("map3thumbnail.png")));
     this.add(map3, c);
 
 

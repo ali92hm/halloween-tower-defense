@@ -2,6 +2,7 @@ package com.halloween_tower_defense.views;
 
 import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -50,7 +51,7 @@ public class TalentPointAlert extends JDialog {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     ImagePanel centralPanel =
-        new ImagePanel(GameView.getImage("Alert Background.jpg", width, height), 0, 0);
+        new ImagePanel(ImageUtility.getImage("Alert Background.jpg", width, height), 0, 0);
     centralPanel.setLayout(new BorderLayout());
     JLabel titleLabel = new JLabel("Warning!");
     titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
@@ -60,7 +61,7 @@ public class TalentPointAlert extends JDialog {
     yesButton.addActionListener(new YesListener());
     noButton.addActionListener(new NoListener());
     JLabel pictureLabel =
-        new JLabel(new ImageIcon(GameView.getImage("Talent Point Icon.png", 30, 30)));
+        new JLabel(new ImageIcon(ImageUtility.getImage("Talent Point Icon.png", 30, 30)));
 
     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     pictureLabel.setHorizontalAlignment(SwingConstants.CENTER);

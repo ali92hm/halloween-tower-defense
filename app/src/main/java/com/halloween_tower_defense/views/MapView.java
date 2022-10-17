@@ -13,6 +13,7 @@ import com.halloween_tower_defense.towers.LightningTower;
 import com.halloween_tower_defense.towers.PatchOfFireTower;
 import com.halloween_tower_defense.towers.TeslaTower;
 import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.TDButton;
 import java.awt.Color;
@@ -62,10 +63,6 @@ public class MapView extends JPanel {
   private final String[] giantPumpkinTutorial = {
       "BossMobTutorial.png"
   };
-
-  private String[] activeTutorial;
-  private int imageWalkthrough = 0;
-
   private final GameModel model;
   private final GameView view;
   private final BufferedImage image;
@@ -75,6 +72,8 @@ public class MapView extends JPanel {
   private final TDButton continueButton;
   private final JLabel navLabel;
   private final ArrayList<Tower> towers;
+  private String[] activeTutorial;
+  private int imageWalkthrough = 0;
   private boolean talentTreeActive = false;
   private int tutorialActive = -1;
 
@@ -90,15 +89,15 @@ public class MapView extends JPanel {
 
     this.towers = new ArrayList<Tower>();
 
-    this.image = GameView.getImage(image, 700, 650);
+    this.image = ImageUtility.getImage(image, 700, 650);
     this.model = model;
     this.view = view;
-    this.background = GameView.getImage(image, 700, 650);
+    this.background = ImageUtility.getImage(image, 700, 650);
     this.setupFrame();
 
-    skipButton = new TDButton(GameView.getImage("X Close.png", 30, 30));
-    backButton = new TDButton(GameView.getImage("Back Arrow.png", 40, 40));
-    continueButton = new TDButton(GameView.getImage("Forward Arrow.png", 40, 40));
+    skipButton = new TDButton(ImageUtility.getImage("X Close.png", 30, 30));
+    backButton = new TDButton(ImageUtility.getImage("Back Arrow.png", 40, 40));
+    continueButton = new TDButton(ImageUtility.getImage("Forward Arrow.png", 40, 40));
     navLabel = new JLabel("");
     skipButton.setBounds(600, 70, 30, 30);
     backButton.setBounds(425, 450, 40, 40);
@@ -325,7 +324,8 @@ public class MapView extends JPanel {
     }
 
     if (tutorialActive != -1) {
-      g2.drawImage(GameView.getImage(this.activeTutorial[this.imageWalkthrough], 700, 650), 0, 0,
+      g2.drawImage(ImageUtility.getImage(this.activeTutorial[this.imageWalkthrough], 700, 650), 0,
+          0,
           null);
     } else if (this.talentTreeActive) {
     } else if (this.model.getRuntimeThread().isSuspended()) {

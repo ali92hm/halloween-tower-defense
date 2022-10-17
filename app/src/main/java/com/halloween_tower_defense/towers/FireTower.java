@@ -4,6 +4,7 @@ import com.halloween_tower_defense.mobs.Mob;
 import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.RingOfFire;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.views.Alert;
 import com.halloween_tower_defense.views.GameView;
@@ -18,14 +19,13 @@ import com.halloween_tower_defense.views.GameView;
 
 public class FireTower extends Tower {
 
-  private static final String TOWER_BASE_IMAGE = "FireTower.png";
   public static final String TOWER_TURRET_IMAGE = null;
   public static final int TOWER_RANGE = 75;
   public static final int TOWER_FIRE_RATE = 800;
   public static final int TOWER_COST = 300;
-
-  private static boolean clickedTowerBefore = true;
+  private static final String TOWER_BASE_IMAGE = "FireTower.png";
   private static final long serialVersionUID = 1L;
+  private static boolean clickedTowerBefore = true;
 
   /**
    * Constructor for the FireTower
@@ -68,6 +68,26 @@ public class FireTower extends Tower {
   }
 
   /**
+   * Method that shows the tower's tutorial
+   * if its the first time users clicked on it
+   *
+   * @return boolean
+   */
+
+  public static boolean clickedTower(final GameView view) {
+    if (clickedTowerBefore) {
+      return true;
+    }
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
+        "Fire Burst Tower",
+        "This tower blasts the area",
+        "with fire burning all mobs",
+        "around it.");
+    clickedTowerBefore = true;
+    return false;
+  }
+
+  /**
    * method to tell towers to attack a mob if
    * their fire rate cool down is finished
    *
@@ -97,26 +117,6 @@ public class FireTower extends Tower {
       }
     }
     return projectiles;
-  }
-
-  /**
-   * Method that shows the tower's tutorial
-   * if its the first time users clicked on it
-   *
-   * @return boolean
-   */
-
-  public static boolean clickedTower(final GameView view) {
-    if (clickedTowerBefore) {
-      return true;
-    }
-    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
-        "Fire Burst Tower",
-        "This tower blasts the area",
-        "with fire burning all mobs",
-        "around it.");
-    clickedTowerBefore = true;
-    return false;
   }
 
   /**

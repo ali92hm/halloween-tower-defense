@@ -6,8 +6,8 @@ import com.halloween_tower_defense.projectiles.Icicle;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.towers.Tower;
 import com.halloween_tower_defense.utilities.DamageTracker;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
-import com.halloween_tower_defense.views.GameView;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -49,11 +49,19 @@ public abstract class Mob implements Comparable<Mob> {
   protected boolean hitByIceBeam = false;
 
   /**
+   * Increases the gold value of the mob
+   */
+
+  public static void upgradeMobValueBoost() {
+    mobValueBoost = 1.1;
+  }
+
+  /**
    * Mutator for the mobs image
    */
 
   protected void setImage() {
-    mobImage = GameView.getImage(
+    mobImage = ImageUtility.getImage(
         this.mobPath, this.mobWidth, this.mobHeight);
   }
 
@@ -88,14 +96,6 @@ public abstract class Mob implements Comparable<Mob> {
   }
 
   /**
-   * Increases the gold value of the mob
-   */
-
-  public static void upgradeMobValueBoost() {
-    mobValueBoost = 1.1;
-  }
-
-  /**
    * Tells the mob to move right
    */
 
@@ -124,26 +124,6 @@ public abstract class Mob implements Comparable<Mob> {
 
   public void setPosition(final double xCord, final double yCord) {
     this.setPosition(new Position(xCord, yCord));
-  }
-
-  /**
-   * Sets the position of the mob
-   *
-   * @param position
-   */
-
-  public void setPosition(final Position position) {
-    this.position = position;
-  }
-
-  /**
-   * Set the direction of the mob to move
-   *
-   * @param currentDirection
-   */
-
-  public void setDirection(final char currentDirection) {
-    this.currentDirection = currentDirection;
   }
 
   public int getHealthBoost(final int level, final int levelHealthBoost, final int difficulty) {
@@ -198,6 +178,16 @@ public abstract class Mob implements Comparable<Mob> {
 
   public Position getPosition() {
     return this.position;
+  }
+
+  /**
+   * Sets the position of the mob
+   *
+   * @param position
+   */
+
+  public void setPosition(final Position position) {
+    this.position = position;
   }
 
   /**
@@ -272,6 +262,16 @@ public abstract class Mob implements Comparable<Mob> {
 
   public char getDirection() {
     return currentDirection;
+  }
+
+  /**
+   * Set the direction of the mob to move
+   *
+   * @param currentDirection
+   */
+
+  public void setDirection(final char currentDirection) {
+    this.currentDirection = currentDirection;
   }
 
   /**
@@ -470,7 +470,9 @@ public abstract class Mob implements Comparable<Mob> {
     Mob other = (Mob) obj;
     if (id == null) {
       return other.getID() == null;
-    } else return id.equals(other.getID());
+    } else {
+      return id.equals(other.getID());
+    }
   }
 
   /**

@@ -4,6 +4,7 @@ import com.halloween_tower_defense.mobs.Mob;
 import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Icicle;
 import com.halloween_tower_defense.projectiles.Projectile;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import com.halloween_tower_defense.views.Alert;
@@ -22,11 +23,9 @@ public class IcicleTower extends Tower {
   public static final int TOWER_RANGE = 120;
   public static final int TOWER_FIRE_RATE = 2500;
   public static final int TOWER_COST = 1150;
-
+  private static final long serialVersionUID = 1L;
   private static boolean towerUnlocked = false;
   private static boolean clickedTowerBefore = false;
-
-  private static final long serialVersionUID = 1L;
 
   /**
    * Constructor for the IcicleTower
@@ -97,7 +96,7 @@ public class IcicleTower extends Tower {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Icicle Tower",
         "This tower shoots a single",
         "shard of ice instantly freezing",
@@ -172,7 +171,7 @@ public class IcicleTower extends Tower {
     Vector trajectory = vector.findVectorSum(new Vector(componentX, componentY));
     this.reloadProgress = (int) ((this.fireRate - (500 * this.path2UpgradeLevel)) * fireRateBoost);
     if (this.towerTurretImage != null) {
-      this.towerTurretImage = GameView.rotateImage(towerTurretImage, trajectory.getAngle());
+      this.towerTurretImage = ImageUtility.rotateImage(towerTurretImage, trajectory.getAngle());
     }
 
     return new Icicle(model, this.position, trajectory, this.path3UpgradeLevel,

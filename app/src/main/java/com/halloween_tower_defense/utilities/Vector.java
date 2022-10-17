@@ -162,16 +162,6 @@ public class Vector {
   }
 
   /**
-   * returns the angle of this vector
-   *
-   * @return double
-   */
-
-  public double getAngle() {
-    return this.angle;
-  }
-
-  /**
    * sets the magnitude of the vector
    *
    * @param magnitude
@@ -179,6 +169,16 @@ public class Vector {
 
   public void setMagnitude(final double magnitude) {
     this.magnitude = magnitude;
+  }
+
+  /**
+   * returns the angle of this vector
+   *
+   * @return double
+   */
+
+  public double getAngle() {
+    return this.angle;
   }
 
   /*
@@ -235,6 +235,7 @@ public class Vector {
    */
 
   public Vector findVectorSum(final Vector vector) {
-    return new Vector(vector.getcomponentX() + this.componentX, vector.componentY + this.componentY);
+    return new Vector(vector.getcomponentX() + this.componentX,
+        vector.componentY + this.componentY);
   }
 }

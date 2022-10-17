@@ -1,5 +1,6 @@
 package com.halloween_tower_defense.views;
 
+import com.halloween_tower_defense.utilities.ImageUtility;
 import javax.swing.JButton;
 
 /**
@@ -20,7 +21,7 @@ public class MapStartPanel extends ImagePanel {
    */
 
   public MapStartPanel(final String imageName) {
-    super(GameView.getImage(imageName, 900, 650), 0, 0);
+    super(ImageUtility.getImage(imageName, 900, 650), 0, 0);
     this.setLayout(null);
     this.escButton = new JButton("Esc");
     this.escButton.setBounds(625, 604, 75, 35);
