@@ -1,8 +1,8 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.App;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.TDButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -24,13 +24,12 @@ import javax.swing.SwingConstants;
 public class UpgradeView extends JPanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
-  private DriverModel model;
+  private final JPanel upgradeSellPanel;
+  private final int iconSize = 30;
+  private GameModel model;
   private Tower selectedTower;
-
   private JPanel backSellButtonPanel;
   private JPanel towerPanel;
-  private final JPanel upgradeSellPanel;
-
   private JLabel headderlabel;
   private JLabel path1Icon;
   private JLabel path2Icon;
@@ -39,18 +38,13 @@ public class UpgradeView extends JPanel implements ActionListener {
   private JLabel path2Text;
   private JLabel path3Text;
   private JLabel towerIcon;
-
   private TDButton backButton;
   private JButton sellButton;
-
   private JButton path1Button;
   private JButton path2Button;
   private JButton path3Button;
-
   private JButton cancelButton;
   private JButton confirmButton;
-
-  private final int iconSize = 30;
 
   /**
    * constructor for the upgrade panel
@@ -77,6 +71,15 @@ public class UpgradeView extends JPanel implements ActionListener {
   }
 
   /**
+   * Method to check if the machine is Mac or not.
+   *
+   * @return boolean
+   */
+  private static boolean isMac() {
+    return System.getProperty("os.name").substring(0, 3).equalsIgnoreCase("Mac");
+  }
+
+  /**
    * top panel with back and sell buttons
    */
 
@@ -90,11 +93,11 @@ public class UpgradeView extends JPanel implements ActionListener {
     path1Button = new JButton();
     path2Button = new JButton();
     path3Button = new JButton();
-    backButton = new TDButton(DriverView.getImage("Back Button.png", 70, iconSize));
+    backButton = new TDButton(ImageUtility.getImage("Back Button.png", 70, iconSize));
     sellButton = new JButton();
     cancelButton = new JButton("Cancel");
     confirmButton = new JButton("Confirm");
-    sellButton.setIcon(new ImageIcon(DriverView.getImage("Sell Icon.png", iconSize, iconSize)));
+    sellButton.setIcon(new ImageIcon(ImageUtility.getImage("Sell Icon.png", iconSize, iconSize)));
     backButton.setPreferredSize(new Dimension(70, 30));
     sellButton.setPreferredSize(new Dimension(30, 30));
     backButton.setContentAreaFilled(false);
@@ -122,12 +125,15 @@ public class UpgradeView extends JPanel implements ActionListener {
     towerUpgradePanel.setOpaque(false);
 
     path1Icon =
-        new JLabel(new ImageIcon(DriverView.getImage("UnderConstruction.png", iconSize, iconSize)));
+        new JLabel(
+            new ImageIcon(ImageUtility.getImage("UnderConstruction.png", iconSize, iconSize)));
     path2Icon =
-        new JLabel(new ImageIcon(DriverView.getImage("UnderConstruction.png", iconSize, iconSize)));
+        new JLabel(
+            new ImageIcon(ImageUtility.getImage("UnderConstruction.png", iconSize, iconSize)));
     path3Icon =
-        new JLabel(new ImageIcon(DriverView.getImage("UnderConstruction.png", iconSize, iconSize)));
-    towerIcon = new JLabel(new ImageIcon(DriverView.getImage("UnderConstruction.png", 60, 60)));
+        new JLabel(
+            new ImageIcon(ImageUtility.getImage("UnderConstruction.png", iconSize, iconSize)));
+    towerIcon = new JLabel(new ImageIcon(ImageUtility.getImage("UnderConstruction.png", 60, 60)));
 
     path1Icon.setPreferredSize(new Dimension(iconSize, iconSize));
     path2Icon.setPreferredSize(new Dimension(iconSize, iconSize));
@@ -149,9 +155,12 @@ public class UpgradeView extends JPanel implements ActionListener {
     upgradeBar2.setOpaque(false);
     upgradeBar3.setOpaque(false);
 
-    path1Button.setIcon(new ImageIcon(DriverView.getImage("Upgrade Icon.png", iconSize, iconSize)));
-    path2Button.setIcon(new ImageIcon(DriverView.getImage("Upgrade Icon.png", iconSize, iconSize)));
-    path3Button.setIcon(new ImageIcon(DriverView.getImage("Upgrade Icon.png", iconSize, iconSize)));
+    path1Button.setIcon(
+        new ImageIcon(ImageUtility.getImage("Upgrade Icon.png", iconSize, iconSize)));
+    path2Button.setIcon(
+        new ImageIcon(ImageUtility.getImage("Upgrade Icon.png", iconSize, iconSize)));
+    path3Button.setIcon(
+        new ImageIcon(ImageUtility.getImage("Upgrade Icon.png", iconSize, iconSize)));
 
     this.path1Text = new JLabel("");
     this.path2Text = new JLabel("");
@@ -189,7 +198,7 @@ public class UpgradeView extends JPanel implements ActionListener {
     header.setOpaque(false);
     value.setOpaque(false);
 
-    ImagePanel sellIcon = new ImagePanel(DriverView.getImage("Gold Coin Icon.png", 20, 20), 5, 5);
+    ImagePanel sellIcon = new ImagePanel(ImageUtility.getImage("Gold Coin Icon.png", 20, 20), 5, 5);
     sellIcon.setPreferredSize(new Dimension(30, 30));
 
     if (this.model.getCancelConfirmOption() == 0) {
@@ -208,7 +217,7 @@ public class UpgradeView extends JPanel implements ActionListener {
 
     if (this.model.getCancelConfirmOption() == 1) {
       ImagePanel upgradeIcon =
-          new ImagePanel(DriverView.getImage(selectedTower.getPath1UpgradeIcon(), 30, 30), 0, 0);
+          new ImagePanel(ImageUtility.getImage(selectedTower.getPath1UpgradeIcon(), 30, 30), 0, 0);
       upgradeIcon.setPreferredSize(new Dimension(30, 30));
       JLabel headLabel = new JLabel(
           selectedTower.getPath1UpgradeName() + " => " + selectedTower.path1UpgradeValue());
@@ -223,7 +232,7 @@ public class UpgradeView extends JPanel implements ActionListener {
       value.add(valueLabel);
     } else if (this.model.getCancelConfirmOption() == 2) {
       ImagePanel upgradeIcon =
-          new ImagePanel(DriverView.getImage(selectedTower.getPath2UpgradeIcon(), 30, 30), 0, 0);
+          new ImagePanel(ImageUtility.getImage(selectedTower.getPath2UpgradeIcon(), 30, 30), 0, 0);
       upgradeIcon.setPreferredSize(new Dimension(30, 30));
       JLabel headLabel = new JLabel(
           selectedTower.getPath2UpgradeName() + " => " + selectedTower.path2UpgradeValue());
@@ -238,7 +247,7 @@ public class UpgradeView extends JPanel implements ActionListener {
       value.add(valueLabel);
     } else if (this.model.getCancelConfirmOption() == 3) {
       ImagePanel upgradeIcon =
-          new ImagePanel(DriverView.getImage(selectedTower.getPath3UpgradeIcon(), 30, 30), 0, 0);
+          new ImagePanel(ImageUtility.getImage(selectedTower.getPath3UpgradeIcon(), 30, 30), 0, 0);
       upgradeIcon.setPreferredSize(new Dimension(30, 30));
       JLabel headLabel = new JLabel(
           selectedTower.getPath3UpgradeName() + " => " + selectedTower.path3UpgradeValue());
@@ -254,7 +263,7 @@ public class UpgradeView extends JPanel implements ActionListener {
     } else if (this.model.getCancelConfirmOption() == 4) {
 
       ImagePanel upgradeIcon =
-          new ImagePanel(DriverView.getImage(selectedTower.getPath3UpgradeIcon(), 30, 30), 0, 0);
+          new ImagePanel(ImageUtility.getImage(selectedTower.getPath3UpgradeIcon(), 30, 30), 0, 0);
       upgradeIcon.setPreferredSize(new Dimension(30, 30));
       JLabel headLabel1 = new JLabel("Are you sure you want to");
       JLabel headLabel2 = new JLabel("sell the tower?");
@@ -301,7 +310,7 @@ public class UpgradeView extends JPanel implements ActionListener {
     fillerPanel.setPreferredSize(new Dimension(20, 30));
 
     buttonPanel.add(cancelButton);
-    if (!App.isMac()) {
+    if (isMac()) {
       buttonPanel.add(fillerPanel);
     }
     buttonPanel.add(confirmButton);
@@ -393,6 +402,16 @@ public class UpgradeView extends JPanel implements ActionListener {
   }
 
   /**
+   * gets the currently selected tower
+   *
+   * @return Tower
+   */
+
+  public Tower getTower() {
+    return this.selectedTower;
+  }
+
+  /**
    * sets a tower as the currently selected
    * tower
    *
@@ -401,16 +420,6 @@ public class UpgradeView extends JPanel implements ActionListener {
 
   public void setTower(Tower tower) {
     this.selectedTower = tower;
-  }
-
-  /**
-   * gets the currently selected tower
-   *
-   * @return Tower
-   */
-
-  public Tower getTower() {
-    return this.selectedTower;
   }
 
   /**
@@ -427,7 +436,7 @@ public class UpgradeView extends JPanel implements ActionListener {
    * @param model
    */
 
-  public void setModel(DriverModel model) {
+  public void setModel(GameModel model) {
     this.model = model;
     this.model.addActionListener(this);
   }
@@ -439,13 +448,13 @@ public class UpgradeView extends JPanel implements ActionListener {
 
   public void updateInfo() {
     path1Icon.setIcon(new ImageIcon(
-        DriverView.getImage(selectedTower.getPath1UpgradeIcon(), iconSize, iconSize)));
+        ImageUtility.getImage(selectedTower.getPath1UpgradeIcon(), iconSize, iconSize)));
     path2Icon.setIcon(new ImageIcon(
-        DriverView.getImage(selectedTower.getPath2UpgradeIcon(), iconSize, iconSize)));
+        ImageUtility.getImage(selectedTower.getPath2UpgradeIcon(), iconSize, iconSize)));
     path3Icon.setIcon(new ImageIcon(
-        DriverView.getImage(selectedTower.getPath3UpgradeIcon(), iconSize, iconSize)));
+        ImageUtility.getImage(selectedTower.getPath3UpgradeIcon(), iconSize, iconSize)));
     towerIcon.setIcon(
-        new ImageIcon(DriverView.resizeImage(selectedTower.getTowerBaseImage(), 60, 60)));
+        new ImageIcon(ImageUtility.resizeImage(selectedTower.getTowerBaseImage(), 60, 60)));
 
     this.headderlabel.setText(selectedTower.getName());
     this.path1Text.setText(

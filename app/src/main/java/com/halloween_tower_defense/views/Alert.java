@@ -1,5 +1,6 @@
 package com.halloween_tower_defense.views;
 
+import com.halloween_tower_defense.utilities.ImageUtility;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Font;
@@ -33,7 +34,7 @@ public class Alert extends JDialog {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     ImagePanel centralPanel =
-        new ImagePanel(DriverView.getImage("Alert Background.jpg", width, height), 0, 0);
+        new ImagePanel(ImageUtility.getImage("Alert Background.jpg", width, height), 0, 0);
     centralPanel.setLayout(new BorderLayout());
     JLabel titleLabel = new JLabel(title);
     titleLabel.setFont(new Font("Serif", Font.BOLD, 15));

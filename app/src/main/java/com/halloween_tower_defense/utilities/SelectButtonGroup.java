@@ -57,18 +57,18 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
    */
   static Vector<AbstractButton> allButtons = new Vector<AbstractButton>();
   /**
-   * The currently selected button.
+   * all propertyChangeSupport goes through this.
    */
-  AbstractButton selectedButton = null;
+  private final SwingPropertyChangeSupport propertyChangeSupport =
+      new SwingPropertyChangeSupport(this, true);
   /**
    * The enabled state of the buttons in the group
    */
   protected boolean enabled = true;
   /**
-   * all propertyChangeSupport goes through this.
+   * The currently selected button.
    */
-  private final SwingPropertyChangeSupport propertyChangeSupport =
-      new SwingPropertyChangeSupport(this, true);
+  AbstractButton selectedButton = null;
 
   /**
    * Creates a new <code>SelectButtonGroup</code>.
@@ -193,20 +193,6 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
   }
 
   /**
-   * Sets the selected value for the <code>AbstractButton</code>. Only one
-   * button in the group may be selected at a time.
-   * <p>
-   * Notifies any listeners if the model changes
-   *
-   * @param button the <code>AbstractButton</code>
-   * @see #getSelectedButton
-   * @see #addPropertyChangeListener
-   */
-  public void setSelectedButton(AbstractButton button) {
-    setSelected(button.getModel(), true);
-  }
-
-  /**
    * Gets the current selected button from this group.  The current selected
    * button is the <code>AbstractButton</code> in this group that is currently
    * in the selected state, or <code>null</code> if there is no currently
@@ -222,6 +208,20 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
   }
 
   /**
+   * Sets the selected value for the <code>AbstractButton</code>. Only one
+   * button in the group may be selected at a time.
+   * <p>
+   * Notifies any listeners if the model changes
+   *
+   * @param button the <code>AbstractButton</code>
+   * @see #getSelectedButton
+   * @see #addPropertyChangeListener
+   */
+  public void setSelectedButton(AbstractButton button) {
+    setSelected(button.getModel(), true);
+  }
+
+  /**
    * Returns whether a <code>Button</code> is selected.
    *
    * @param button the button
@@ -230,22 +230,6 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
    */
   public boolean isSelected(AbstractButton button) {
     return button == selectedButton;
-  }
-
-  /**
-   * Sets the group's selected index to <I>index</I>.   Only one button in the
-   * group may be selected at a time.
-   * <p>
-   * Notifies any listeners if the model changes
-   *
-   * @param index an int specifying the model selection
-   * @see #getSelectedIndex
-   * @see #addPropertyChangeListener
-   */
-  public void setSelectedIndex(int index) {
-    if (index < buttons.size()) {
-      setSelectedButton(buttons.get(index));
-    }
   }
 
   /**
@@ -262,6 +246,22 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
       }
     }
     return -1;
+  }
+
+  /**
+   * Sets the group's selected index to <I>index</I>.   Only one button in the
+   * group may be selected at a time.
+   * <p>
+   * Notifies any listeners if the model changes
+   *
+   * @param index an int specifying the model selection
+   * @see #getSelectedIndex
+   * @see #addPropertyChangeListener
+   */
+  public void setSelectedIndex(int index) {
+    if (index < buttons.size()) {
+      setSelectedButton(buttons.get(index));
+    }
   }
 
   /**
@@ -354,18 +354,6 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
     for (AbstractButton button : buttons) {
       remove(button);
     }
-  }
-
-  /**
-   * Ensures that the <code>dispose</code> method of this group is called when
-   * there are no more refrences to it.
-   *
-   * @throws Throwable if an error occurs.
-   * @see SelectButtonGroup#dispose()
-   */
-  @Override
-  protected void finalize() throws Throwable {
-    dispose();
   }
 
   public void addItemListenerToAll(ItemListener el) {

@@ -9,7 +9,7 @@ import com.halloween_tower_defense.mobs.Mob;
 import com.halloween_tower_defense.mobs.SpeedyMob;
 import com.halloween_tower_defense.mobs.TankMob;
 import com.halloween_tower_defense.mobs.WitchMob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.utilities.Position;
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,7 +27,7 @@ public class Map1Data extends MapData {
   private final double X_START = 460;
   private final double Y_START = -50;
 
-  private final DriverModel model;
+  private final GameModel model;
   private final int difficulty;
 
   /**
@@ -37,7 +37,7 @@ public class Map1Data extends MapData {
    * @param difficulty
    */
 
-  public Map1Data(final DriverModel model, final int difficulty) {
+  public Map1Data(final GameModel model, final int difficulty) {
     this.model = model;
     this.difficulty = difficulty;
   }

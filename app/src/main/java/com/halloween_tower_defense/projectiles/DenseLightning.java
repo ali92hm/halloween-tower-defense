@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import java.awt.Graphics;
@@ -44,7 +44,7 @@ public class DenseLightning extends Projectile {
    * @param damageBoostLevel
    */
 
-  public DenseLightning(final DriverModel model, final Position startingPosition,
+  public DenseLightning(final GameModel model, final Position startingPosition,
                         final Vector vector,
                         final int rangeBoostLevel, final int targetCountBoostLevel,
                         final int damageBoostLevel) {
@@ -76,7 +76,7 @@ public class DenseLightning extends Projectile {
    * @param damageBoostLevel
    */
 
-  public DenseLightning(final DriverModel model, final Position startingPosition,
+  public DenseLightning(final GameModel model, final Position startingPosition,
                         final Vector vector, final Mob chainingMob,
                         final int rangeBoostLevel, final int targetCountBoostLevel,
                         final int damageBoostLevel) {

@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
-  protected BufferedImage image;
   private final Integer x;
   private final Integer y;
+  protected BufferedImage image;
 
   /**
    * Constructor for an image panel. Takes an image and a location to place the image.

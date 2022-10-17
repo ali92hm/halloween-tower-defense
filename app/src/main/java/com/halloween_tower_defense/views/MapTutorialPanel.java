@@ -1,5 +1,6 @@
 package com.halloween_tower_defense.views;
 
+import com.halloween_tower_defense.utilities.ImageUtility;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ public class MapTutorialPanel extends JPanel {
   public MapTutorialPanel(final String imageName) {
     this.setLayout(new BorderLayout());
 
-    ImagePanel tutorial = new ImagePanel(DriverView.getImage(imageName, 700, 650), 0, 0);
+    ImagePanel tutorial = new ImagePanel(ImageUtility.getImage(imageName, 700, 650), 0, 0);
     JPanel buttonPanel = new JPanel();
     JButton skipButton = new JButton("Skip Tutorial");
     JPanel fillerPanel = new JPanel();

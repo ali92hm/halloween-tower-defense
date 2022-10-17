@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import java.awt.Graphics;
@@ -47,7 +47,7 @@ public class IceBeam extends Projectile {
    * @param rangeUpgradeLevel
    */
 
-  public IceBeam(final DriverModel model, final Position position, final Mob attackingMob,
+  public IceBeam(final GameModel model, final Position position, final Mob attackingMob,
                  final Vector vector, final int slowPotencyLevel, final int rangeUpgradeLevel) {
     super(model, position, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
     this.attackingMob = attackingMob;

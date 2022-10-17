@@ -1,12 +1,13 @@
 package com.halloween_tower_defense.towers;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.RingOfFire;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.views.Alert;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 
 /**
  * Creates a tower that shoots a projectile
@@ -18,14 +19,13 @@ import com.halloween_tower_defense.views.DriverView;
 
 public class FireTower extends Tower {
 
-  private static final String TOWER_BASE_IMAGE = "FireTower.png";
   public static final String TOWER_TURRET_IMAGE = null;
   public static final int TOWER_RANGE = 75;
   public static final int TOWER_FIRE_RATE = 800;
   public static final int TOWER_COST = 300;
-
-  private static boolean clickedTowerBefore = true;
+  private static final String TOWER_BASE_IMAGE = "FireTower.png";
   private static final long serialVersionUID = 1L;
+  private static boolean clickedTowerBefore = true;
 
   /**
    * Constructor for the FireTower
@@ -34,7 +34,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public FireTower(final Position position, final DriverModel model) {
+  public FireTower(final Position position, final GameModel model) {
     super(position, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
     this.range = TOWER_RANGE;
     this.fireRate = TOWER_FIRE_RATE;
@@ -68,6 +68,26 @@ public class FireTower extends Tower {
   }
 
   /**
+   * Method that shows the tower's tutorial
+   * if its the first time users clicked on it
+   *
+   * @return boolean
+   */
+
+  public static boolean clickedTower(final GameView view) {
+    if (clickedTowerBefore) {
+      return true;
+    }
+    new Alert(view, ImageUtility.getImage(TOWER_BASE_IMAGE, 50, 50),
+        "Fire Burst Tower",
+        "This tower blasts the area",
+        "with fire burning all mobs",
+        "around it.");
+    clickedTowerBefore = true;
+    return false;
+  }
+
+  /**
    * method to tell towers to attack a mob if
    * their fire rate cool down is finished
    *
@@ -75,7 +95,7 @@ public class FireTower extends Tower {
    * @return Projectile[]
    */
 
-  public Projectile[] attackMob(DriverModel model) {
+  public Projectile[] attackMob(GameModel model) {
     Projectile[] projectiles = new Projectile[1];
     if (this.reloadProgress > 30) {
       this.reloadProgress -= 30;
@@ -97,26 +117,6 @@ public class FireTower extends Tower {
       }
     }
     return projectiles;
-  }
-
-  /**
-   * Method that shows the tower's tutorial
-   * if its the first time users clicked on it
-   *
-   * @return boolean
-   */
-
-  public static boolean clickedTower(final DriverView view) {
-    if (clickedTowerBefore) {
-      return true;
-    }
-    new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
-        "Fire Burst Tower",
-        "This tower blasts the area",
-        "with fire burning all mobs",
-        "around it.");
-    clickedTowerBefore = true;
-    return false;
   }
 
   /**
@@ -207,7 +207,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public void upgradePath1(final DriverModel model) {
+  public void upgradePath1(final GameModel model) {
     if (this.path1UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path1UpgradeCosts[this.path1UpgradeLevel]);
       this.path1UpgradeLevel = -1;
@@ -223,7 +223,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public void upgradePath2(final DriverModel model) {
+  public void upgradePath2(final GameModel model) {
     if (this.path2UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path2UpgradeCosts[this.path2UpgradeLevel]);
       this.path2UpgradeLevel = -1;
@@ -239,7 +239,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public void upgradePath3(final DriverModel model) {
+  public void upgradePath3(final GameModel model) {
     if (this.path3UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path3UpgradeCosts[this.path3UpgradeLevel]);
       this.path3UpgradeLevel = -1;

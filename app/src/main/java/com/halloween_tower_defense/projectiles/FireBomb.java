@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
@@ -47,7 +47,7 @@ public class FireBomb extends Projectile {
    * @param damageBoostLevel
    */
 
-  public FireBomb(final DriverModel model, final Position startingPosition, final Vector vector,
+  public FireBomb(final GameModel model, final Position startingPosition, final Vector vector,
                   final int durationBoostLevel, final int damageBoostLevel) {
     super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
     this.speed = PROJECTILE_SPEED;

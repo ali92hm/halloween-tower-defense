@@ -1,21 +1,15 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -30,40 +24,24 @@ import javax.swing.JPanel;
  *
  * @author Reggie
  */
-public class DriverView extends JFrame implements ActionListener {
+public class GameView extends JFrame implements ActionListener {
 
   private static final long serialVersionUID = 1L;
-
-  private DriverModel model;
-
-  private static final String imageResourceFolder = "images";
-
-  private boolean shownStartingTutorial = false;
-  private boolean shownTalentTreeTutorial = false;
-  private boolean shownBatTutorial = false;
-  private boolean shownGiantPumpkinTutorial = false;
-
   private final String titleScreenImage = "HalloweenTD.jpg";
   private final String mainScreenImage = "halloween3.jpg";
-
   private final int windowWidth = 900;
   private final int windowHeight = 675;
+  private final TitleView titleView;
+  private final MainView mainView;
+  private final JPanel gameView;
+  private final CardLayout windowCards;
+  private final SidePanelView sidePanelView;
 
   /*
    ***************
    * View Panels *
    ***************
    */
-
-  private final TitleView titleView;
-  private final MainView mainView;
-  private final JPanel gameView;
-  private final CardLayout windowCards;
-  private JPanel mapTalentView;
-  private CardLayout mapTalentCards;
-  private MapView mapView;
-  private TalentTreeView talentTreeView;
-  private final SidePanelView sidePanelView;
   private final JMenuBar menuBar;
   private final JMenu fileMenu;
   private final JMenu viewMenu;
@@ -76,6 +54,15 @@ public class DriverView extends JFrame implements ActionListener {
   private final JMenuItem jmiTalentTree;
   private final JMenuItem jmiTutorial;
   private final JMenuItem jmiInfo;
+  private final GameModel model;
+  private boolean shownStartingTutorial = false;
+  private boolean shownTalentTreeTutorial = false;
+  private boolean shownBatTutorial = false;
+  private boolean shownGiantPumpkinTutorial = false;
+  private JPanel mapTalentView;
+  private CardLayout mapTalentCards;
+  private MapView mapView;
+  private TalentTreeView talentTreeView;
 
 
   /*
@@ -88,10 +75,10 @@ public class DriverView extends JFrame implements ActionListener {
    * Constructor for the Driver View.
    */
 
-  public DriverView(final DriverModel model) {
-    final BufferedImage titleImage = getImage(this.titleScreenImage,
+  public GameView(final GameModel model) {
+    final BufferedImage titleImage = ImageUtility.getImage(this.titleScreenImage,
         this.windowWidth, this.windowHeight);
-    final BufferedImage mainImage = getImage(this.mainScreenImage,
+    final BufferedImage mainImage = ImageUtility.getImage(this.mainScreenImage,
         this.windowWidth, this.windowHeight);
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
@@ -163,6 +150,24 @@ public class DriverView extends JFrame implements ActionListener {
   }
 
   /**
+   * Sets the icon for when the icon is disabled.
+   *
+   * @param button
+   */
+
+  public static void setDisableIcon(AbstractButton button) {
+    BufferedImage disableIcon =
+        ImageUtility.getImage("Locked.png", AbstractButton.WIDTH, AbstractButton.HEIGHT);
+    button.setDisabledIcon(new ImageIcon(disableIcon));
+  }
+
+  /*
+   ***********************
+   * Change view methods *
+   ***********************
+   */
+
+  /**
    * Switches the view to the main screen.
    */
 
@@ -170,38 +175,6 @@ public class DriverView extends JFrame implements ActionListener {
     this.mainView.resetMainView();
     this.windowCards.show(this.getContentPane(), "MainView");
   }
-
-  /*
-   **************
-   * View setup *
-   **************
-   */
-
-  /**
-   * Sets the model for the view.
-   *
-   * @param model
-   */
-
-  public void setModel(DriverModel model) {
-    this.model = model;
-    this.model.addActionListener(this);
-  }
-
-  /**
-   * Sets the map view for the game.
-   *
-   * @param mapView
-   */
-
-  public void setMapView(final MapView mapView) {
-    this.mapView = mapView;
-  }
-  /*
-   ***********************
-   * Change view methods *
-   ***********************
-   */
 
   /**
    * Sets the map for the game.
@@ -320,6 +293,12 @@ public class DriverView extends JFrame implements ActionListener {
     this.sidePanelView.setVisible(true);
   }
 
+  /*
+   ***********************
+   * Component Accessors *
+   ***********************
+   */
+
   /**
    * Setter for the tower panel.
    */
@@ -327,12 +306,6 @@ public class DriverView extends JFrame implements ActionListener {
   public void setTowerPanel() {
     this.sidePanelView.switchToTowerPanel();
   }
-
-  /*
-   ***********************
-   * Component Accessors *
-   ***********************
-   */
 
   /**
    * Getter for the title view.
@@ -493,105 +466,6 @@ public class DriverView extends JFrame implements ActionListener {
 
   public void updateTalentTree(final int tierDepth) {
     this.talentTreeView = new TalentTreeView(this.model);
-  }
-
-  /*
-   **********************
-   * Utility methods *
-   **********************
-   */
-
-  /**
-   * Getter to return a buffered image from our images folder.
-   *
-   * @param imageName
-   * @param width
-   * @param height
-   * @return BufferedImage
-   */
-
-  public static BufferedImage getImage(final String imageName,
-                                       final int width, final int height) {
-    try {
-      InputStream inputStream = DriverView.class.getClassLoader()
-          .getResourceAsStream(imageResourceFolder + "/" + imageName);
-
-      if (inputStream == null) {
-        throw new IllegalArgumentException("Image not found " + imageName);
-      }
-
-      return resizeImage(ImageIO.read(inputStream), width, height);
-    } catch (IOException e) {
-      System.err.println(e);
-      System.exit(128);
-    }
-    return null;
-  }
-
-  /**
-   * Resizes an image from our images folder.
-   *
-   * @param image
-   * @param newWidth
-   * @param newHeight
-   * @return BufferedImage
-   */
-
-  public static BufferedImage resizeImage(final BufferedImage image, final int newWidth,
-                                          final int newHeight) {
-    final int imageWidth = image.getWidth();
-    final int imageHeight = image.getHeight();
-    final BufferedImage newImage = new BufferedImage(newWidth,
-        newHeight, image.getType());
-    final Graphics2D graphicsRenderer = newImage.createGraphics();
-    graphicsRenderer.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-        RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-    graphicsRenderer.drawImage(image, 0, 0, newWidth, newHeight, 0, 0,
-        imageWidth, imageHeight, null);
-    graphicsRenderer.dispose();
-    return newImage;
-  }
-
-  /**
-   * Rotates an image from our images folder.
-   *
-   * @param image
-   * @param rotationAngle
-   * @return BufferedImage
-   */
-
-  public static BufferedImage rotateImage(final BufferedImage image, final int rotationAngle) {
-    double rotationRequired = Math.toRadians(rotationAngle);
-    return rotateImage(image, rotationRequired);
-  }
-
-  /**
-   * Rotates an image from our images folder.
-   *
-   * @param image
-   * @param rotationRequired
-   * @return BufferedImage
-   */
-
-  public static BufferedImage rotateImage(final BufferedImage image,
-                                          final double rotationRequired) {
-
-    double locationX = image.getWidth() / 2;
-    double locationY = image.getHeight() / 2;
-    AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-    AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-    return op.filter(image, null);
-  }
-
-  /**
-   * Sets the icon for when the icon is disabled.
-   *
-   * @param button
-   */
-
-  public static void setDisableIcon(AbstractButton button) {
-    BufferedImage disableIcon = getImage("Locked.png", AbstractButton.WIDTH, AbstractButton.HEIGHT);
-    button.setDisabledIcon(new ImageIcon(disableIcon));
   }
 
   /**

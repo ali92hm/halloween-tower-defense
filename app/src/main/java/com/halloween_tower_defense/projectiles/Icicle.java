@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import java.awt.Graphics;
@@ -44,7 +44,7 @@ public class Icicle extends Projectile {
    * @param durationBoostLevel
    */
 
-  public Icicle(final DriverModel model, final Position startingPosition, final Vector vector,
+  public Icicle(final GameModel model, final Position startingPosition, final Vector vector,
                 final int rangeBoostLevel, final int durationBoostLevel) {
     super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
     this.speed = PROJECTILE_SPEED;

@@ -1,6 +1,7 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,12 +25,12 @@ import javax.swing.JPanel;
 public class InfoView extends ImagePanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
-  private DriverModel model;
   private final JLabel round;
   private final JLabel lives;
   private final JLabel gold;
   private final JLabel talentPoints;
   private final ImagePanel talentPointIcon;
+  private GameModel model;
 
   /**
    * Constructor for the info view. Contains all of the users data such as lives, round, gold, and talent points.
@@ -37,7 +38,7 @@ public class InfoView extends ImagePanel implements ActionListener {
 
   public InfoView() {
 
-    super(DriverView.getImage("Black Background.jpg", 200, 80), 0, 0);
+    super(ImageUtility.getImage("Black Background.jpg", 200, 80), 0, 0);
 
 
     this.setLayout(new GridLayout(2, 1));
@@ -66,11 +67,11 @@ public class InfoView extends ImagePanel implements ActionListener {
     JPanel fillerSpace1 = new JPanel();
     JPanel fillerSpace2 = new JPanel();
 
-    ImagePanel roundIcon = new ImagePanel(DriverView.getImage("Round Icon.png", 20, 20), 0, 7);
+    ImagePanel roundIcon = new ImagePanel(ImageUtility.getImage("Round Icon.png", 20, 20), 0, 7);
     this.talentPointIcon =
-        new ImagePanel(DriverView.getImage("Talent Point Icon.png", 20, 20), 0, 7);
-    ImagePanel healthIcon = new ImagePanel(DriverView.getImage("Health Icon.png", 20, 20), 0, 7);
-    ImagePanel goldIcon = new ImagePanel(DriverView.getImage("Gold Coin Icon.png", 20, 20), 0, 7);
+        new ImagePanel(ImageUtility.getImage("Talent Point Icon.png", 20, 20), 0, 7);
+    ImagePanel healthIcon = new ImagePanel(ImageUtility.getImage("Health Icon.png", 20, 20), 0, 7);
+    ImagePanel goldIcon = new ImagePanel(ImageUtility.getImage("Gold Coin Icon.png", 20, 20), 0, 7);
 
     roundTalentPointPanel.setOpaque(false);
     healthGoldPanel.setOpaque(false);
@@ -131,7 +132,7 @@ public class InfoView extends ImagePanel implements ActionListener {
    * @param model
    */
 
-  public void setModel(DriverModel model) {
+  public void setModel(GameModel model) {
     this.model = model;
     this.model.addActionListener(this);
   }
@@ -151,7 +152,7 @@ public class InfoView extends ImagePanel implements ActionListener {
     g2.fill(new Rectangle2D.Double(0, 77, 200, 3));
     g2.fill(new Rectangle2D.Double(0, 0, 3, 80));
     g2.fill(new Rectangle2D.Double(191, 0, 3, 80));
-    this.talentPointIcon.image = DriverView.getImage("Talent Point Icon.png", 20, 20);
+    this.talentPointIcon.image = ImageUtility.getImage("Talent Point Icon.png", 20, 20);
 
     this.talentPointIcon.repaint();
   }

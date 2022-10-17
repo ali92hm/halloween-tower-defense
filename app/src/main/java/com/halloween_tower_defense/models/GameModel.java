@@ -17,17 +17,14 @@ import java.util.Collections;
  * @author Scorpion
  */
 
-public class DriverModel {
+public class GameModel {
 
   private static final int endOfRoundMoney = 200;
   private static int endOfRoundMoneyBoost = 0;
-
-  private RuntimeThread runtimeThread = new RuntimeThread(this);
-
-  private volatile ArrayList<Mob> mobs;
   private final ArrayList<Tower> towers = new ArrayList<Tower>();
   private final ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-
+  private RuntimeThread runtimeThread = new RuntimeThread(this);
+  private volatile ArrayList<Mob> mobs;
   private int level = 1;
   private int talentPoints = 0;
   private int lives = 10;
@@ -62,13 +59,43 @@ public class DriverModel {
    * constructor for the model
    */
 
-  public DriverModel() {
+  public GameModel() {
   }
 
   /*
    *****************
    * Setup Methods *
    *****************
+   */
+
+  /**
+   * set the money boost you gain at the
+   * end of the round from 0 to 200
+   */
+
+  public static void upgradeEndOfLevelMoneyBoost() {
+    endOfRoundMoneyBoost = 200;
+  }
+
+  /**
+   * Concatenates strings
+   *
+   * @param strings
+   * @return String
+   */
+
+  public static String buildStrings(String... strings) {
+    final StringBuilder stringBuilder = new StringBuilder();
+    for (final String string : strings) {
+      stringBuilder.append(string);
+    }
+    return stringBuilder.toString();
+  }
+
+  /*
+   **************************
+   * List modifying methods *
+   **************************
    */
 
   /**
@@ -83,27 +110,6 @@ public class DriverModel {
       this.runtimeThread.start();
     }
   }
-
-  /**
-   * sets the data the runtime thread
-   * uses for the map, mobs and mob
-   * movement
-   *
-   * @param mapData
-   */
-
-  public void setMapData(final MapData mapData) {
-    this.mapData = mapData;
-    this.mapImageName = mapData.getMapImageName();
-    this.mapImageWidth = mapData.getMapImageWidth();
-    this.mapImageHeight = mapData.getMapImageHeight();
-  }
-
-  /*
-   **************************
-   * List modifying methods *
-   **************************
-   */
 
   /**
    * gets the list of mobs currently present in the game
@@ -174,7 +180,7 @@ public class DriverModel {
   /**
    * gets the list of towers on the map
    *
-   * @return ArrayList<Tower>
+   * @return ArrayList Tower
    */
 
   public ArrayList<Tower> allTowers() {
@@ -225,7 +231,7 @@ public class DriverModel {
   /**
    * gets the list of projectiles on the map
    *
-   * @return ArrayList<Projectile>
+   * @return ArrayList Projectile
    */
 
   public ArrayList<Projectile> allProjectiles() {
@@ -263,6 +269,12 @@ public class DriverModel {
     this.projectiles.remove(projectile);
   }
 
+  /*
+   *******************
+   * Mutator Methods *
+   *******************
+   */
+
   /**
    * gets the total number of projectils
    * on the map
@@ -272,22 +284,6 @@ public class DriverModel {
 
   public int projectilesLength() {
     return this.projectiles.size();
-  }
-
-  /*
-   *******************
-   * Mutator Methods *
-   *******************
-   */
-
-  /**
-   * sets the difficulty field
-   *
-   * @param val
-   */
-
-  public void setDifficulty(final int val) {
-    difficulty = val;
   }
 
   /**
@@ -302,17 +298,6 @@ public class DriverModel {
   }
 
   /**
-   * set the depth of the talent tree to
-   * be a new depth
-   *
-   * @param tierDepth
-   */
-
-  public void setTierDepth(final int tierDepth) {
-    this.tierDepth = tierDepth;
-  }
-
-  /**
    * gets a specific button from the array of
    * booleans indicating which talents the
    * user has selected
@@ -324,57 +309,6 @@ public class DriverModel {
   public void setButtonSelected(final int index1, final int index2) {
     this.disabledButtonArray[index1][index2] = true;
   }
-
-  /**
-   * tells the models that the screen needs to be updated
-   *
-   * @param updateScreen
-   */
-
-  public void setUpdateScreen(final boolean updateScreen) {
-    this.updateScreen = updateScreen;
-  }
-
-  /**
-   * sets the value of the confirmation panel of the
-   * upgrade panel to be one of the three upgrade
-   * panels or the sell panel
-   *
-   * @param cancelConfirmOption
-   */
-
-  public void setCancelConfirmOption(final int cancelConfirmOption) {
-    this.cancelConfirmOption = cancelConfirmOption;
-    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "activateUpgradeSell"));
-  }
-
-  /**
-   * sets the state of the start button between ready
-   * to start the next game, 1x speed, or 2x speed
-   *
-   * @param startButtonState
-   */
-
-  public void setStartButtonState(final int startButtonState) {
-    this.startButtonState = startButtonState;
-  }
-
-  /**
-   * sets which screen is active between the title screen,
-   * the main view, and the game screen
-   *
-   * @param activeScreen
-   */
-
-  public void setActiveScreen(final int activeScreen) {
-    this.activeScreen = activeScreen;
-  }
-
-  /*
-   ********************
-   * Accessor Methods *
-   ********************
-   */
 
   /**
    * gets which round the user is currently on
@@ -424,6 +358,22 @@ public class DriverModel {
 
   public int getDifficulty() {
     return this.difficulty;
+  }
+
+  /*
+   ********************
+   * Accessor Methods *
+   ********************
+   */
+
+  /**
+   * sets the difficulty field
+   *
+   * @param val
+   */
+
+  public void setDifficulty(final int val) {
+    difficulty = val;
   }
 
   /**
@@ -479,6 +429,21 @@ public class DriverModel {
   }
 
   /**
+   * sets the data the runtime thread
+   * uses for the map, mobs and mob
+   * movement
+   *
+   * @param mapData
+   */
+
+  public void setMapData(final MapData mapData) {
+    this.mapData = mapData;
+    this.mapImageName = mapData.getMapImageName();
+    this.mapImageWidth = mapData.getMapImageWidth();
+    this.mapImageHeight = mapData.getMapImageHeight();
+  }
+
+  /**
    * returns how deep into the talent tree
    * the user is
    *
@@ -487,6 +452,17 @@ public class DriverModel {
 
   public int getTierDepth() {
     return this.tierDepth;
+  }
+
+  /**
+   * set the depth of the talent tree to
+   * be a new depth
+   *
+   * @param tierDepth
+   */
+
+  public void setTierDepth(final int tierDepth) {
+    this.tierDepth = tierDepth;
   }
 
   /**
@@ -511,6 +487,16 @@ public class DriverModel {
   }
 
   /**
+   * tells the models that the screen needs to be updated
+   *
+   * @param updateScreen
+   */
+
+  public void setUpdateScreen(final boolean updateScreen) {
+    this.updateScreen = updateScreen;
+  }
+
+  /**
    * gets the value of the confirmation
    * window for the upgrade panel
    *
@@ -519,6 +505,19 @@ public class DriverModel {
 
   public int getCancelConfirmOption() {
     return cancelConfirmOption;
+  }
+
+  /**
+   * sets the value of the confirmation panel of the
+   * upgrade panel to be one of the three upgrade
+   * panels or the sell panel
+   *
+   * @param cancelConfirmOption
+   */
+
+  public void setCancelConfirmOption(final int cancelConfirmOption) {
+    this.cancelConfirmOption = cancelConfirmOption;
+    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "activateUpgradeSell"));
   }
 
   /**
@@ -532,13 +531,14 @@ public class DriverModel {
   }
 
   /**
-   * returns which screen is active
+   * sets the state of the start button between ready
+   * to start the next game, 1x speed, or 2x speed
    *
-   * @return int
+   * @param startButtonState
    */
 
-  public int getActiveScreen() {
-    return activeScreen;
+  public void setStartButtonState(final int startButtonState) {
+    this.startButtonState = startButtonState;
   }
 
   /*
@@ -548,12 +548,24 @@ public class DriverModel {
    */
 
   /**
-   * set the money boost you gain at the
-   * end of the round from 0 to 200
+   * returns which screen is active
+   *
+   * @return int
    */
 
-  public static void upgradeEndOfLevelMoneyBoost() {
-    endOfRoundMoneyBoost = 200;
+  public int getActiveScreen() {
+    return activeScreen;
+  }
+
+  /**
+   * sets which screen is active between the title screen,
+   * the main view, and the game screen
+   *
+   * @param activeScreen
+   */
+
+  public void setActiveScreen(final int activeScreen) {
+    this.activeScreen = activeScreen;
   }
 
   /**
@@ -641,15 +653,6 @@ public class DriverModel {
     processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "removed talent points"));
   }
 
-  /**
-   * removes a life everytime a mob escapes
-   */
-
-  public void lifeLost() {
-    this.lives--;
-    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "removed talent points"));
-  }
-
   /*
    *******************
    * Utility Methods *
@@ -657,11 +660,12 @@ public class DriverModel {
    */
 
   /**
-   * updates the views
+   * removes a life everytime a mob escapes
    */
 
-  public void processEvent() {
-    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "upgraded tower"));
+  public void lifeLost() {
+    this.lives--;
+    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "removed talent points"));
   }
 
   /**
@@ -674,21 +678,6 @@ public class DriverModel {
     }
 
     processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "switch to main view"));
-  }
-
-  /**
-   * Concatenates strings
-   *
-   * @param strings
-   * @return String
-   */
-
-  public static String buildStrings(String... strings) {
-    final StringBuilder stringBuilder = new StringBuilder();
-    for (final String string : strings) {
-      stringBuilder.append(string);
-    }
-    return stringBuilder.toString();
   }
 
   /**
@@ -723,6 +712,14 @@ public class DriverModel {
     if (actionListenerList != null) {
       actionListenerList.remove(l);
     }
+  }
+
+  /**
+   * updates the views
+   */
+
+  public void processEvent() {
+    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "upgraded tower"));
   }
 
   /**

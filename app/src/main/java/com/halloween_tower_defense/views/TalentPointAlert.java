@@ -1,7 +1,8 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -33,8 +34,8 @@ public class TalentPointAlert extends JDialog {
   private final int width = 250;
   private final int height = 190;
 
-  private final DriverModel model;
-  private final DriverView view;
+  private final GameModel model;
+  private final GameView view;
 
   /**
    * constructor for the TalentPointAlert
@@ -43,14 +44,14 @@ public class TalentPointAlert extends JDialog {
    * @param view
    */
 
-  public TalentPointAlert(final DriverModel model, final DriverView view) {
+  public TalentPointAlert(final GameModel model, final GameView view) {
     super(view, "", Dialog.ModalityType.DOCUMENT_MODAL);
     this.model = model;
     this.view = view;
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     ImagePanel centralPanel =
-        new ImagePanel(DriverView.getImage("Alert Background.jpg", width, height), 0, 0);
+        new ImagePanel(ImageUtility.getImage("Alert Background.jpg", width, height), 0, 0);
     centralPanel.setLayout(new BorderLayout());
     JLabel titleLabel = new JLabel("Warning!");
     titleLabel.setFont(new Font("Serif", Font.BOLD, 20));
@@ -60,7 +61,7 @@ public class TalentPointAlert extends JDialog {
     yesButton.addActionListener(new YesListener());
     noButton.addActionListener(new NoListener());
     JLabel pictureLabel =
-        new JLabel(new ImageIcon(DriverView.getImage("Talent Point Icon.png", 30, 30)));
+        new JLabel(new ImageIcon(ImageUtility.getImage("Talent Point Icon.png", 30, 30)));
 
     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     pictureLabel.setHorizontalAlignment(SwingConstants.CENTER);

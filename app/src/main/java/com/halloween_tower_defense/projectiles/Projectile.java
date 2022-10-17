@@ -1,10 +1,10 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
-import com.halloween_tower_defense.views.DriverView;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -26,7 +26,7 @@ public abstract class Projectile {
   protected int damageBoostLevel;
   protected int rangeBoostLevel;
   protected int durationBoostLevel;
-  protected DriverModel model;
+  protected GameModel model;
   protected BufferedImage projectileImage;
   protected BufferedImage fireImage;
   protected BufferedImage impactImage;
@@ -62,7 +62,7 @@ public abstract class Projectile {
    * @param height
    */
 
-  public Projectile(final DriverModel model, final Position location, final String projectileImage,
+  public Projectile(final GameModel model, final Position location, final String projectileImage,
                     final Vector vector, final int width, final int height) {
     this.projectileName = this.getClass().getSimpleName();
     this.id = UUID.randomUUID();
@@ -70,14 +70,14 @@ public abstract class Projectile {
     this.position =
         new Position(location.getXCord() - (width / 2), location.getYCord() - (height / 2));
     this.vector = vector;
-    this.projectileImage = DriverView.getImage(projectileImage, width, height);
+    this.projectileImage = ImageUtility.getImage(projectileImage, width, height);
     if (vector == null) {
       return;
     }
     this.projectileImage = vector.getAngle() < 0
         ?
-        DriverView.rotateImage(this.projectileImage, vector.getAngle() + Math.PI) :
-        DriverView.rotateImage(this.projectileImage, vector.getAngle());
+        ImageUtility.rotateImage(this.projectileImage, vector.getAngle() + Math.PI) :
+        ImageUtility.rotateImage(this.projectileImage, vector.getAngle());
   }
 
   /**
@@ -126,14 +126,14 @@ public abstract class Projectile {
                            final int height) {
     this.firePosition =
         new Position(location.getXCord() - (width / 2), location.getYCord() - (height / 2));
-    this.fireImage = DriverView.getImage(projectileImage, width, height);
+    this.fireImage = ImageUtility.getImage(projectileImage, width, height);
     if (vector == null) {
       return;
     }
     this.fireImage = vector.getAngle() < 0
         ?
-        DriverView.rotateImage(this.fireImage, vector.getAngle() + Math.PI) :
-        DriverView.rotateImage(this.fireImage, vector.getAngle());
+        ImageUtility.rotateImage(this.fireImage, vector.getAngle() + Math.PI) :
+        ImageUtility.rotateImage(this.fireImage, vector.getAngle());
   }
 
   /**
@@ -148,14 +148,14 @@ public abstract class Projectile {
 
   public void setImpactImage(final Position location, final String projectileImage,
                              final int height, final int width) {
-    this.impactImage = DriverView.getImage(projectileImage, height, width);
+    this.impactImage = ImageUtility.getImage(projectileImage, height, width);
     if (vector == null) {
       return;
     }
     this.impactImage = vector.getAngle() < 0
         ?
-        DriverView.rotateImage(this.impactImage, (vector.getAngle() + Math.PI)) :
-        DriverView.rotateImage(this.impactImage, vector.getAngle());
+        ImageUtility.rotateImage(this.impactImage, (vector.getAngle() + Math.PI)) :
+        ImageUtility.rotateImage(this.impactImage, vector.getAngle());
   }
 
   /**

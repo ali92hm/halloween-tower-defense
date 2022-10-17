@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import java.awt.Graphics;
@@ -55,7 +55,7 @@ public class ChainingShock extends Projectile {
    * @param targetCountBoostLevel
    */
 
-  public ChainingShock(final DriverModel model, final Position startingPosition,
+  public ChainingShock(final GameModel model, final Position startingPosition,
                        final Vector vector, final Mob targetMob,
                        final int rangeBoostLevel, final int targetCountBoostLevel) {
     super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
@@ -179,7 +179,7 @@ public class ChainingShock extends Projectile {
    * @return
    */
 
-  public Projectile chainDenseLightningVectors(final DriverModel model, final Mob targetMob,
+  public Projectile chainDenseLightningVectors(final GameModel model, final Mob targetMob,
                                                final Mob chainingMob) {
     Vector vector =
         new Vector(targetMob.getPosition(), chainingMob.getPosition(), Shock.PROJECTILE_SPEED);

@@ -1,6 +1,7 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
+import com.halloween_tower_defense.utilities.ImageUtility;
 import com.halloween_tower_defense.utilities.TDButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,18 +14,18 @@ import javax.swing.JPanel;
 public class ButtonView extends ImagePanel implements ActionListener {
 
   private static final long serialVersionUID = 1L;
-  private DriverModel model;
-  private DriverView view;
   private final TDButton startButton;
   private final JButton talentTreeButton;
   private final TDButton homeButton;
+  private GameModel model;
+  private GameView view;
 
   /**
    * Constructor for the button view. Contains the start, talent tree, and home buttons.
    */
 
   public ButtonView() {
-    super(DriverView.getImage("Black Background.jpg", 200, 105), 0, 0);
+    super(ImageUtility.getImage("Black Background.jpg", 200, 105), 0, 0);
     this.setLayout(new BorderLayout());
 
     JPanel top = new JPanel();
@@ -36,8 +37,8 @@ public class ButtonView extends ImagePanel implements ActionListener {
 
     JPanel jptmp = new JPanel();
     jptmp.setOpaque(false);
-    talentTreeButton = new TDButton(DriverView.getImage("TalentTreeButton.png", 110, 30));
-    homeButton = new TDButton(DriverView.getImage("HomeButton.png", 30, 30));
+    talentTreeButton = new TDButton(ImageUtility.getImage("TalentTreeButton.png", 110, 30));
+    homeButton = new TDButton(ImageUtility.getImage("HomeButton.png", 30, 30));
     talentTreeButton.setPreferredSize(new Dimension(110, 30));
     homeButton.setPreferredSize(new Dimension(30, 30));
     homeButton.setToolTipText("<html>" + "Home" + "</html>");
@@ -46,9 +47,9 @@ public class ButtonView extends ImagePanel implements ActionListener {
     top.add(homeButton);
     talentTreeButton.setEnabled(false);
 
-    startButton = new TDButton(DriverView.getImage("StartButton.png", 165, 50),
-        DriverView.getImage("2xButton.png", 165, 50),
-        DriverView.getImage("1xButton.png", 165, 50));
+    startButton = new TDButton(ImageUtility.getImage("StartButton.png", 165, 50),
+        ImageUtility.getImage("2xButton.png", 165, 50),
+        ImageUtility.getImage("1xButton.png", 165, 50));
     startButton.setPreferredSize(new Dimension(165, 50));
     bottom.add(startButton);
     startButton.setEnabled(false);
@@ -68,7 +69,7 @@ public class ButtonView extends ImagePanel implements ActionListener {
    * @param view
    */
 
-  public void setModel(final DriverModel model, final DriverView view) {
+  public void setModel(final GameModel model, final GameView view) {
     this.model = model;
     this.model.addActionListener(this);
     this.view = view;
