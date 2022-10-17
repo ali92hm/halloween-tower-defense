@@ -40,38 +40,38 @@ public class TestTrackView extends ImagePanel {
     this.setOpaque(true);
     this.setLayout(null);
 
-    BufferedImage buttonImage = DriverView.getImage("start-button.jpg", 175, 75);
+    BufferedImage buttonImage = GameView.getImage("start-button.jpg", 175, 75);
     startButton = new JButton(new ImageIcon(buttonImage));
     startButton.setBounds(700, 550, 200, 100);
     this.add(startButton);
 
     // TODO Fixing the position
-    BufferedImage damageButtonImage = DriverView.getImage("DamageTower.png", 50, 50);
+    BufferedImage damageButtonImage = GameView.getImage("DamageTower.png", 50, 50);
     jtbBuildDamageTower = new JToggleButton(new ImageIcon(damageButtonImage, "DamageTower.png"));
     jtbBuildDamageTower.setBounds(700, 150, 50, 50);
     buildGroup.add(jtbBuildDamageTower);
     this.add(jtbBuildDamageTower);
 
-    BufferedImage AOEButtonImage = DriverView.getImage("FireTower.png", 50, 50);
+    BufferedImage AOEButtonImage = GameView.getImage("FireTower.png", 50, 50);
     jtbBuildAOETower = new JToggleButton(new ImageIcon(AOEButtonImage, "FireTower.png"));
     jtbBuildAOETower.setBounds(800, 150, 50, 50);
     buildGroup.add(jtbBuildAOETower);
     this.add(jtbBuildAOETower);
 
-    BufferedImage slowButtonImage = DriverView.getImage("IceTower.png", 50, 50);
+    BufferedImage slowButtonImage = GameView.getImage("IceTower.png", 50, 50);
     jtbBuildSlowTower = new JToggleButton(new ImageIcon(slowButtonImage, "IceTower.png"));
     jtbBuildSlowTower.setBounds(700, 250, 50, 50);
     buildGroup.add(jtbBuildSlowTower);
     this.add(jtbBuildSlowTower);
 
-    BufferedImage straightShotButtonImage = DriverView.getImage("DenseLightningTower.png", 50, 50);
+    BufferedImage straightShotButtonImage = GameView.getImage("DenseLightningTower.png", 50, 50);
     jtbBuildDarkMatterTower =
         new JToggleButton(new ImageIcon(straightShotButtonImage, "DenseLightningTower.png"));
     jtbBuildDarkMatterTower.setBounds(800, 250, 50, 50);
     buildGroup.add(jtbBuildDarkMatterTower);
     this.add(jtbBuildDarkMatterTower);
 
-    BufferedImage patchOfFireButtonImage = DriverView.getImage("PatchOfFireTower.png", 50, 50);
+    BufferedImage patchOfFireButtonImage = GameView.getImage("PatchOfFireTower.png", 50, 50);
     jtbBuildDarkMatterTower =
         new JToggleButton(new ImageIcon(patchOfFireButtonImage, "DenseLightningTower.png"));
     jtbBuildDarkMatterTower.setBounds(800, 250, 50, 50);

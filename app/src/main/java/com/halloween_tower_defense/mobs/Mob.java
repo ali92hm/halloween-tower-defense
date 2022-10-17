@@ -7,7 +7,7 @@ import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.towers.Tower;
 import com.halloween_tower_defense.utilities.DamageTracker;
 import com.halloween_tower_defense.utilities.Position;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -53,7 +53,7 @@ public abstract class Mob implements Comparable<Mob> {
    */
 
   protected void setImage() {
-    mobImage = DriverView.getImage(
+    mobImage = GameView.getImage(
         this.mobPath, this.mobWidth, this.mobHeight);
   }
 

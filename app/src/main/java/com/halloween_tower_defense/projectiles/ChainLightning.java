@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
@@ -58,7 +58,7 @@ public class ChainLightning extends Projectile {
    * @param damageBoostLevel
    */
 
-  public ChainLightning(final DriverModel model, final Position startingPosition,
+  public ChainLightning(final GameModel model, final Position startingPosition,
                         final Vector vector,
                         final Mob targetMob, final Mob[] mobs, final int rangeBoostLevel,
                         final int damageBoostLevel) {
@@ -200,7 +200,7 @@ public class ChainLightning extends Projectile {
    * @return
    */
 
-  public Projectile chainLightningVectors(final DriverModel model, final Mob targetMob,
+  public Projectile chainLightningVectors(final GameModel model, final Mob targetMob,
                                           final Mob chainingMob) {
     Vector vector = new Vector(targetMob.getPosition(), chainingMob.getPosition(),
         ThunderBolt.PROJECTILE_SPEED);

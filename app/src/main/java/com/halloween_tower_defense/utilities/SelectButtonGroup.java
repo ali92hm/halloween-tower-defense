@@ -356,18 +356,6 @@ public class SelectButtonGroup extends ButtonGroup implements Serializable {
     }
   }
 
-  /**
-   * Ensures that the <code>dispose</code> method of this group is called when
-   * there are no more refrences to it.
-   *
-   * @throws Throwable if an error occurs.
-   * @see SelectButtonGroup#dispose()
-   */
-  @Override
-  protected void finalize() throws Throwable {
-    dispose();
-  }
-
   public void addItemListenerToAll(ItemListener el) {
     for (AbstractButton ab : allButtons) {
       ab.addItemListener(el);

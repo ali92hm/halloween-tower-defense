@@ -1,6 +1,6 @@
 package com.halloween_tower_defense.towers;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.utilities.Position;
 
@@ -26,14 +26,14 @@ public class MoneyTower extends Tower {
     this.cost = TOWER_COST;
   }
 
-  public Projectile[] attackMob(DriverModel model) {
+  public Projectile[] attackMob(GameModel model) {
     return new Projectile[0];
   }
 
-  public void upgradePath1(final DriverModel model) {
+  public void upgradePath1(final GameModel model) {
   }
 
-  public void upgradePath2(final DriverModel model) {
+  public void upgradePath2(final GameModel model) {
   }
 
   @Override
@@ -73,7 +73,7 @@ public class MoneyTower extends Tower {
   }
 
   @Override
-  public void upgradePath3(DriverModel model) {
+  public void upgradePath3(GameModel model) {
     // TODO Auto-generated method stub
 
   }

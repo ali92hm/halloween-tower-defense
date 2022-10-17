@@ -1,6 +1,6 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -30,11 +30,11 @@ import javax.swing.JPanel;
  *
  * @author Reggie
  */
-public class DriverView extends JFrame implements ActionListener {
+public class GameView extends JFrame implements ActionListener {
 
   private static final long serialVersionUID = 1L;
 
-  private DriverModel model;
+  private GameModel model;
 
   private static final String imageResourceFolder = "images";
 
@@ -88,7 +88,7 @@ public class DriverView extends JFrame implements ActionListener {
    * Constructor for the Driver View.
    */
 
-  public DriverView(final DriverModel model) {
+  public GameView(final GameModel model) {
     final BufferedImage titleImage = getImage(this.titleScreenImage,
         this.windowWidth, this.windowHeight);
     final BufferedImage mainImage = getImage(this.mainScreenImage,
@@ -171,32 +171,6 @@ public class DriverView extends JFrame implements ActionListener {
     this.windowCards.show(this.getContentPane(), "MainView");
   }
 
-  /*
-   **************
-   * View setup *
-   **************
-   */
-
-  /**
-   * Sets the model for the view.
-   *
-   * @param model
-   */
-
-  public void setModel(DriverModel model) {
-    this.model = model;
-    this.model.addActionListener(this);
-  }
-
-  /**
-   * Sets the map view for the game.
-   *
-   * @param mapView
-   */
-
-  public void setMapView(final MapView mapView) {
-    this.mapView = mapView;
-  }
   /*
    ***********************
    * Change view methods *
@@ -513,7 +487,7 @@ public class DriverView extends JFrame implements ActionListener {
   public static BufferedImage getImage(final String imageName,
                                        final int width, final int height) {
     try {
-      InputStream inputStream = DriverView.class.getClassLoader()
+      InputStream inputStream = GameView.class.getClassLoader()
           .getResourceAsStream(imageResourceFolder + "/" + imageName);
 
       if (inputStream == null) {

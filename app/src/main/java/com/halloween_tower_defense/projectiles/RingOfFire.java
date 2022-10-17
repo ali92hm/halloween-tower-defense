@@ -1,11 +1,11 @@
 package com.halloween_tower_defense.projectiles;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.towers.Tower;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ public class RingOfFire extends Projectile {
    * @param damageBoostLevel
    */
 
-  public RingOfFire(final DriverModel model, final Position startingPosition,
+  public RingOfFire(final GameModel model, final Position startingPosition,
                     final Vector vector, final int rangeBoostLevel, final int damageBoostLevel) {
     super(model, startingPosition, PROJECTILE_IMAGE, vector, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
     this.speed = PROJECTILE_SPEED;
@@ -124,7 +124,7 @@ public class RingOfFire extends Projectile {
     this.setAlive();
     this.width += PROJECTILE_SPEED;
     this.height += PROJECTILE_SPEED;
-    this.projectileImage = DriverView.getImage(PROJECTILE_IMAGE, width, height);
+    this.projectileImage = GameView.getImage(PROJECTILE_IMAGE, width, height);
     this.position = new Position(this.startingPosition.getXCord() - (width / 2),
         this.startingPosition.getYCord() - (height / 2));
     this.drawRounds.clear();

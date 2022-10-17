@@ -33,15 +33,15 @@ public class MainView extends ImagePanel {
   private final JToggleButton map2 = new JToggleButton();
   private final JToggleButton map3 = new JToggleButton();
   private final JToggleButton easy =
-      new JToggleButton(new ImageIcon(DriverView.getImage("EasyButton.png", 65, 28)));
+      new JToggleButton(new ImageIcon(GameView.getImage("EasyButton.png", 65, 28)));
   private final JToggleButton medium =
-      new JToggleButton(new ImageIcon(DriverView.getImage("MediumButton.png", 60, 28)));
+      new JToggleButton(new ImageIcon(GameView.getImage("MediumButton.png", 60, 28)));
   private final JToggleButton hard =
-      new JToggleButton(new ImageIcon(DriverView.getImage("HardButton.png", 65, 28)));
+      new JToggleButton(new ImageIcon(GameView.getImage("HardButton.png", 65, 28)));
   private final JButton start =
-      new JButton(new ImageIcon(DriverView.getImage("StartButton.png", 125, 50)));
-  private final JButton exit = new JButton(new ImageIcon(DriverView.getImage("ExitButton.png", 90, 40)));
-  private final JButton info = new JButton(new ImageIcon(DriverView.getImage("InfoButton.png", 90, 40)));
+      new JButton(new ImageIcon(GameView.getImage("StartButton.png", 125, 50)));
+  private final JButton exit = new JButton(new ImageIcon(GameView.getImage("ExitButton.png", 90, 40)));
+  private final JButton info = new JButton(new ImageIcon(GameView.getImage("InfoButton.png", 90, 40)));
   private final SelectButtonGroup mapGroup = new SelectButtonGroup();
   private final SelectButtonGroup difficultyGroup = new SelectButtonGroup();
   private final JPanel buttonPanel = new JPanel();

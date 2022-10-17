@@ -2,7 +2,7 @@ package com.halloween_tower_defense.controllers;
 
 import com.halloween_tower_defense.mapdata.Map1Data;
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.towers.DenseLightningTower;
 import com.halloween_tower_defense.towers.FireBombTower;
@@ -15,7 +15,7 @@ import com.halloween_tower_defense.towers.PatchOfFireTower;
 import com.halloween_tower_defense.towers.TeslaTower;
 import com.halloween_tower_defense.towers.Tower;
 import com.halloween_tower_defense.utilities.Position;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 import com.halloween_tower_defense.views.MapView;
 import com.halloween_tower_defense.views.TalentPointAlert;
 import com.halloween_tower_defense.views.TowerPanelView;
@@ -44,10 +44,10 @@ import javax.swing.SwingUtilities;
  * @author Scorpion
  */
 
-public class DriverController {
+public class GameController {
 
-  private static DriverModel model;
-  private static DriverView view;
+  private GameModel model;
+  private GameView view;
   private final TDKeyboardListener keyboardListener = new TDKeyboardListener();
   private final TDMouseMotionListener mouseMotionListener = new TDMouseMotionListener();
   private final TDMouseListener mouseListener = new TDMouseListener();
@@ -57,36 +57,12 @@ public class DriverController {
   private final ButtonMouseListener buttonMouseListener = new ButtonMouseListener();
   private final ButtonMouseMotionListener buttonMouseMotionListener = new ButtonMouseMotionListener();
 
-  /*
-   *****************
-   * Setup Methods *
-   *****************
-   */
-
-  /**
-   * sets the model field to the model
-   *
-   * @param model
-   */
-
-  public void setModel(final DriverModel model) {
-    DriverController.model = model;
+  public GameController (final GameModel model, final GameView view) {
+    this.model = model;
+    this.view = view;
+    addComponentEventListener();
   }
 
-  /**
-   * sets the view field to the main view
-   *
-   * @param view
-   */
-
-  public void setView(final DriverView view) {
-
-    if (view != null) {
-      DriverController.view = view;
-      addComponentEventListener();
-    }
-
-  }
 
   /*
    ************************
@@ -101,13 +77,16 @@ public class DriverController {
    */
 
   private class TDKeyboardListener implements KeyListener {
+    @Override
     public void keyPressed(KeyEvent e) {
     }
 
+    @Override
     public void keyReleased(KeyEvent e) {
-      DriverController.model.keyboardHandler();
+      model.keyboardHandler();
     }
 
+    @Override
     public void keyTyped(KeyEvent e) {
     }
   }
@@ -396,14 +375,14 @@ public class DriverController {
       if (view.getTalentTreeView().getIncreaseDamage().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("IncreaseDamage.png", 50, 50),
+            .setTalentInfo(GameView.getImage("IncreaseDamage.png", 50, 50),
                 "Increased Damage", "Increases the damage", "of all towers.");
       }
 
       if (view.getTalentTreeView().getIncreaseFireRate().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("FireRate.png", 50, 50),
+            .setTalentInfo(GameView.getImage("FireRate.png", 50, 50),
                 "Increased Fire Rate", "Increases the fire rate", "of all towers.");
 
       }
@@ -411,14 +390,14 @@ public class DriverController {
       if (view.getTalentTreeView().getIncreaseRange().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("Range.png", 50, 50),
+            .setTalentInfo(GameView.getImage("Range.png", 50, 50),
                 "Increased Range", "Increases the range", "of all towers.");
       }
 
       if (view.getTalentTreeView().getIncreaseGoldLevel().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("EndLevelGold.png", 50, 50),
+            .setTalentInfo(GameView.getImage("EndLevelGold.png", 50, 50),
                 "Increase Level Gold", "Each time you complete a level",
                 "you will gain additional gold.");
       }
@@ -426,7 +405,7 @@ public class DriverController {
       if (view.getTalentTreeView().getIncreaseGoldEnemy().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("MobGold.png", 50, 50),
+            .setTalentInfo(GameView.getImage("MobGold.png", 50, 50),
                 "Increased Enemy Gold", "Each time you kill an enemy",
                 "you will gain additional gold.");
       }
@@ -434,14 +413,14 @@ public class DriverController {
       if (view.getTalentTreeView().getReduceGoldTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("TowerGold.png", 50, 50),
+            .setTalentInfo(GameView.getImage("TowerGold.png", 50, 50),
                 "Reduced Tower Cost", "Each tower you place", "will cost less gold.");
       }
 
       if (view.getTalentTreeView().getChainLightning().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("ChainLightning.png", 50, 50),
+            .setTalentInfo(GameView.getImage("ChainLightning.png", 50, 50),
                 "Chain Lightning", "Makes your lightning towers chain",
                 "their lightning between enemies");
       }
@@ -449,21 +428,21 @@ public class DriverController {
       if (view.getTalentTreeView().getDamageOverTime().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("FieryClock.png", 50, 50),
+            .setTalentInfo(GameView.getImage("FieryClock.png", 50, 50),
                 "Damage Over Time", "Makes your fire towers cause", "additional damage over time.");
       }
 
       if (view.getTalentTreeView().getFrostDamage().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("IceDamage.png", 50, 50),
+            .setTalentInfo(GameView.getImage("IceDamage.png", 50, 50),
                 "Ice Damage", "All frost towers will", "now do damage.");
       }
 
       if (view.getTalentTreeView().getPiercingShotTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("DenseLightningTower.png", 50, 50),
+            .setTalentInfo(GameView.getImage("DenseLightningTower.png", 50, 50),
                 "Dense Lightning Tower", "Lightning tower thats shoots",
                 "lightning bolts through enemies.");
       }
@@ -471,7 +450,7 @@ public class DriverController {
       if (view.getTalentTreeView().getPatchOfFireTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("PatchOfFireTower.png", 50, 50),
+            .setTalentInfo(GameView.getImage("PatchOfFireTower.png", 50, 50),
                 "Patch Of Fire Tower", "Fire tower that shoots fire.",
                 "Damages enemies who walk over it.");
       }
@@ -479,28 +458,28 @@ public class DriverController {
       if (view.getTalentTreeView().getStoppingTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("FreezeTower.png", 50, 50),
+            .setTalentInfo(GameView.getImage("FreezeTower.png", 50, 50),
                 "Freeze Tower", "Frost tower that temporarily", "stops nearby enemies.");
       }
 
       if (view.getTalentTreeView().getMultiShotTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("TeslaTower.png", 50, 50),
+            .setTalentInfo(GameView.getImage("TeslaTower.png", 50, 50),
                 "Tesla Tower", "Lightning tower that shoots", "multiple shots at the same time.");
       }
 
       if (view.getTalentTreeView().getRangedExplosionTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("FireBombTower.png", 50, 50),
+            .setTalentInfo(GameView.getImage("FireBombTower.png", 50, 50),
                 "Fire Bomb Tower", "Fire Tower that shoots area", "of effect damage at enemies.");
       }
 
       if (view.getTalentTreeView().getIcicleTower().isSelected()) {
         view.getSidePanelView().switchToTalentPanel();
         view.getSidePanelView().getTalentView()
-            .setTalentInfo(DriverView.getImage("IcicleTower.png", 50, 50),
+            .setTalentInfo(GameView.getImage("IcicleTower.png", 50, 50),
                 "Icicle Tower", "I have no idea what", "the icicle tower does.");
       }
     }
@@ -540,7 +519,7 @@ public class DriverController {
       }
 
       if (view.getTalentTreeView().getIncreaseGoldLevel().isSelected()) {
-        DriverModel.upgradeEndOfLevelMoneyBoost();
+        GameModel.upgradeEndOfLevelMoneyBoost();
         model.setButtonSelected(1, 0);
         tierDepth = 2;
       }

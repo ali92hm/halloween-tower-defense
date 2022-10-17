@@ -1,14 +1,14 @@
 package com.halloween_tower_defense.towers;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.ChainLightning;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.ThunderBolt;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.Vector;
 import com.halloween_tower_defense.views.Alert;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 
 /**
  * Creates a tower that shoots a projectile
@@ -37,7 +37,7 @@ public class LightningTower extends Tower {
    * @param model
    */
 
-  public LightningTower(final Position position, final DriverModel model) {
+  public LightningTower(final Position position, final GameModel model) {
     super(position, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
     this.range = TOWER_RANGE;
     this.fireRate = TOWER_FIRE_RATE;
@@ -77,11 +77,11 @@ public class LightningTower extends Tower {
    * @return boolean
    */
 
-  public static boolean clickedTower(final DriverView view) {
+  public static boolean clickedTower(final GameView view) {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Lightning Tower",
         "This tower shoots a single",
         "bolt of lightning at a target",
@@ -98,7 +98,7 @@ public class LightningTower extends Tower {
    * @return Projectile[]
    */
 
-  public Projectile[] attackMob(final DriverModel model) {
+  public Projectile[] attackMob(final GameModel model) {
     Projectile[] projectile = new Projectile[1];
     this.attackingMob = new Mob[1];
     this.chainingMobs = new Mob[2];
@@ -155,7 +155,7 @@ public class LightningTower extends Tower {
    * @return
    */
 
-  public Projectile shootMob(final DriverModel model) {
+  public Projectile shootMob(final GameModel model) {
     Vector vector =
         new Vector(this.position, this.attackingMob[0].getPosition(), ThunderBolt.PROJECTILE_SPEED);
 
@@ -280,7 +280,7 @@ public class LightningTower extends Tower {
    * @param model
    */
 
-  public void upgradePath1(final DriverModel model) {
+  public void upgradePath1(final GameModel model) {
     if (this.path1UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path1UpgradeCosts[this.path1UpgradeLevel]);
       this.path1UpgradeLevel = -1;
@@ -296,7 +296,7 @@ public class LightningTower extends Tower {
    * @param model
    */
 
-  public void upgradePath2(final DriverModel model) {
+  public void upgradePath2(final GameModel model) {
     if (this.path2UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path2UpgradeCosts[this.path2UpgradeLevel]);
       this.path2UpgradeLevel = -1;
@@ -312,7 +312,7 @@ public class LightningTower extends Tower {
    * @param model
    */
 
-  public void upgradePath3(final DriverModel model) {
+  public void upgradePath3(final GameModel model) {
     if (this.path3UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path3UpgradeCosts[this.path3UpgradeLevel]);
       this.path3UpgradeLevel = -1;

@@ -1,6 +1,6 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -32,7 +32,7 @@ public class TalentTreeView extends JPanel implements ActionListener {
   public static final int BUTTON_WIDTH = 50;
 
   private final GridBagLayout gbLayout = new GridBagLayout();
-  private final DriverModel model;
+  private final GameModel model;
 
   private final JPanel tier1 = new JPanel(gbLayout);
   private final JPanel tier2 = new JPanel(gbLayout);
@@ -77,7 +77,7 @@ public class TalentTreeView extends JPanel implements ActionListener {
    * Constructor for the Talent Tree View.
    */
 
-  public TalentTreeView(final DriverModel model) {
+  public TalentTreeView(final GameModel model) {
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
     this.model = model;
     this.model.addActionListener(this);
@@ -198,38 +198,38 @@ public class TalentTreeView extends JPanel implements ActionListener {
 
   public void addIcons() {
     increaseDamage.setIcon(
-        new ImageIcon(DriverView.getImage("IncreaseDamage.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("IncreaseDamage.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     increaseFireRate.setIcon(
-        new ImageIcon(DriverView.getImage("FireRate.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("FireRate.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     increaseRange.setIcon(
-        new ImageIcon(DriverView.getImage("Range.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("Range.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     increaseGoldLevel.setIcon(
-        new ImageIcon(DriverView.getImage("EndLevelGold.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("EndLevelGold.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     increaseGoldEnemy.setIcon(
-        new ImageIcon(DriverView.getImage("MobGold.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("MobGold.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     reduceGoldTower.setIcon(
-        new ImageIcon(DriverView.getImage("TowerGold.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("TowerGold.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     chainLightning.setIcon(
-        new ImageIcon(DriverView.getImage("ChainLightning.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("ChainLightning.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     damageOverTime.setIcon(
-        new ImageIcon(DriverView.getImage("FieryClock.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("FieryClock.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     frostDamage.setIcon(
-        new ImageIcon(DriverView.getImage("IceDamage.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("IceDamage.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     piercingShotTower.setIcon(
-        new ImageIcon(DriverView.getImage("DenseLightningTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("DenseLightningTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     patchOfFireTower.setIcon(
-        new ImageIcon(DriverView.getImage("PatchOfFireTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("PatchOfFireTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     stoppingTower.setIcon(
-        new ImageIcon(DriverView.getImage("FreezeTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("FreezeTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     multiShotTower.setIcon(
-        new ImageIcon(DriverView.getImage("TeslaTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("TeslaTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     rangedExplosionTower.setIcon(
-        new ImageIcon(DriverView.getImage("FireBombTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("FireBombTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
     icicleTower.setIcon(
-        new ImageIcon(DriverView.getImage("IcicleTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
+        new ImageIcon(GameView.getImage("IcicleTower.png", BUTTON_WIDTH, BUTTON_WIDTH)));
 
     ImageIcon comingSoon =
-        new ImageIcon(DriverView.getImage("ComingSoon.png", BUTTON_WIDTH, BUTTON_WIDTH));
+        new ImageIcon(GameView.getImage("ComingSoon.png", BUTTON_WIDTH, BUTTON_WIDTH));
 
     lightningMine.setIcon(comingSoon);
     lightningMine.setDisabledIcon(comingSoon);
@@ -991,7 +991,7 @@ public class TalentTreeView extends JPanel implements ActionListener {
   public void paintComponent(Graphics g) {
     super.paintComponents(g);
     Graphics2D g2 = (Graphics2D) g;
-    g2.drawImage(DriverView.getImage("TalentTreeBackground.png", 700, 650), 0, 0, null);
+    g2.drawImage(GameView.getImage("TalentTreeBackground.png", 700, 650), 0, 0, null);
   }
 
   /**

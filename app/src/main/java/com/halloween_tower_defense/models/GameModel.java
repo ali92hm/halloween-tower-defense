@@ -17,7 +17,7 @@ import java.util.Collections;
  * @author Scorpion
  */
 
-public class DriverModel {
+public class GameModel {
 
   private static final int endOfRoundMoney = 200;
   private static int endOfRoundMoneyBoost = 0;
@@ -62,7 +62,7 @@ public class DriverModel {
    * constructor for the model
    */
 
-  public DriverModel() {
+  public GameModel() {
   }
 
   /*
@@ -174,7 +174,7 @@ public class DriverModel {
   /**
    * gets the list of towers on the map
    *
-   * @return ArrayList<Tower>
+   * @return ArrayList Tower
    */
 
   public ArrayList<Tower> allTowers() {
@@ -225,7 +225,7 @@ public class DriverModel {
   /**
    * gets the list of projectiles on the map
    *
-   * @return ArrayList<Projectile>
+   * @return ArrayList Projectile
    */
 
   public ArrayList<Projectile> allProjectiles() {
@@ -656,13 +656,6 @@ public class DriverModel {
    *******************
    */
 
-  /**
-   * updates the views
-   */
-
-  public void processEvent() {
-    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "upgraded tower"));
-  }
 
   /**
    * handles all key events
@@ -723,6 +716,14 @@ public class DriverModel {
     if (actionListenerList != null) {
       actionListenerList.remove(l);
     }
+  }
+
+  /**
+   * updates the views
+   */
+
+  public void processEvent() {
+    processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "upgraded tower"));
   }
 
   /**

@@ -1,12 +1,12 @@
 package com.halloween_tower_defense.towers;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.projectiles.RingOfFire;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.views.Alert;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 
 /**
  * Creates a tower that shoots a projectile
@@ -34,7 +34,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public FireTower(final Position position, final DriverModel model) {
+  public FireTower(final Position position, final GameModel model) {
     super(position, TOWER_BASE_IMAGE, TOWER_TURRET_IMAGE);
     this.range = TOWER_RANGE;
     this.fireRate = TOWER_FIRE_RATE;
@@ -75,7 +75,7 @@ public class FireTower extends Tower {
    * @return Projectile[]
    */
 
-  public Projectile[] attackMob(DriverModel model) {
+  public Projectile[] attackMob(GameModel model) {
     Projectile[] projectiles = new Projectile[1];
     if (this.reloadProgress > 30) {
       this.reloadProgress -= 30;
@@ -106,11 +106,11 @@ public class FireTower extends Tower {
    * @return boolean
    */
 
-  public static boolean clickedTower(final DriverView view) {
+  public static boolean clickedTower(final GameView view) {
     if (clickedTowerBefore) {
       return true;
     }
-    new Alert(view, DriverView.getImage(TOWER_BASE_IMAGE, 50, 50),
+    new Alert(view, GameView.getImage(TOWER_BASE_IMAGE, 50, 50),
         "Fire Burst Tower",
         "This tower blasts the area",
         "with fire burning all mobs",
@@ -207,7 +207,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public void upgradePath1(final DriverModel model) {
+  public void upgradePath1(final GameModel model) {
     if (this.path1UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path1UpgradeCosts[this.path1UpgradeLevel]);
       this.path1UpgradeLevel = -1;
@@ -223,7 +223,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public void upgradePath2(final DriverModel model) {
+  public void upgradePath2(final GameModel model) {
     if (this.path2UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path2UpgradeCosts[this.path2UpgradeLevel]);
       this.path2UpgradeLevel = -1;
@@ -239,7 +239,7 @@ public class FireTower extends Tower {
    * @param model
    */
 
-  public void upgradePath3(final DriverModel model) {
+  public void upgradePath3(final GameModel model) {
     if (this.path3UpgradeLevel == 3) {
       model.towerBuyUpgradeMoney(this.path3UpgradeCosts[this.path3UpgradeLevel]);
       this.path3UpgradeLevel = -1;

@@ -18,7 +18,7 @@ public class RuntimeThread extends Thread {
   private volatile boolean isRunning = false;
   private volatile boolean isSuspended = false;
   private volatile boolean isTalentTreeActive = false;
-  private final DriverModel model;
+  private final GameModel model;
   private boolean canActivateMob = false;
   private boolean gameOver = false;
   private boolean endGame = false;
@@ -30,7 +30,7 @@ public class RuntimeThread extends Thread {
    * @param model
    */
 
-  public RuntimeThread(final DriverModel model) {
+  public RuntimeThread(final GameModel model) {
     this.model = model;
   }
 
@@ -53,8 +53,8 @@ public class RuntimeThread extends Thread {
         if (mobReleaseCooldown > 0 && !this.isSuspended && !this.isTalentTreeActive) {
           mobReleaseCooldown--;
         }
-        if (mobReleaseCooldown == 0 && activeMobs < model.mobsLength() && !this.isSuspended &&
-            !this.isTalentTreeActive) {
+        if (mobReleaseCooldown == 0 && activeMobs < model.mobsLength() && !this.isSuspended
+            && !this.isTalentTreeActive) {
           mobReleaseCooldown = 20;
           canActivateMob = true;
         }
@@ -139,6 +139,7 @@ public class RuntimeThread extends Thread {
         this.model.processEvent();
       }
     } catch (InterruptedException e) {
+      System.err.println("Exception occurred in runtime thread: " + e.getStackTrace());
     }
 
     if (gameOver) {

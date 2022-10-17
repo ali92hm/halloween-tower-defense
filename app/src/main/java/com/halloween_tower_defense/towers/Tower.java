@@ -1,11 +1,11 @@
 package com.halloween_tower_defense.towers;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.utilities.Position;
 import com.halloween_tower_defense.utilities.TDButton;
-import com.halloween_tower_defense.views.DriverView;
+import com.halloween_tower_defense.views.GameView;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -142,8 +142,8 @@ public abstract class Tower extends TDButton {
     this.setLocation((int) position.getXCord() + (TOWER_HEIGHT / 2),
         (int) position.getYCord() + (TOWER_WIDTH / 2));
     this.setBounds((int) position.getXCord(), (int) position.getYCord(), TOWER_HEIGHT, TOWER_WIDTH);
-    this.towerBaseImage = DriverView.getImage(towerBaseImage, TOWER_WIDTH, TOWER_HEIGHT);
-    this.towerTurretImage = DriverView.getImage(towerTurretImage, TOWER_WIDTH, TOWER_HEIGHT);
+    this.towerBaseImage = GameView.getImage(towerBaseImage, TOWER_WIDTH, TOWER_HEIGHT);
+    this.towerTurretImage = GameView.getImage(towerTurretImage, TOWER_WIDTH, TOWER_HEIGHT);
     this.setIcon(new ImageIcon(this.towerBaseImage));
   }
 
@@ -155,7 +155,7 @@ public abstract class Tower extends TDButton {
    * @return Projectile[]
    */
 
-  public abstract Projectile[] attackMob(final DriverModel model);
+  public abstract Projectile[] attackMob(final GameModel model);
 
   /**
    * upgrades the first upgrade path to the next level
@@ -163,7 +163,7 @@ public abstract class Tower extends TDButton {
    * @param model
    */
 
-  public abstract void upgradePath1(final DriverModel model);
+  public abstract void upgradePath1(final GameModel model);
 
   /**
    * upgrades the second upgrade path to the next level
@@ -171,7 +171,7 @@ public abstract class Tower extends TDButton {
    * @param model
    */
 
-  public abstract void upgradePath2(final DriverModel model);
+  public abstract void upgradePath2(final GameModel model);
 
   /**
    * upgrades the third upgrade path to the next level
@@ -179,7 +179,7 @@ public abstract class Tower extends TDButton {
    * @param model
    */
 
-  public abstract void upgradePath3(final DriverModel model);
+  public abstract void upgradePath3(final GameModel model);
 
   /**
    * decreases the cool down rate of each tower by 10%

@@ -1,6 +1,6 @@
 package com.halloween_tower_defense.views;
 
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -16,8 +16,8 @@ public class SidePanelView extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  private final DriverModel model;
-  private final DriverView view;
+  private final GameModel model;
+  private final GameView view;
   private final InfoView infoPanel;
   private final ButtonView buttonPanel;
   private final UpgradeView upgradePanel;
@@ -30,7 +30,7 @@ public class SidePanelView extends JPanel {
    * Creates a Side Panel View. Contains the different panels that swap throughout the game.
    */
 
-  public SidePanelView(final DriverModel model, final DriverView view) {
+  public SidePanelView(final GameModel model, final GameView view) {
 
     this.model = model;
     this.view = view;

@@ -1,7 +1,7 @@
 package com.halloween_tower_defense.views;
 
 import com.halloween_tower_defense.mobs.Mob;
-import com.halloween_tower_defense.models.DriverModel;
+import com.halloween_tower_defense.models.GameModel;
 import com.halloween_tower_defense.projectiles.Projectile;
 import com.halloween_tower_defense.towers.DenseLightningTower;
 import com.halloween_tower_defense.towers.FireBombTower;
@@ -66,8 +66,8 @@ public class MapView extends JPanel {
   private String[] activeTutorial;
   private int imageWalkthrough = 0;
 
-  private final DriverModel model;
-  private final DriverView view;
+  private final GameModel model;
+  private final GameView view;
   private final BufferedImage image;
   private final BufferedImage background;
   private final TDButton skipButton;
@@ -86,19 +86,19 @@ public class MapView extends JPanel {
    * @param view
    */
 
-  public MapView(final String image, DriverModel model, DriverView view) {
+  public MapView(final String image, GameModel model, GameView view) {
 
     this.towers = new ArrayList<Tower>();
 
-    this.image = DriverView.getImage(image, 700, 650);
+    this.image = GameView.getImage(image, 700, 650);
     this.model = model;
     this.view = view;
-    this.background = DriverView.getImage(image, 700, 650);
+    this.background = GameView.getImage(image, 700, 650);
     this.setupFrame();
 
-    skipButton = new TDButton(DriverView.getImage("X Close.png", 30, 30));
-    backButton = new TDButton(DriverView.getImage("Back Arrow.png", 40, 40));
-    continueButton = new TDButton(DriverView.getImage("Forward Arrow.png", 40, 40));
+    skipButton = new TDButton(GameView.getImage("X Close.png", 30, 30));
+    backButton = new TDButton(GameView.getImage("Back Arrow.png", 40, 40));
+    continueButton = new TDButton(GameView.getImage("Forward Arrow.png", 40, 40));
     navLabel = new JLabel("");
     skipButton.setBounds(600, 70, 30, 30);
     backButton.setBounds(425, 450, 40, 40);
@@ -325,7 +325,7 @@ public class MapView extends JPanel {
     }
 
     if (tutorialActive != -1) {
-      g2.drawImage(DriverView.getImage(this.activeTutorial[this.imageWalkthrough], 700, 650), 0, 0,
+      g2.drawImage(GameView.getImage(this.activeTutorial[this.imageWalkthrough], 700, 650), 0, 0,
           null);
     } else if (this.talentTreeActive) {
     } else if (this.model.getRuntimeThread().isSuspended()) {

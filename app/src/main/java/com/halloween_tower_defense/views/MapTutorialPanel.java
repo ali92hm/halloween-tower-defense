@@ -13,7 +13,7 @@ public class MapTutorialPanel extends JPanel {
   public MapTutorialPanel(final String imageName) {
     this.setLayout(new BorderLayout());
 
-    ImagePanel tutorial = new ImagePanel(DriverView.getImage(imageName, 700, 650), 0, 0);
+    ImagePanel tutorial = new ImagePanel(GameView.getImage(imageName, 700, 650), 0, 0);
     JPanel buttonPanel = new JPanel();
     JButton skipButton = new JButton("Skip Tutorial");
     JPanel fillerPanel = new JPanel();

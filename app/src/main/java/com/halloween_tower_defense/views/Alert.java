@@ -33,7 +33,7 @@ public class Alert extends JDialog {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     ImagePanel centralPanel =
-        new ImagePanel(DriverView.getImage("Alert Background.jpg", width, height), 0, 0);
+        new ImagePanel(GameView.getImage("Alert Background.jpg", width, height), 0, 0);
     centralPanel.setLayout(new BorderLayout());
     JLabel titleLabel = new JLabel(title);
     titleLabel.setFont(new Font("Serif", Font.BOLD, 15));

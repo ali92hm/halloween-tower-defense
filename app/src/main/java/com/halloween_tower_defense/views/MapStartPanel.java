@@ -20,7 +20,7 @@ public class MapStartPanel extends ImagePanel {
    */
 
   public MapStartPanel(final String imageName) {
-    super(DriverView.getImage(imageName, 900, 650), 0, 0);
+    super(GameView.getImage(imageName, 900, 650), 0, 0);
     this.setLayout(null);
     this.escButton = new JButton("Esc");
     this.escButton.setBounds(625, 604, 75, 35);
