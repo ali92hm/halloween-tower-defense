@@ -84,7 +84,9 @@ public abstract class Tower extends TDButton {
         (int) position.getYCord() + (TOWER_WIDTH / 2));
     this.setBounds((int) position.getXCord(), (int) position.getYCord(), TOWER_HEIGHT, TOWER_WIDTH);
     this.towerBaseImage = ImageUtility.getImage(towerBaseImage, TOWER_WIDTH, TOWER_HEIGHT);
-    this.towerTurretImage = ImageUtility.getImage(towerTurretImage, TOWER_WIDTH, TOWER_HEIGHT);
+    if (towerTurretImage != null && !towerTurretImage.isEmpty()) {
+      this.towerTurretImage = ImageUtility.getImage(towerTurretImage, TOWER_WIDTH, TOWER_HEIGHT);
+    }
     this.setIcon(new ImageIcon(this.towerBaseImage));
   }
 
