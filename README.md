@@ -1,57 +1,82 @@
 # Halloween Tower Defense Game
 
-This game is a Tower Defense game with Halloween theme that was developed for Human Computer Interaction Class. 
+This repo contains the code for a Halloween themed Tower Defense game which was developed for our Human Computer Interaction class project.
 
-## Usage
-You need Eclipse IDE in order to compile and run this project. (see dependencies)
+<!-- TODO Add Github username and links -->
+The code was written by Ali Hajimirza, Logan Testi, and Reggie Renteria
 
-### Compilation/Install
+![Game play image](docs/assets/gameplay.png)
 
-Cloning the project:
-```bash
-git clone https://github.com/Ali92hm/halloween-tower-defense.git
-```
-Use the following instructions to import this project to Eclipse. [Instructions](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.user%2Ftasks%2Ftasks-importproject.htm)
+## Game Features
 
-### Execution
-Use the play button in Eclipse to run this project.
+ <!-- TODO  Add description about the game features-->
 
-## Dependencies
-* [JDK7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
-* [Eclipse IDE](https://eclipse.org/downloads/)
+## Getting started
+
+### Playing the game
+
+<!-- TODO -->
+We are going to add downloadable jar files from github releases
+
+### Development
+
+- Java Development Kit 7 or above
+- Gradle
+- IntelliJ, Eclipse, or other IDEs (optional)
 
 ## Structure
-    halloween-tower-defense
-    ├── LICENSE
-    ├── README.md
-    ├── .project                    - Eclipse project description
-    ├── .classpath                  - Path to the classes
-    ├── .settings                   - Eclipse setting for the project
-    ├── images
-    └── src                         - Source files
-        ├── controllers
-        ├── mapdata
-        ├── mobs
-        ├── models
-        ├── projectiles
-        ├── towerdefence
-        │   └── Driver.java         - Contains main method
-        ├── towers
-        ├── utilities
-        └── views
 
-## [Potential Bugs](https://github.com/Ali92hm/halloween-tower-defense/issues)
+halloween-tower-defense
+.
+├── LICENSE
+├── README.md
+├── config
+├── gradle
+├── docs
+└── app/src
+    ├── test
+        ├── resources
+        └── java/com/halloween_tower_defense
+            └──
+    └── main
+        ├── resources
+            └── resources
+        └── java/com/halloween_tower_defense
+            ├── app.java
+            ├── controllers
+            ├── mapdata
+            ├── mobs
+            ├── models
+            ├── projectiles
+            ├── towers
+            ├── utilities
+            └── views
 
-## [To do](https://github.com/Ali92hm/halloween-tower-defense/milestones)
 
 # Image References
+
 We did not have time during the semester to make our own custom artwork. Here are the links to the images that we used for this project:
 
-* [Main Screen Image](http://blog.bioware.com/wp-content/uploads/2012/10/HalloweenPromo.jpg)
-* [Background Image](http://www.finewallpaperss.com/wp-content/uploads/2012/10/halloween.jpg)
-* [Talent Tree Image](http://image.yaymicro.com/rz_512x512/0/56a/fairy-tale-castle-56a481.jpg)
-* [Game Icons](http://www.sc2mapster.com/media/images/48/16/WoW_Icons.jpg)
+- [Main Screen Image](http://blog.bioware.com/wp-content/uploads/2012/10/HalloweenPromo.jpg)
+- [Background Image](http://www.finewallpaperss.com/wp-content/uploads/2012/10/halloween.jpg)
+- [Talent Tree Image](http://image.yaymicro.com/rz_512x512/0/56a/fairy-tale-castle-56a481.jpg)
+- [Game Icons](http://www.sc2mapster.com/media/images/48/16/WoW_Icons.jpg)
 
+## Issues or questions
+
+If you encounter any problems or have any question, please [file an issue].
+
+## Contributing
+
+We welcome contributions to this project. Please refer to the [CONTRIBUTING] to get started.
+
+## Code of Conduct
+
+Everyone interacting in this project's codebases, issue trackers,
+chat rooms, and mailing lists is expected to follow the [CODE_OF_CONDUCT]
 
 ## License
-[MIT license](http://opensource.org/licenses/MIT)
+
+[MIT License]
+
+[![OSI certified][osi_certified]][mit license]
